@@ -1,0 +1,28 @@
+body {
+    text-align: center;
+}
+/*
+@font-face {
+    font-family: "MainFont";
+    src: url("fonts/ethnocentric_rg.ttf") format("truetype");
+}*/
+
+/*
+ * In order to work in IE, we had to modify the original font import
+ *	to what it is below. Thanks, Microsoft.
+ */
+@font-face {
+    font-family: "MainFont";
+	src:	url('fonts/orbitron-black-webfont.eot?'),
+			url('fonts/ethnocentric_rg.ttf') format('truetype');
+}
+
+
+/* cursor modifications */
+#screen {
+	/* CURSOR CREDITS: http://www.rw-designer.com/cursor-set/cast-iron */
+	cursor: url("images/cursors/iron.cur"), default;
+}
+#screen:active {
+	cursor: url("images/cursors/iron.cur"), default;
+}
