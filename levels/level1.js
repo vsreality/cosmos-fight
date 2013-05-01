@@ -47,7 +47,6 @@ function createLevel1(){
 	
 	// add all images
 	level1.images.add("kate", "images/cosgirl_v2.png");
-	level1.images.add("amabo", "images/president_amabo.jpg");
 	// to slow it down for testing
 	/*level1.images.add([
 			["a0","http://vsreality.com/win/dir/getImage.php?d0=desktop&d1=anime&name=anime_300.jpg"],
@@ -57,7 +56,6 @@ function createLevel1(){
 			["a4","http://vsreality.com/win/dir/getImage.php?d0=desktop&d1=anime&name=anime_304.jpg"]
 		]);*/
 	level1.sounds.add("intro_instructions", "audio/intro_instructions");
-	level1.sounds.add("die_suck", "audio/die_suck");
     
     // create phase 1
     level1.addPhase(function(lvl){
