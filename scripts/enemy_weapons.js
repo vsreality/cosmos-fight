@@ -40,7 +40,7 @@ function noneWeapon(){
 function basicEnemyWeapon(sInt){
 	var newWeapon = new enemyWeapon(sInt);
 	newWeapon.onShootEvent = function(enemy){
-        enemy.enemySys.addBullet(enemyBullet(enemy.getX(), enemy.getY() + 30, Math.PI, 6, 10));
+        enemy.enemySys.addBullet(BulletFactory.enemyBullet(enemy.getX(), enemy.getY() + 30, Math.PI, 6, 10));
     }
 	return newWeapon;
 }

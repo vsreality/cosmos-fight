@@ -14,31 +14,31 @@ function miniBoss1(x, y, angle, speed){
     // Add weapon
     newEnemy.addWeapon(new enemyWeapon(Math.ceil(20 + getRandNum(30))))
         .onShootEvent = function(enemy){
-            var bul1 = enemyBullet(-16, -20,
+            var bul1 = BulletFactory.enemyBullet(-16, -20,
                                     enemy.getAngle(), 
                                     6, 5, "#CC33FF");
             rotatePoint(bul1, enemy.getAngle());
             translatePoint(bul1,enemy.getX(), enemy.getY());
             
-            var bulCenter = enemyBullet(29, 0, 
+            var bulCenter = BulletFactory.enemyBullet(29, 0, 
                                     enemy.getAngle(), 
                                     6, 10, "#CC33FF");
             rotatePoint(bulCenter, enemy.getAngle());
             translatePoint(bulCenter,enemy.getX(), enemy.getY());
             
-            var bul2 = enemyBullet(-16, 20, 
+            var bul2 = BulletFactory.enemyBullet(-16, 20, 
                                     enemy.getAngle(), 
                                     6, 5, "#CC33FF");
             rotatePoint(bul2, enemy.getAngle());
             translatePoint(bul2,enemy.getX(), enemy.getY());
             
-            var bul3 = enemyBullet(-16, -20, 
+            var bul3 = BulletFactory.enemyBullet(-16, -20, 
                                     enemy.getAngle() - Math.PI/6,  
                                     6, 5, "#CC33FF");
             rotatePoint(bul3, enemy.getAngle());
             translatePoint(bul3,enemy.getX(), enemy.getY());
             
-            var bul4 = enemyBullet(-16, 20, 
+            var bul4 = BulletFactory.enemyBullet(-16, 20, 
                                     enemy.getAngle() + Math.PI/6,
                                     6, 5, "#CC33FF");
             rotatePoint(bul4, enemy.getAngle());

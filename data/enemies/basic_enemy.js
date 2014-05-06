@@ -25,7 +25,7 @@ function basicEnemy(x, y, angle, speed){
 	// add a weapon to this enemy that shoots a single bullet at a random interval
     newEnemy.addWeapon(new enemyWeapon(Math.ceil(20 + getRandNum(30))))
         .onShootEvent = function(enemy){
-            var bul1 = enemyBullet(14, 0, 
+            var bul1 = BulletFactory.enemyBullet(14, 0, 
                                     enemy.getAngle(), 
                                     6, 10);
             rotatePoint(bul1, enemy.getAngle());

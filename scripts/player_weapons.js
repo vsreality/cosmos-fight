@@ -141,7 +141,7 @@ function basicWeapon(unit){
 		if(!ready) return;
 		
 		// launch a single regular bullet from the front of the ship
-        this.unit.bullets.push(playerBullet(this.unit.x, this.unit.y - 18, 10));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x, this.unit.y - 18, 10));
 		// add a fire effect to the player
 		/*this.unit.effectSys.addEffect(
 			this.unit.effectSys.miniSpark(this.unit.x,
@@ -173,9 +173,9 @@ function trippleGun(unit){
 		// do nothing if the weapon cooldown is not ready
 		if(!ready) return;
 		
-        this.unit.bullets.push(playerBullet(this.unit.x - 17, this.unit.y + 17, 5));
-        this.unit.bullets.push(playerBullet(this.unit.x, this.unit.y - 18, 10));
-        this.unit.bullets.push(playerBullet(this.unit.x + 17, this.unit.y + 17, 5));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x - 17, this.unit.y + 17, 5));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x, this.unit.y - 18, 10));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x + 17, this.unit.y + 17, 5));
 		
 		// play sound effect for shooting
 		gameSounds.playSound("shoot_basic");
@@ -230,11 +230,11 @@ function disperseGun(unit){
 		// do nothing if the weapon cooldown is not ready
 		if(!ready) return;
 		
-        this.unit.bullets.push(playerBullet(this.unit.x - 15, this.unit.y + 17, 2).setSpeedX(-5));
-        this.unit.bullets.push(playerBullet(this.unit.x - 15, this.unit.y + 17, 3).setSpeedX(-2.5));
-        this.unit.bullets.push(playerBullet(this.unit.x + 15, this.unit.y + 17, 3).setSpeedX(2.5));
-        this.unit.bullets.push(playerBullet(this.unit.x + 15, this.unit.y + 17, 2).setSpeedX(5));
-        this.unit.bullets.push(playerBullet(this.unit.x, this.unit.y - 18, 10));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x - 15, this.unit.y + 17, 2).setSpeedX(-5));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x - 15, this.unit.y + 17, 3).setSpeedX(-2.5));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x + 15, this.unit.y + 17, 3).setSpeedX(2.5));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x + 15, this.unit.y + 17, 2).setSpeedX(5));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x, this.unit.y - 18, 10));
 		
 		// play sound effect for shooting
 		gameSounds.playSound("shoot_basic");

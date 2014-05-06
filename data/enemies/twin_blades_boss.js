@@ -60,7 +60,7 @@ function fanEnemyCore(x, y){
 				.onShootEvent = function(enemy){
 					for(var i=0; i<80; i++){
 						// x y angle speed dmg color size
-						var bullet = enemyBullet(
+						var bullet = BulletFactory.enemyBullet(
 							Math.cos(Math.PI/40*i)*20,
 							Math.sin(Math.PI/40*i)*20,
 							(Math.PI/40*i),
@@ -73,7 +73,7 @@ function fanEnemyCore(x, y){
 				}
 			for(var i=0; i<80; i++){
 				// x y angle speed dmg color size
-				var bullet = enemyBullet(
+				var bullet = BulletFactory.enemyBullet(
 					Math.cos(Math.PI/40*i)*20,
 					Math.sin(Math.PI/40*i)*20,
 					(Math.PI/40*i),
@@ -83,7 +83,7 @@ function fanEnemyCore(x, y){
 				translatePoint(bullet, this.getX(), this.getY());
 				this.enemySys.addBullet(bullet);
 			}
-			/*var bullet = enemyBullet(15, 0, 
+			/*var bullet = BulletFactory.enemyBullet(15, 0, 
                                     enemy.getAngle(), 
                                     6, 10);
 			bullet.color = "#006060";
@@ -188,7 +188,7 @@ function fanEnemyFragment(x, y, angle){
 	// fire a bullet every 10 to 15 seconds (randomly chosen value)
 	newEnemy.addWeapon(new enemyWeapon(Math.ceil(10 + getRandNum(6))))
         .onShootEvent = function(enemy){
-            var bul1 = enemyBullet(15, 0, 
+            var bul1 = BulletFactory.enemyBullet(15, 0, 
                                     enemy.getAngle(), 
                                     6, 10);
             rotatePoint(bul1, enemy.getAngle());

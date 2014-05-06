@@ -10,7 +10,7 @@ function smallTowerEnemy(x, y, angle, speed){
 	
     newEnemy.addWeapon(new enemyWeapon(10))
         .onShootEvent = function(enemy){
-            var bul1 = enemyBullet(14, 0, 
+            var bul1 = BulletFactory.enemyBullet(14, 0, 
                                     enemy.getAngle(), 
                                     6, 10);
             rotatePoint(bul1, enemy.getAngle());

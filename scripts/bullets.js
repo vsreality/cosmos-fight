@@ -1,17 +1,17 @@
-/* File comments updated: Sunday, March 25, 2012 at 12:37 AM
+/* File: bullets.js
  *
- *  BULLET CLASS
+ * Bullets are used as common weapon projectiles for the player and for enemies.
+ * Each bullet is a game object equipped with
  */
- 
- 
- /* Main bullet constructor: sets up bullet with all necessary
-  *    initial variables and internal functions.
-  */
-function bullet(x, y, angle, speed, damage){
-	// BULLET VARIABLES
-	// position (x and y)
-    this.x = x;
-    this.y = y;
+
+
+
+// Main Bullet object: sets up an arbitrary with all necessary initial
+//	variables and internal functions.
+function Bullet(x, y, angle, speed, damage){
+	// Location
+	this.x = x;
+	this.y = y;
 	
 	// Orientation
 	this.angle = angle;
@@ -24,15 +24,6 @@ function bullet(x, y, angle, speed, damage){
 	// Collision, just a point
 	this.collision = new standardCollision();
 	this.collision.parent = this;
-	
-	// Get X
-	this.getX = function(){
-		return this.x;
-	}
-	// Get Y
-	this.getY = function(){
-		return this.y;
-	}
 	
 	this.setSpeedX = function(speedX){
 		this.speedX = speedX * (30/FPS);
@@ -66,23 +57,75 @@ function bullet(x, y, angle, speed, damage){
         this.x += this.speedX;
         this.y += this.speedY;
     }
-    
-    // draw function: animate this bullet on the screen.
-    this.draw = function(ctx){}
+	
+	// draw function: draw the bullet on the screen in the correct place
+	this.draw = function(ctx) {
+		ctx.save();
+		
+		// move to bullet's x and y position and rotate correctly
+		ctx.translate(this.x, this.y);
+		//ctx.rotate(this.angle+Math.PI/2);
+		
+		// set to bullet's specified color, size, and draw it
+		ctx.strokeStyle = this.color;
+		ctx.lineWidth = this.size;
+		ctx.beginPath();
+		ctx.moveTo(0, 3);
+		ctx.lineTo(0, -3);
+		ctx.closePath();
+		ctx.stroke();
+		
+		ctx.restore();
+	}
+	
 }
+// Bullet is a Game Object.
+Bullet.prototype = new GameObject();
 
+
+
+// BulletFactory contains methods for creating different types of bullets.
+var BulletFactory = {
+
+	// Create a Player Bullet with default values if none are specified.
+	playerBullet: function(x, y, angle, speed, dmg, color, size) {
+		return BulletFactory.createBullet(x, y, -Math.PI/2, 6,
+			typeof dmg !== 'undefined' ? dmg : 10,				// damage
+			typeof color !== 'undefined' ? color : "#FFFF66",	// color
+			typeof size !== 'undefined' ? size : 2				// size
+		);
+	},
+	
+	// Create an Enemy Bullet with default values if none are specified.
+	enemyBullet: function(x, y, angle, speed, dmg, color, size) {
+		return BulletFactory.createBullet(x, y, angle, speed,
+			typeof dmg !== 'undefined' ? dmg : 10,				// damage
+			typeof color !== 'undefined' ? color : "#FF0022",	// color
+			typeof size !== 'undefined' ? size : 2				// size
+		);
+	},
+	
+	// Construct an arbitrary bullet (given the pre-defined parameters).
+	createBullet: function(x, y, angle, speed, dmg, color, size) {
+		var newBullet = new Bullet(x, y, angle, speed, dmg);
+		newBullet.color = color;
+		newBullet.size = size;
+		return newBullet;
+	}
+
+}
 
 // ENEMY BULLET TYPE:
 //	a basic bullet used by enemies
 //	constructed with initial x and y values
 //	and initial damage (inflicted to player on hit)
-function enemyBullet(x, y, angle, speed, dmg, color, size){
+/*BulletFactory.getEnemyBullet = function(x, y, angle, speed, dmg, color, size){
 	//Default values
 	dmg = typeof dmg !== 'undefined' ? dmg : 10;
     color = typeof color !== 'undefined' ? color : "#FF0022";
     size = typeof size !== 'undefined' ? size : 2;
 	
-    var newBullet = new bullet(x, y, angle, speed , dmg);
+    var newBullet = new Bullet(x, y, angle, speed , dmg);
 	newBullet.color = color;
 	newBullet.size = size;
 	
@@ -107,19 +150,19 @@ function enemyBullet(x, y, angle, speed, dmg, color, size){
         ctx.restore();
     }
     return newBullet;
-}
+}*/
 
 
 // PLAYER BULLET TYPE:
 //	a basic bullet used by the player
 //	constructed with initial x and y values
 //	and initial damage (inflicted to enemy on hit)
-function playerBullet(x, y, dmg, coler, size){
+/*function playerBullet(x, y, dmg, color, size){
 	//Default values
     color = typeof color !== 'undefined' ? color : "#FFFF66";
     size = typeof size !== 'undefined' ? size : 2;
 	
-    var newBullet = new bullet(x, y, -Math.PI/2, 6, dmg);
+    var newBullet = new Bullet(x, y, -Math.PI/2, 6, dmg);
 	newBullet.color = color;
 	newBullet.size = size;
 	// draw function: animate this bullet on the screen (this draws
@@ -140,4 +183,4 @@ function playerBullet(x, y, dmg, coler, size){
         ctx.restore();
     }
     return newBullet;
-}
+}*/

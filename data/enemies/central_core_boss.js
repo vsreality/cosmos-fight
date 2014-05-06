@@ -135,7 +135,7 @@ function centralCommandCore(x, y){
             //  almost unavoidably strike the player for 20 damage.
             for(var i=0; i<80; i++){
 				// x y angle speed dmg color size
-				var bullet = enemyBullet(
+				var bullet = BulletFactory.enemyBullet(
 					Math.cos(Math.PI/40*i)*20,
 					Math.sin(Math.PI/40*i)*20,
 					(Math.PI/40*i),
@@ -254,7 +254,7 @@ function centralCommandCore(x, y){
                 
                 }
                 // create the bullet
-                var bullet = enemyBullet(
+                var bullet = BulletFactory.enemyBullet(
                     // increment the angle by up to Math.PI/2, scaled by the base staring
                     //  angle
                     Math.cos(this.boss.turretAngle)*16,
@@ -336,7 +336,7 @@ function centralCommandCore(x, y){
                     var curAngle = Math.PI/30*this.numLoops*this.direction + this.angle;
                     
                     // create the bullet (x y angle speed dmg color size)
-                    var bullet = enemyBullet(
+                    var bullet = BulletFactory.enemyBullet(
                         // increment the angle by up to Math.PI/2, scaled by the base starting
                         //  angle
                         Math.cos(curAngle)*18,
@@ -381,7 +381,7 @@ function centralCommandCore(x, y){
             var offset = Math.PI/100*getRandNum(10);
             for(var i=0; i<18; i++){
                 // create the bullet (x y angle speed dmg color size)
-				var bullet = enemyBullet(
+				var bullet = BulletFactory.enemyBullet(
                     // increment the angle by up to Math.PI/2, scaled by the base staring
                     //  angle
 					Math.cos(Math.PI/20*i+offset)*20,
