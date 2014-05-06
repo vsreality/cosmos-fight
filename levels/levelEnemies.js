@@ -4,7 +4,7 @@
  
 function createLevelEnemies(){
 	// create level1 from the abstract level
-	var lvl = new level();
+	var lvl = new Level();
 	
 	// name of this level
 	lvl.setLevelName("Enemies Level");

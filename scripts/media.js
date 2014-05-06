@@ -180,14 +180,38 @@ function Sounds(parent){
 					}
 				}, false);
 				
+				// Check file extension, and make sure that browser supports file type playback.
+				//	If browser does not support the file type, skip it in the loading process.
+				// SUPPORTED FILE TYPES: MP3, WAV (more can be added as necessary here)
+				if(	(strEndsWith(src, '.mp3') &&
+						!this.list[name].canPlayType('audio/mp3')) ||
+					(strEndsWith(src, '.wav') &&
+						!this.list[name].canPlayType('audio/wav'))){
+					// nullify the event (this will cause the file to be ignored by the level)
+					this.list[name] = null;
+					// continue to act as if this file was already loaded
+					this.loaded++;
+					if(console)
+						console.warn("Sound " + src + " could not be loaded.");
+					if(this.loaded == this.amount){
+						this.onload();
+					}
+				}
+				// Otherwise, the file type is supported by the audio system (.wav or .mp3),
+				//	then it will be loaded by setting the source to the appropriate file.
+				else{
+					this.list[name].src = src;
+				}
+				
 				/*** Everything here was added because IE doesn't support .wav files. ***/
-				// check browser compatibility and apply the extention based on which
+				/*// check browser compatibility and apply the extention based on which
 				//	version the browser supports (mp3 or wav)
 				if(this.list[name].canPlayType('audio/mp3')){
 					// if can play mp3 files, load the .mp3 version
 					this.list[name].src = src + ".mp3";
 				}
 				else if(this.list[name].canPlayType('audio/wav')){
+					alert("no mp3 support");
 					// otherwise, if can play the wav files, load the .wav version
 					this.list[name].src = src + ".wav";
 				}
@@ -201,7 +225,7 @@ function Sounds(parent){
 					if(this.loaded == this.amount){
 						this.onload();
 					}
-				}
+				}*/
 			}
 		}
 	}
@@ -211,5 +235,42 @@ function Sounds(parent){
 	//		Sounds.add("song", "audio/song.wav") )
 	this.get = function(name){
 		return this.list[name];
+	}
+	
+	// returns a COPY (clone) of the audio file associated with the given name.
+	//	The copy allows simultaneous playbacks of the same file, but the copy will
+	//	not be tracked by the Sound system once it is returned.
+	this.getCopy = function(name){
+		if(this.list[name])
+			return this.list[name].cloneNode(true);
+		else
+			return false;
+	}
+	
+	// plays the requested sound file using the global volume and playback settings
+	//	as determined by the Settings manager. If global volume is set to 0, sound is
+	//	not played.
+	// This function plays a COPY of the original sound file
+	this.playSound = function(name){
+		if(settings.soundVolume > 0){
+			var sound = this.getCopy(name);
+			if(sound){
+				sound.volume = settings.soundVolume;
+				sound.play();
+			}
+		}
+	}
+	
+	// same function as playSound (see above), except this function does NOT
+	//	copy the original file; instead, calling this function allows the sound
+	//	to only be played once at a time.
+	this.playSoundOnce = function(name){
+		if(settings.soundVolume > 0){
+			var sound = this.get(name);
+			if(sound){
+				sound.volume = settings.soundVolume;
+				sound.play();
+			}
+		}
 	}
 }

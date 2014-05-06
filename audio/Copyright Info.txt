@@ -1,0 +1,80 @@
+common/low_health.mp3
+	File: Alarm_fr-NEO_Soun-8396_hifi.mp3
+	Licence: Freeware
+	Creator: NEO Sounds - http://www.neosounds.com
+	Source: http://www.flashkit.com/soundfx/Electronic/Alarms/Alarm_fr-NEO_Soun-8396/index.php
+
+common/bonus_heal.wav
+	File: NFF-good-tip-low.wav
+	Licence: Royalty Free
+	Creator: NoiseForFun.com 
+	Source: http://www.noiseforfun.com/2013-sound-effects/good-tip-low/
+
+common/bonus_weapon.wav
+	File: NFF-bonus-02.wav
+	Licence: Royalty Free
+	Creator: NoiseForFun.com 
+	Source: http://www.noiseforfun.com/2012-sound-effects/bonus-02/
+
+common/explosion1.mp3
+	File: Grenade Explosion-SoundBible.com-2100581469.mp3
+	Licence: Attribution 3.0
+	Creator: Mike Koenig
+	Source: http://soundbible.com/1467-Grenade-Explosion.html
+
+common/death_explosion.mp3
+	File: explosion-03.mp3
+	Licence: Royalty Free
+	Creator: Sound Jay
+	Source: http://www.soundjay.com/mechanical/sounds/explosion-03.mp3
+
+common/level_complete.wav
+	File: NFF-cool-success.wav
+	Licence: Royalty Free
+	Creator: NoiseForFun.com 
+	Source: http://www.noiseforfun.com/2012-sound-effects/cool-success/
+
+common/shoot_basicx.wav
+	File: Laser_Machine_Gun-Mike_Koenig-1194129298.mp3
+	Licence: Attribution 3.0
+	Creator: Mike Koenig
+	Source: http://soundbible.com/1774-Laser-Machine-Gun.html
+	Notes: This clip was edited using Audacity
+
+common/shoot_basic.wav
+	File: ???
+	Licence: ???
+	Creator: ???
+	Source: ???
+	Notes: This clip was edited using Audacity; COPYRIGHT INFO NEEDED
+
+common/shoot_basic.mp3
+	File: ???
+	Licence: ???
+	Creator: ???
+	Source: ???
+	Notes: COPYRIGHT INFO NEEDED
+
+gui/back.mp3
+	File: Switch19-intermed-5236_hifi.mp3
+	Licence: Freeware
+	Creator: intermedia Design Graphic - http://www.idgraphics.com
+	Source: http://www.flashkit.com/soundfx/Interfaces/Switches/Switch19-intermed-5236/index.php
+
+gui/mouseover.mp3
+	File: Switch19-intermed-5284_hifi.mp3
+	Licence: Freeware
+	Creator: intermedia Design Graphic - http://www.idgraphics.com
+	Source: http://www.flashkit.com/soundfx/Interfaces/Switches/Switch19-intermed-5284/index.php
+
+gui/click.mp3
+	File: Switch19-intermed-5280_hifi.mp3
+	Licence: Freeware
+	Creator: intermedia Design Graphic - http://www.idgraphics.com
+	Source: http://www.flashkit.com/soundfx/Interfaces/Switches/Switch19-intermed-5280/index.php
+
+ambiance/cosmic_energy.mp3
+	File: Giga_Cor-Cosmic_D-7837_hifi.mp3
+	Licence: Freeware
+	Creator: Cosmic Dreamer - http://www.cosmicdreamer.be
+	Source: http://www.flashkit.com/soundfx/Ambience/Space/Giga_Cor-Cosmic_D-7837/index.php

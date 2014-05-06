@@ -1,11 +1,10 @@
-/* File comments updated: Sunday, July 15, 2012 at 5:16 PM
- *
+/*
  *  LEVEL CLASS
  */
  
- // Generic level class: provides a basis for indivudual levels
- //		to script events and level progression
-function level(){
+// Generic level class: provides a basis for indivudual levels
+//	to script events and level progression
+function Level(){
 
 	/***************** GAME AREA VARIABLES ****************/
 	 
@@ -204,6 +203,9 @@ function level(){
 	//	level, or return to the main menu.
 	// This function can be overridden in special circumstances
 	this.onLevelFinished = function(){
+		// play level completed sound
+		gameSounds.playSound("level_complete");
+		
 		// create a menu for completing this level
 		var winMenu = new StandardMenu("You win!");
 		winMenu.setSpacing(80);
@@ -662,8 +664,9 @@ function level(){
 			//	sources, such as lasers)
 			for(var i=0; i<this.enemySys.enemies.length; i++){
 				if(!this.enemySys.enemies[i].isAlive()){
-					// execute enemy's death effect (e.g. explosion)
+					// execute enemy's death effect (e.g. explosion) and sound
 					this.enemySys.enemies[i].deathEffect();
+					this.enemySys.enemies[i].playDeathSound();
 					// call the main
 					this.onEnemyDead_GENERAL(this.enemySys.enemies[i]);
 					this.enemySys.enemies[i].onDeathEvent();
@@ -672,7 +675,7 @@ function level(){
 				}
 			}
 			
-			// check if player bullets or hit enemies or enemy missiles
+			// check if player bullets hit enemies or enemy missiles
 			for(var i=0; i<this.player.bullets.length; i++){
                 // flag to ensure that if a bullet is deleted by hitting an enemy,
                 //  it will not try to hit a missile
@@ -694,8 +697,9 @@ function level(){
 						// delete enemy if it is dead, apply score calculations
 						//	and call the onEnemyDead function
 						if(!this.enemySys.enemies[j].isAlive()){
-							// execute enemy's death effect (e.g. explosion)
+							// execute enemy's death effect (e.g. explosion) and sound
 							this.enemySys.enemies[j].deathEffect();
+							this.enemySys.enemies[j].playDeathSound();
 							// call the main
 							this.onEnemyDead_GENERAL(this.enemySys.enemies[j]);
 							this.enemySys.enemies[j].onDeathEvent();
@@ -770,6 +774,7 @@ function level(){
 					//	call the enemy's onDeathEvent function.
 					if(this.onPlayerCrash_GENERAL(this.enemySys.enemies[i])){
 						this.enemySys.enemies[i].onDeathEvent();
+						this.enemySys.enemies[i].playDeathSound();
 						this.enemySys.enemies.splice(i, 1);
 						i--;
 					}

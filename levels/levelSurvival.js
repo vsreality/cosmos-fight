@@ -3,7 +3,7 @@
  */
  
 function createLevelSurvival(){
-	var survivalLevel = new level();
+	var survivalLevel = new Level();
 	
 	// name of this level
 	survivalLevel.levelName = "Survival Level";

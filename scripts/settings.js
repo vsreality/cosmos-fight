@@ -8,40 +8,48 @@
 
 // main settings object
 function Settings(){
+
+	/*** USER ACCOUNT INFO ***/
+	
 	// account information
 	this.loggedIn = false;
-
-	// list of settings variables
-
-	this.soundEnabled = true;
-
+	
+	
+	/*** GLOBAL GAME SETTINGS ***/
+	
+	// sound playback setting variables
+	this.soundVolume = 1.0; // 0.0 to 1.0
+	
+	// visual effects (particle system) setting variables
 	this.effectsScale = 1;
-
 	this.effectsLevel = 2;
-
+	
+	// in-game GUI display values
 	this.showEnemyHealthBars = false;
 	this.showBonusTimerBars = false;
 	
-	// list of settings functions
-
-	this.setSoundEnabled = function(trueOrFalse){
-
-		this.soundEnabled = trueOrFalse;
-
+	
+	/*** SETTER FUNCTIONS FOR GAMEPLAY VALUES ***/
+	
+	// set the volume of the game's sound
+	this.setSoundVolume = function(vol){
+		this.soundVolume = vol;
 	}
 
+	// set the visual effect level of the game's particle system
 	this.setEffectsLevel = function(val){
-
 		this.effectsScale = val/2;
-
 		this.effectsLevel = val;
-
 	}
+	
+	
+	/*** KEYBINDINGS ***/
 	
 	// create the keybindings object, and bind it to the user's preferences
 	//	(if the user is logged in)
 	this.keyBindings = new KeyBindings();
 	this.keyBindings.bind(this);
+	
 }
 
 

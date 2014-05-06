@@ -535,7 +535,12 @@ function baseShieldFragment(x, y, angle, layer){
         ctx.rotate(this.angle);
         
 		ctx.strokeStyle = "#66CC99";
-		ctx.fillStyle = "#000018";
+		if(this.layer == 0)
+			ctx.fillStyle = "#300018";
+		else if(this.layer == 1)
+			ctx.fillStyle = "#000018";
+		else
+			ctx.fillStyle = "#051308";
 		ctx.lineWidth = 1;
 		// start drawing enemy
         ctx.beginPath();

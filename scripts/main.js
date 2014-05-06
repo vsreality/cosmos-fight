@@ -10,6 +10,7 @@ var tLim = Math.floor(1000/FPS);
 //	(set to false to pause or stop animation loop)
 var animating = true;
 
+
 // time values used to determine how many milliseconds to wait
 //	until the next frame (dTime)
 // See animation loop below for details
@@ -17,6 +18,8 @@ var currentTime = 0;
 var lastTime = 0;
 var dTime = 0;
 
+
+/* STANDARD IMAGES AND SOUNDS PRE-LOADED HERE */
 // general images
 var gameImgs = new Images();
 gameImgs.add([
@@ -30,6 +33,27 @@ gameImgs.loadImages();
 var payerMassiveShip = new Image();
 payerMassiveShip.src = "images/35_rockets.png";
 
+// general sounds
+var gameSounds = new Sounds();
+gameSounds.add([
+	// add menu/gui sounds:
+	["menu_mouseover", "audio/gui/mouseover.mp3"],
+	["menu_click", "audio/gui/click.mp3"],
+	["menu_back", "audio/gui/back.mp3"],
+	// add standard ambiance sounds:
+	//["ambiance_cosmic_energy", "audio/ambiance/cosmic_energy.mp3"],
+	// add standard game sounds:
+	["low_health", "audio/common/low_health.mp3"],
+	["bonus_heal", "audio/common/bonus_heal.wav"],
+	["bonus_shield", "audio/common/bonus_shield.mp3"],
+	//["bonus_weapon", "audio/common/bonus_weapon.wav"], TODO - bad sound, replace
+	["bonus_weapon", "audio/common/bonus_shield.mp3"],
+	["explosion1", "audio/common/explosion1.mp3"],
+	["death_explosion", "audio/common/death_explosion.mp3"],
+	["level_complete", "audio/common/level_complete.wav"],
+	["shoot_basic", "audio/common/shoot_basic.wav"],
+]);
+gameSounds.loadSounds();
 
 
 /* GLOBAL VARIABLES */
@@ -65,161 +89,6 @@ var keyLeftDown = false;
 var keyRightDown = false;
 var keyShootDown = false;
 var keyEscDown = false;
-
-
-/* GLOBAL FUNCTIONS */
-
-// returns a random number from 0 to the given range
-function getRandNum(range){
-    return Math.floor(Math.random() * range);
-}
-
-// converts the given time in seconds to the time in frames
-//  (adjusted by the current FPS rate)
-function secToFrames(sec){
-    return Math.ceil(sec*FPS);
-}
-
-// Create path of rounded rectangle on context
-function pathRoundedRectangle(ctx,x,y,w,h,r){
-	// start point (upper left corner [after the arc])
-	ctx.moveTo(x+r, y);
-	// top line
-	ctx.lineTo(x+w-r, y);
-	// arc in upper right corner (all arcs are quarter circles of radius 10)
-	// arc: centerX, centerY, radius, startAngle, endAngle, clockwise
-	ctx.arc(x+w-r, y+r, r, -Math.PI/2, 0, false);
-	// right side line
-	ctx.lineTo(x+w, y+h-r);
-	// lower right corner arc
-	ctx.arc(x+w-r, y+h-r, r, 0, Math.PI/2, false);
-	// bottom line
-	ctx.lineTo(x+r, y+h);
-	// lower left corner
-	ctx.arc(x+r, y+h-r, r, Math.PI/2, Math.PI, false);
-	// left side line
-	ctx.lineTo(x, y+r);
-	// upper left corner
-	ctx.arc(x+r, y+r, r, Math.PI, 3*Math.PI/2, false);
-}
-
-// returns the distance between two points, given by coordinates
-function getDistance(x1, y1, x2, y2){
-    return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
-}
-
-// returns the distance between two points (squared, for optimization),
-//	given by coordinates
-function getDistance2(x1, y1, x2, y2){
-	return ((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
-}
-
-// returns 1 if positive, -1 if negative, or 0 if 0
-function getSign(val){
-    if(val < 0)
-        return -1;
-    else if(val > 0)
-        return 1;
-    else
-        return 0;
-}
-
-
-/* TIMER OBJECTS */
-
-// creates a Timer object that triggers onTime function when
-//  time runs out
-// Timer is based on gameTime global property.
-// SINGLE EVENT TIMER
-function Timer(interval){
-    this.property;
-    this.interval = gameTime + interval;
-    this.onTime = function(property){}
-    
-    // set a new interval to this event (change it from the last one)
-    this.set = function(interval){
-        this.interval = gameTime + interval;
-		// this.reactivate(); // reactivate in case it was deactivated
-    }
-    
-    // check if the timer's interval value is up-to-date with
-    //  the game's timer; if it is, execute the onTime function.
-    //  Then disable this event
-    this.update = function(){
-        if(gameTime == this.interval){
-            this.onTime(this.property);
-            this.deactivate(); // finished, so stop the event
-        }
-    }
-    
-    // returns TRUE if timer is still going, or
-    //  FALSE if it already activated; that is, returns false
-    //  if the timer is overdue (past its point of activation).
-    //  This is used by the level to know when to automatically
-    //  delete the timer and remove it from functioning in the game.
-    this.isAlive = function(){
-        return (gameTime < this.interval + 1);
-    }
-    
-    // deactivate this event: set the isAlive function to always return false
-    this.deactivate = function(){
-        this.isAlive = function() { return false; }
-    }
-    
-    // reactive this event: if the event was deactivated (toggled for deletion from
-    //  the level's updater), reactivating this will force the isAlive function to return
-    //  the same value again (true if gameInterval < this.interval + 1) - the default
-    //  value
-    this.reactive = function(){
-        this.isAlive = function() { return (gameTime < this.interval + 1); }
-    }
-}
-
-// creates a timer object that loops and re-calls the onTime function
-//  every passing interval.
-// LOOPED EVENT TIMER
-function LoopedTimer(interval){
-    this.property;
-    this.interval = interval;
-    this.numLoops = 0;
-    this.nextTime = this.interval + gameTime;
-    this.onTime = function(){}
-    
-    // check if the timer's interval value is up-to-date with
-    //  the game's timer; if it is, execute the onTime function and
-    //  increment the loop counter.
-    this.update = function(){
-        // if the timer's time is up
-        if(gameTime >= this.nextTime){
-            // trigger action
-            this.onTime(this.property);
-            // reset the time interval to the next point
-            this.nextTime = this.interval + gameTime;
-            // increment the number of loops (how many times this timer looped)
-            this.numLoops++;
-        }
-    }
-    
-    // always returns TRUE (since a looped timer never dies, it
-    //  just loops forever)
-    //  The isAlive functions are used to check if a timer should
-    //  be auto-deleted by a level (false = delete because timer is "dead")
-    this.isAlive = function(){
-        return true;
-    }
-    
-    // deactivate this event: set the isAlive function to always return false
-    this.deactivate = function(){
-        this.isAlive = function() { return false; }
-    }
-    
-    // reactive this event: if the event was deactivated (toggled for deletion from
-    //  the level's updater), reactivating this will force the isAlive function to return
-    //  TRUE again, and thus linger on
-    this.reactive = function(){
-        this.isAlive = function() { return true; }
-    }
-}
 
 
 /* GAME LEVEL AND MENU (for future reference and

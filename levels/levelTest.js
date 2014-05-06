@@ -4,7 +4,7 @@
  
 function createLevelTest(){
 	// create level1 from the abstract level
-	var level1 = new level();
+	var level1 = new Level();
 	
 	// combo point counter and achievement tracking variables
 	level1.deadEnemies = 0;

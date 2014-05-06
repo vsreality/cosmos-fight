@@ -178,8 +178,24 @@ function GuiButton(text, x, y, size){
 	// default to normal mode (not highlighted nor depressed)
 	this.mode = GUI_BUTTON_NORMAL;
     
+	
 	// EVENT that occurs when this button is successfully clicked
 	this.onClick = function(){}
+	
+	// PLAYBACK events that occur when this button is successfully clicked or
+	//	moused over (highlighted).
+	// Override if this button should play a differet sound when clicked.
+	// Set soundEnabled to FALSE to prevent playing any sound when clicked.
+	this.soundEnabled = true;
+	this.playMouseoverSound = function(){
+		if(this.soundEnabled)
+			gameSounds.playSoundOnce("menu_mouseover");
+	}
+	this.playClickSound = function(){
+		if(this.soundEnabled)
+			gameSounds.playSound("menu_click");
+	}
+	
 	
 	/*** MOUSE MOVEMENT/ACTION EVENTS ***/
 	// A button will automatically call its onClick event when it detects that it
@@ -187,9 +203,14 @@ function GuiButton(text, x, y, size){
 	// mouseover: called whenever the mouse moves
 	this.mousemove = function(x, y){
 		// if button isn't currently pressed down and the mouse moves over it,
-		//	set it to highlighted (mouse over) mode
-		if(this.mode != GUI_BUTTON_DEPRESSED && this.intersects(x, y))
+		//	set it to highlighted (mouse over) mode.
+		// if button wasn't already highligted and is active,
+		//	also play the mouseover sound
+		if(this.mode != GUI_BUTTON_DEPRESSED && this.intersects(x, y)){
+			if(this.mode != GUI_BUTTON_HIGHLIGHTED && this.enabled)
+				this.playMouseoverSound();
 			this.mode = GUI_BUTTON_HIGHLIGHTED;
+		}
 		// otherwise, if the button isn't currently pressed down, set it to normal mode
 		else if(this.mode != GUI_BUTTON_DEPRESSED)
 			this.mode = GUI_BUTTON_NORMAL;
@@ -206,9 +227,10 @@ function GuiButton(text, x, y, size){
 	this.mouseup = function(x, y){
 		// if this button is pressed down and the mouse is released over it, this means the
 		//	click action occurred. Set the button to highlighted (moused over) mode, and
-		//	run the onClick event!
+		//	play click sound and run the onClick event!
 		if(this.mode == GUI_BUTTON_DEPRESSED && this.intersects(x, y)){
 			this.mode = GUI_BUTTON_NORMAL;
+			this.playClickSound();
 			this.onClick();
 		}
 		// otherwise, the mouse isn't near the button, so just set it to normal mode
@@ -554,6 +576,7 @@ function GuiHorizontalListButton(x, y, size, selectionList, selected){
         var button = new GuiButton("", x, this.y+5, this.size-10);
         button.width = Math.round((this.size-10)/2);
         button.selected = false;
+		button.soundEnabled = false; // disable sound in this gui item
         button.right();
         // modify the buttons draw function to draw a simple rectangular object instead
         button.draw = function(ctx){
@@ -587,8 +610,11 @@ function GuiHorizontalListButton(x, y, size, selectionList, selected){
     }
     
     // now create all inner buttons using the createInnerButton function
+	//	Button Styling Preferences:
+	this.buttonSpacing = 5;
+	this.buttonWidth = 5;
     this.innerButtons = new Array();
-    var curX = this.x+10; // x-position of the current button
+    var curX = this.x + this.buttonSpacing; // x-position of the current button
     for(var i=0; i<selectionList.length; i++){
         // create the new inner button with id as its index
         var button = this.createInnerButton(curX, i);
@@ -596,7 +622,7 @@ function GuiHorizontalListButton(x, y, size, selectionList, selected){
         button.selected = (this.selected == i);
         this.innerButtons.push(button);
         // increment the x-position for the next button
-        curX += (Math.round((this.size-10)/2) + 10);
+        curX += (Math.round((this.size-10)/2) + this.buttonSpacing);
     }
     
     // set the width of this button to scale based on how many inner buttons

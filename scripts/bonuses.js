@@ -124,6 +124,7 @@ function healthBonus(x,y, lifeTime){
 	//	collects the bonus, and applies the heal value (+30) to the player.
 	newBonus.activate = function(player){
 		player.addHealth(this.heal);
+		gameSounds.playSound("bonus_heal");
 	}
 	return newBonus;
 }
@@ -149,6 +150,7 @@ function extraLifeBonus(x,y, lifeTime){
 	//	collects the bonus, and applies one extra life to the player
 	newBonus.activate = function(player){
         player.addLife();
+		gameSounds.playSound("bonus_weapon");
 	}
 	return newBonus;
 }
@@ -178,6 +180,7 @@ function trippleGunBonus(x,y, lifeTime){
 	//	for the predetermined duration (this.duration)
 	newBonus.activate = function(player){
         player.setWeapon(trippleGun(player), this.duration);
+		gameSounds.playSound("bonus_weapon");
 	}
 	return newBonus;
 }
@@ -207,6 +210,7 @@ function disperseGunBonus(x,y, lifeTime){
 	//	for the predetermined duration (this.duration)
 	newBonus.activate = function(player){
         player.setWeapon(disperseGun(player), this.duration);
+		gameSounds.playSound("bonus_weapon");
 	}
 	return newBonus;
 }
@@ -236,6 +240,7 @@ function laserGunBonus(x,y, lifeTime){
 	//	for the predetermined duration (this.duration)
 	newBonus.activate = function(player){
         player.setWeapon(laserGun(player), this.duration);
+		gameSounds.playSound("bonus_weapon");
 	}
 	return newBonus;
 }
@@ -265,6 +270,7 @@ function superLaserGunBonus(x,y, lifeTime){
 	//	for the predetermined duration (this.duration)
 	newBonus.activate = function(player){
         player.setWeapon(superLaserGun(player), this.duration);
+		gameSounds.playSound("bonus_weapon");
 	}
 	return newBonus;
 }
@@ -293,6 +299,7 @@ function armorShieldBonus(x,y, lifeTime){
 	//	for the predetermined duration (this.duration)
 	newBonus.activate = function(player){
         player.setShield(armorShield(player), this.duration);
+		gameSounds.playSound("bonus_shield");
 	}
 	return newBonus;
 }
@@ -321,6 +328,7 @@ function reductionShieldBonus(x,y, lifeTime){
 	//	for the predetermined duration (this.duration)
 	newBonus.activate = function(player){
         player.setShield(reductionShield(player), this.duration);
+		gameSounds.playSound("bonus_shield");
 	}
 	return newBonus;
 }
@@ -349,6 +357,7 @@ function reflectiveShieldBonus(x,y, lifeTime){
 	//	for the predetermined duration (this.duration)
 	newBonus.activate = function(player){
         player.setShield(reflectiveShield(player), this.duration);
+		gameSounds.playSound("bonus_shield");
 	}
 	return newBonus;
 }

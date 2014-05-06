@@ -4,7 +4,7 @@
  
 function createLevel1(){
 	// create level1 from the abstract level
-	var level1 = new level();
+	var level1 = new Level();
 	
 	// combo point counter and achievement tracking variables
 	level1.deadEnemies = 0;
@@ -55,13 +55,15 @@ function createLevel1(){
 			["a3","http://vsreality.com/win/dir/getImage.php?d0=desktop&d1=anime&name=anime_303.jpg"],
 			["a4","http://vsreality.com/win/dir/getImage.php?d0=desktop&d1=anime&name=anime_304.jpg"]
 		]);*/
-	level1.sounds.add("intro_instructions", "audio/intro_instructions");
+	level1.sounds.add("intro_instructions", "audio/speech/intro_instructions.mp3");
     
     // create phase 1
     level1.addPhase(function(lvl){
 			lvl.createDialogBox("Welcome to Cosmos Fight! Use the arrow keys or W-A-S-D to " +
 				"move, and press SPACE to shoot.", "Kate Anderson",
 				lvl.images.get("kate"), lvl.sounds.get("intro_instructions"), 10);
+			//lvl.createDialogBox("If you die, then you suck.", "President Amabo",
+			//	lvl.images.get("amabo"), lvl.sounds.get("die_suck"), 5);
 			/*lvl.createDialogBox("Images are working!", "Test Image 1",
 				lvl.images.get("a0"), null, 1);
 			lvl.createDialogBox("Images are working!", "Test Image 2",

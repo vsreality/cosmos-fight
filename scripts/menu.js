@@ -32,6 +32,11 @@ function Menu(){
 		backButton.onClick = backFunction;
 		this.guiSys.addElement(backButton);
 		this.hasBackButton = true;
+		// override backbutton sound
+		backButton.playClickSound = function(){
+			if(this.soundEnabled)
+				gameSounds.playSound("menu_back");
+		}
 		return backButton;
 	}
 	
@@ -162,10 +167,10 @@ function OptionsMenu(backFunction){
 	this.guiSys.addElement(enableSoundLabel);
 	// add the checkbox button
 	var enableSoundCheckbox = new GuiCheckboxButton(contextWidth/2 + 30, 118, 25,
-            settings.soundEnabled); // set checked value based on settings
+            (settings.soundVolume == 1)); // set checked value based on settings
 	enableSoundCheckbox.left();
 	enableSoundCheckbox.onClick = function(checked){
-		settings.setSoundEnabled(checked);
+		settings.setSoundVolume(checked ? 1.0 : 0.0);
 	}
 	this.guiSys.addElement(enableSoundCheckbox);
 	

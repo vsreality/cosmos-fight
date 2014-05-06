@@ -1,5 +1,5 @@
 function createLevel3(){
-    var level3 = new level();
+    var level3 = new Level();
 
     // name of this level
     level3.setLevelName("Level 3");

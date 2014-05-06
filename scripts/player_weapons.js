@@ -135,6 +135,7 @@ function weapon(unit){
 // This weapon was designed for Player.
 function basicWeapon(unit){
     var newWeapon = new weapon(unit);
+	
     newWeapon.shoot = function(ready){
 		// do nothing if the weapon cooldown is not ready
 		if(!ready) return;
@@ -146,6 +147,9 @@ function basicWeapon(unit){
 			this.unit.effectSys.miniSpark(this.unit.x,
 										  this.unit.y - 18,
 										  Math.PI/2));*/
+		
+		// play sound effect for shooting
+		gameSounds.playSound("shoot_basic");
     }
 	
 	// this weapon does not have an icon... thus no icon
@@ -163,6 +167,7 @@ function basicWeapon(unit){
 //	in addition. This weapon has an added animation.
 function trippleGun(unit){
     var newWeapon = new weapon(unit);
+	
 	// shoot: launch 3 bullets (1 central, and 2 side/weaker bullets)
     newWeapon.shoot = function(ready){
 		// do nothing if the weapon cooldown is not ready
@@ -171,7 +176,11 @@ function trippleGun(unit){
         this.unit.bullets.push(playerBullet(this.unit.x - 17, this.unit.y + 17, 5));
         this.unit.bullets.push(playerBullet(this.unit.x, this.unit.y - 18, 10));
         this.unit.bullets.push(playerBullet(this.unit.x + 17, this.unit.y + 17, 5));
+		
+		// play sound effect for shooting
+		gameSounds.playSound("shoot_basic");
     }
+	
 	// draw the two additional cannons on either side of the ship
     newWeapon.draw = function(ctx){
 		ctx.drawImage(payerMassiveShip, -28, -18);
@@ -197,10 +206,12 @@ function trippleGun(unit){
         ctx.closePath();
 		*/
     }
+	
 	// emblem that represents this weapon
 	newWeapon.drawEmblem = function(ctx){
 		drawTrippleGunIcon(ctx);
 	}
+	
     return newWeapon;
 }
 
@@ -213,6 +224,7 @@ function trippleGun(unit){
 //  This weapon has an added animation.
 function disperseGun(unit){
     var newWeapon = new weapon(unit);
+	
 	// shoot: launch 3 bullets (1 central, and 2 side/weaker bullets)
     newWeapon.shoot = function(ready){
 		// do nothing if the weapon cooldown is not ready
@@ -223,7 +235,11 @@ function disperseGun(unit){
         this.unit.bullets.push(playerBullet(this.unit.x + 15, this.unit.y + 17, 3).setSpeedX(2.5));
         this.unit.bullets.push(playerBullet(this.unit.x + 15, this.unit.y + 17, 2).setSpeedX(5));
         this.unit.bullets.push(playerBullet(this.unit.x, this.unit.y - 18, 10));
+		
+		// play sound effect for shooting
+		gameSounds.playSound("shoot_basic");
     }
+	
 	// draw the two additional cannons on either side of the ship
     newWeapon.draw = function(ctx){
 		ctx.lineWidth = 12;
@@ -248,10 +264,12 @@ function disperseGun(unit){
 			ctx.stroke();
         ctx.closePath();
     }
+	
 	// emblem that represents this weapon
 	newWeapon.drawEmblem = function(ctx){
 		drawDisperseGunIcon(ctx);
 	}
+	
     return newWeapon;
 }
 

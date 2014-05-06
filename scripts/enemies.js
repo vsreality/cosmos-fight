@@ -226,6 +226,12 @@ function enemy(x, y, angle, speed){
             this.health = 0;
     }
     
+	// sound to be played when the enemy dies:
+	//	override with each enemy as needed
+	this.playDeathSound = function(){
+		gameSounds.playSound("explosion1");
+	}
+	
 	// an effect that is created when this enemy dies
     this.deathEffect = function(){}
     

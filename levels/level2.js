@@ -3,7 +3,7 @@
 */
  
 function createLevel2(){
-	var level2 = new level();
+	var level2 = new Level();
 	
 	// name of this level
 	level2.setLevelName("Level 2");

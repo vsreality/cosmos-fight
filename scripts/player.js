@@ -418,9 +418,16 @@ function player(){
 		if(this.invulnerable)
 			return "Immune";
 		// otherwise, apply damage normally
+		var prev_health = this.health;
         this.health -= dmg;
-        if(this.health<0)
+		// if health hits 0 (or less), set it to 0 and play the death sound
+        if(this.health<=0){
             this.health=0;
+			gameSounds.playSound("death_explosion");
+		}
+		// if health just dipped below 30% and player is still alive, play alert sound
+		if(prev_health > 30 && this.health <= 30 && this.health > 0)
+			gameSounds.playSound("low_health");
         return dmg;
     }
     
