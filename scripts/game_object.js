@@ -12,6 +12,18 @@ function GameObject() {
 	this.x = 0;
 	this.y = 0;
 	
+	// collision - TODO implement this part
+	this.collision = 0;
+	
+	// damage variables and functions
+	this.health = 0;
+	this.applyDamage = function(damage) {
+		this.health -= damage;
+	}
+	
+	// visual effects
+	this.hitEffect = function() { }
+	
 	// update function: update this object for this frame.
 	this.update = function() { }
 	

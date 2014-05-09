@@ -482,7 +482,7 @@ function reflectiveShield(unit){
 	//	the original damage.
     newShield.absorb = function(object){
 		// check if this object is a bullet
-        if(object instanceof bullet){
+        if(object instanceof Bullet){
 			// reverse the velocity of the bullet
             object.speedX = -1 * object.speedX;
             object.speedY = -1 * object.speedY;

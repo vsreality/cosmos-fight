@@ -1,6 +1,15 @@
-/* File comments updated: Wednesday, June 27, 2012 at 7:37 PM
+/* File: missiles.js
  *
- *  MISSILES CLASS
+ * Missiles are special weapon projectiles that can be used by the player and
+ * enemies. A missile is fired from a specialized weapon or enemy, and flies
+ * towards its target. Missile paths can be varried (e.g. a heat-seeking
+ * missile). Upon impact or timed detonation, a missile explodes, dealing damage
+ * within a radius (closer to the center of impact means more damage done).
+ * Each missile can have its own unique animation, pathing, and detonation.
+ * 
+ * Main Object:  Missile(startX, startY, targetX, targetY,
+ *                       speed, damage, blastRadius, targetList, parentSys)
+ * Prototype(s): GameObject()
  */
  
  

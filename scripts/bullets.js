@@ -1,7 +1,11 @@
 /* File: bullets.js
  *
  * Bullets are used as common weapon projectiles for the player and for enemies.
- * Each bullet is a game object equipped with
+ * Each bullet is a game object equipped with direction (angle), speed, and
+ * a damage value that it deals on impact.
+ *
+ * Main Object:  Bullet(x, y, angle, speed, damage)
+ * Prototype(s): GameObject()
  */
 
 
