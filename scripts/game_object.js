@@ -38,4 +38,12 @@ function GameObject() {
 		return this.y;
 	}
 	
+	// isAlive is generally TRUE as long as this object is active and at some
+	//   amount of health in the game. It should return FALSE when the object
+	//   needs to be removed from the game.
+	this.alive = true;
+	this.isAlive = function() {
+		return this.alive;
+	}
+	
 }

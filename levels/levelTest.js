@@ -126,7 +126,7 @@ function createLevelTest(){
 
 function createLevelTest2(){
 	// create level1 from the abstract level
-	var testLevel = new level();
+	var testLevel = new Level();
 	
 	// name of this level
 	testLevel.setLevelName("Test Level 2");

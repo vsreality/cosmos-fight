@@ -7,26 +7,27 @@
  * within a radius (closer to the center of impact means more damage done).
  * Each missile can have its own unique animation, pathing, and detonation.
  * 
- * Main Object:  Missile(startX, startY, targetX, targetY,
+ * Main Object:  StandardMissile(startX, startY, targetX, targetY,
  *                       speed, damage, blastRadius, targetList, parentSys)
  * Prototype(s): GameObject()
  */
  
  
- /* Standard missile constructor: sets up a target position, and
-  * flies towards that target location and detonates.
-  * PARAMETERS:
-  *     startX, startY - the starting coordinate of the missile when launched
-  *     targetX, targetY - the point to which the missile flies and detonates at
-  *     speed - the speed at which this missile travels
-  *     damage - the amount of damage this missile inflicts at the center of impact
-  *     blastRadius - how wide the explosion reaches (damage decreases towards the edge)
-  *     targetList - an array of all objects that can be afflicted by the blast. These
-  *         targets must be standard collision-based objects with applyDamage(),
-  *         hitEffect(), getX(), and getY() functions.
-  *         In the case of a player object, the player must be pushed into an array container.
-  *         In the case of enemies, pass in the enemies array.
-  */
+/* Standard missile constructor: sets up a target position, and
+ * flies towards that target location and detonates.
+ * PARAMETERS:
+ *     startX, startY - the starting coordinate of the missile when launched
+ *     targetX, targetY - the point to which the missile flies and detonates at
+ *     speed - the speed at which this missile travels
+ *     damage - the amount of damage this missile inflicts at the center of impact
+ *     blastRadius - how wide the explosion reaches (damage decreases towards the edge)
+ *     targetList - an array of all objects that can be afflicted by the blast. These
+ *         targets must be standard collision-based objects with applyDamage(),
+ *         hitEffect(), getX(), and getY() functions.
+ *         In the case of a player object, the player must be pushed into an array container.
+ *         In the case of enemies, pass in the enemies array.
+ *			TODO - this can be abstracted to hostility categories (see notes).
+ */
 function StandardMissile(startX, startY, targetX, targetY,
         speed, damage, blastRadius, targetList, parentSys){
     // initialize positions of the missile
@@ -59,14 +60,6 @@ function StandardMissile(startX, startY, targetX, targetY,
         .addObject(new cTriangle({x:10,y:-4},{x:10,y:4},{x:15,y:0}));   // head
 	this.collision.parent = this;
 	
-	// return the current x and y locations of the missile, respectively
-	this.getX = function(){
-		return this.x;
-	}
-	this.getY = function(){
-		return this.y;
-	}
-	
     // set the speed (x and y) of this missile manually
 	this.setSpeedX = function(speedX){
 		this.speedX = speedX * (30/FPS);
@@ -76,10 +69,6 @@ function StandardMissile(startX, startY, targetX, targetY,
 		this.speedY = speedY * (30/FPS);
 		return this;
 	}
-    
-    // remains TRUE as long as the missile is still flying; false after
-    //  it already detonated and no longer has a destination.
-    this.alive = true;
 	
 	// the amount of damage this bullet inflicts on hit
     this.damage = damage;
@@ -142,7 +131,7 @@ function StandardMissile(startX, startY, targetX, targetY,
         ctx.translate(this.getX(), this.getY());
         ctx.rotate(this.angle);
         
-        // temporary
+        // temporary: draws a missile, but replace it with an image sprite
         ctx.fillStyle = "#FF0000";
         ctx.fillRect(-10, -4, 20, 8);
         ctx.fillStyle = "#FFFFFF";
@@ -153,6 +142,7 @@ function StandardMissile(startX, startY, targetX, targetY,
             ctx.lineTo(10, 4);
             ctx.fill();
         ctx.closePath();
+        // draws a blast radius circle around the missile (for testing)
         //ctx.strokeStyle = "#FFFFFF";
         //ctx.beginPath();
         //    ctx.arc(0, 0, this.blastRadius, 0, 2*Math.PI, false);
@@ -167,7 +157,8 @@ function StandardMissile(startX, startY, targetX, targetY,
     //  event adds the effect for blowing up as well as adding the
     //  proper damage to the surrounding targets
     this.detonate = function(){
-        // after detonation, the missile is no longer "alive"
+        // after detonation, the missile is no longer "alive" (flags it for
+        //  removal from the game).
         this.alive = false;
         
         // locate all targets and determine how much damage to apply,
@@ -200,15 +191,40 @@ function StandardMissile(startX, startY, targetX, targetY,
             this.parentSys.effectSys.missileExplosion(this.getX(), this.getY()));
     }
     
-    // returns TRUE if the missile is still alive/active, and FALSE if
-    //  the missile already detonated, and thus it is no longer active.
-    this.isAlive = function(){
-        return this.alive;
+}
+// StandardMissile is a Game Object.
+StandardMissile.prototype = new GameObject();
+
+
+
+// MissileFactory contains methods for creating different types of missiles.
+var MissileFactory = {
+
+    // Create a Player Bullet with default values if none are specified.
+    enemyStandardMissile: function(startX, startY, targetX, targetY,
+            speed, damage, blastRadius, enemySys) {
+        // create a container for the player
+        //  TODO - abstract to hostile categories
+        var playerTargetListWrapper = new Array();
+        playerTargetListWrapper.push(enemySys.lvl.player);
+        
+        // create the new missile
+        return new StandardMissile(
+            startX, startY, targetX, targetY,
+            // TODO - adjust these numbers (i.e. speed, damage, etc.)
+            typeof speed !== 'undefined' ? speed : 5,
+            typeof damage !== 'undefined' ? damage : 100,
+            typeof blastRadius !== 'undefined' ? blastRadius : 150,
+            playerTargetListWrapper,
+            enemySys);
     }
+    
+    // TODO - should missiles get added directly to the system?
+    //  e.g. enemyStandardMissile -> EnemySystem?
+
 }
 
-
-function enemyStandardMissile(startX, startY, targetX, targetY,
+/*function enemyStandardMissile(startX, startY, targetX, targetY,
         speed, damage, blastRadius, enemySys){
     // create a container for the player
     var playerTargetListWrapper = new Array();
@@ -235,4 +251,4 @@ function enemyStandardMissile(startX, startY, targetX, targetY,
     newMissile.onOutOfScreen = function(){}
     newMissile.drawHealthBar = function(ctx){}
     applyDamage = function(dmg){}*/
-}
+//}
