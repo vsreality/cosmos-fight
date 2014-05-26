@@ -68,7 +68,7 @@ function Bullet(x, y, angle, speed, damage){
 		
 		// move to bullet's x and y position and rotate correctly
 		ctx.translate(this.x, this.y);
-		ctx.rotate(this.angle+Math.PI/2);
+		ctx.rotate(this.angle + Math.PI/2);
 		
 		// set to bullet's specified color, size, and draw it
 		ctx.strokeStyle = this.color;
@@ -92,8 +92,10 @@ Bullet.prototype = new GameObject();
 var BulletFactory = {
 
 	// Create a Player Bullet with default values if none are specified.
-	playerBullet: function(x, y, angle, speed, dmg, color, size) {
-		return BulletFactory.createBullet(x, y, -Math.PI/2, 6,
+	playerBullet: function(x, y, dmg, angle, speed, color, size) {
+		return BulletFactory.createBullet(x, y,
+			typeof angle !== 'undefined' ? angle : -Math.PI/2,	// animation angle
+			typeof speed !== 'undefined' ? speed : 6,			// speed
 			typeof dmg !== 'undefined' ? dmg : 10,				// damage
 			typeof color !== 'undefined' ? color : "#FFFF66",	// color
 			typeof size !== 'undefined' ? size : 2				// size

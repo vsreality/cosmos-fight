@@ -141,7 +141,7 @@ function basicWeapon(unit){
 		if(!ready) return;
 		
 		// launch a single regular bullet from the front of the ship
-        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x, this.unit.y - 18, 10));
+        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x, this.unit.y - 18));
 		// add a fire effect to the player
 		/*this.unit.effectSys.addEffect(
 			this.unit.effectSys.miniSpark(this.unit.x,
@@ -230,11 +230,17 @@ function disperseGun(unit){
 		// do nothing if the weapon cooldown is not ready
 		if(!ready) return;
 		
-        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x - 15, this.unit.y + 17, 2).setSpeedX(-5));
-        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x - 15, this.unit.y + 17, 3).setSpeedX(-2.5));
-        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x + 15, this.unit.y + 17, 3).setSpeedX(2.5));
-        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x + 15, this.unit.y + 17, 2).setSpeedX(5));
-        this.unit.bullets.push(BulletFactory.playerBullet(this.unit.x, this.unit.y - 18, 10));
+		// x position, y position, damage, angle, speed
+		this.unit.bullets.push(BulletFactory.playerBullet( // far left
+			this.unit.x - 15, this.unit.y + 17, 2, -6*Math.PI/8, 8));
+		this.unit.bullets.push(BulletFactory.playerBullet( // mid-left
+			this.unit.x - 15, this.unit.y + 17, 3, -5*Math.PI/8, 7));
+		this.unit.bullets.push(BulletFactory.playerBullet( // center (main)
+			this.unit.x, this.unit.y - 18, 10, -Math.PI/2, 6));
+		this.unit.bullets.push(BulletFactory.playerBullet( // mid-right
+			this.unit.x + 15, this.unit.y + 17, 3, -3*Math.PI/8, 7));
+		this.unit.bullets.push(BulletFactory.playerBullet( // far right
+			this.unit.x + 15, this.unit.y + 17, 2, -2*Math.PI/8, 8));
 		
 		// play sound effect for shooting
 		gameSounds.playSound("shoot_basic");
