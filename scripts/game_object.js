@@ -44,6 +44,18 @@ function GameObject() {
 		return this.y;
 	}
 	
+	// position setters
+	this.setPosition = function(x, y) {
+		this.x = x;
+		this.y = y;
+	}
+	this.setX = function(x) {
+		this.x = x;
+	}
+	this.setY = function(y) {
+		this.y = y;
+	}
+	
 	// isAlive is generally TRUE as long as this object is active and at some
 	//   amount of health in the game. It should return FALSE when the object
 	//   needs to be removed from the game.

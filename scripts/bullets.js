@@ -13,30 +13,28 @@
 // Main Bullet object: sets up an arbitrary with all necessary initial
 //	variables and internal functions.
 function Bullet(x, y, angle, speed, damage){
-	// Location
-	this.x = x;
-	this.y = y;
 	
-	// Orientation
-	this.angle = angle;
+	// Set the bullets initial location
+	this.setPosition(x, y);
 	
-	// bullet speed (x and y)
-	this.speed = speed;
-    this.speedX = speed*Math.cos(angle)*(30/FPS); // scaled speed by FPS
-    this.speedY = speed*Math.sin(angle)*(30/FPS); // scaled speed by FPS
+	// Motion controller will move this bullet object when updated each frame.
+	this.motionCtrl = new MotionController(this);
+	this.motionCtrl.setSpeed(speed);
+	this.motionCtrl.setAngle(angle);
 	
 	// Collision, just a point
 	this.collision = new standardCollision();
 	this.collision.parent = this;
 	
-	this.setSpeedX = function(speedX){
-		this.speedX = speedX * (30/FPS);
+	// TODO - these shouldn't exist
+	/*this.setSpeedX = function(speedX){
+		this.motionCtrl.speedX = speedX * (30/FPS);
 		return this;
 	}
 	this.setSpeedY = function(speedY){
-		this.speedY = speedY * (30/FPS);
+		this.motionCtrl.speedY = speedY * (30/FPS);
 		return this;
-	}
+	}*/
 	
 	// the amount of damage this bullet inflicts on hit
     this.damage = damage;
@@ -58,8 +56,7 @@ function Bullet(x, y, angle, speed, damage){
 	// update function: update the bullet x and y position on the
 	//	bases of x and y speed values.
     this.update = function(){
-        this.x += this.speedX;
-        this.y += this.speedY;
+        this.motionCtrl.update();
     }
 	
 	// draw function: draw the bullet on the screen in the correct place

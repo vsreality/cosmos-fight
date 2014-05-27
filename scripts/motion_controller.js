@@ -4,16 +4,16 @@
  * to provide standard motion properties, including basic movement over time,
  * acceleration/deceleration, and speeding up or speeding down time.
  *
- * Main Object: MotionController(game_obj)
+ * Main Object: MotionController(gameObj)
  */
 
 
 // MotionController class
-// Parameter: game_obj to control, must be a GameObject interface.
-function MotionController(game_obj) {
+// Parameter: gameObj to control, must be a GameObject interface.
+function MotionController(gameObj) {
 
 	// keep track of the game object
-	this.game_obj = game_obj;
+	this.gameObj = gameObj;
 	
 	// Speed is the object's current speed, normalSpeed is the standard. For
 	//	efficiency, we pre-compute compute the X and Y speeds only the angle
@@ -62,13 +62,19 @@ function MotionController(game_obj) {
 	// Set the angle that this object will be moving at.
 	this.setAngle = function(angle) {
 		this.angle = angle;
+		
+		// adjust the x and y speeds based on angle.
+		// TODO - scale FPS in update function!!!
+		this.speedX = this.speed * Math.cos(this.angle) * (30/FPS);
+		this.speedY = this.speed * Math.sin(this.angle) * (30/FPS);
 	}
 	
 	
 	// update function: update the object's motion for this frame.
 	// TODO - update this for variable framerate
 	this.update = function() {
-		
+		this.gameObj.setX(this.gameObj.getX() + this.speedX);
+		this.gameObj.setY(this.gameObj.getY() + this.speedY);
 	}
 	
 }
