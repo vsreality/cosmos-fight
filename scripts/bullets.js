@@ -18,9 +18,7 @@ function Bullet(x, y, angle, speed, damage){
 	this.setPosition(x, y);
 	
 	// Motion controller will move this bullet object when updated each frame.
-	this.motionCtrl = new MotionController(this);
-	this.motionCtrl.setSpeed(speed);
-	this.motionCtrl.setAngle(angle);
+	this.setMotionController(speed, angle);
 	
 	// Collision, just a point
 	this.collision = new standardCollision();
@@ -55,8 +53,8 @@ function Bullet(x, y, angle, speed, damage){
     
 	// update function: update the bullet x and y position on the
 	//	bases of x and y speed values.
-    this.update = function(){
-        this.motionCtrl.update();
+    this.update = function() {
+        this.getMotionController().update();
     }
 	
 	// draw function: draw the bullet on the screen in the correct place
