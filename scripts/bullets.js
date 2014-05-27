@@ -15,7 +15,7 @@
 function Bullet(x, y, angle, speed, damage){
 	
 	// Set the bullets initial location
-	this.setPosition(x, y);
+	this.setPosition(x, y, angle);
 	
 	// Motion controller will move this bullet object when updated each frame.
 	this.setMotionController(speed, angle);
@@ -43,6 +43,7 @@ function Bullet(x, y, angle, speed, damage){
 	//	independently of the unchanging damage value.
 	// see player.js:[player.applyBulletDamage(bullet)]
 	//	for an example of this variable's application.
+	// TODO - better comment here
 	this.appliedDamage = this.damage;
 	
 	// color of the bullet (animation color)
@@ -89,7 +90,7 @@ var BulletFactory = {
 	// Create a Player Bullet with default values if none are specified.
 	playerBullet: function(x, y, dmg, angle, speed, color, size) {
 		return BulletFactory.createBullet(x, y,
-			typeof angle !== 'undefined' ? angle : ANGLE_UP,	// animation angle
+			typeof angle !== 'undefined' ? angle : ANGLE_UP,	// angle
 			typeof speed !== 'undefined' ? speed : 6,			// speed
 			typeof dmg !== 'undefined' ? dmg : 10,				// damage
 			typeof color !== 'undefined' ? color : "#FFFF66",	// color

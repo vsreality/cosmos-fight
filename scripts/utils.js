@@ -1,7 +1,39 @@
+/* GLOBAL UTILITY CLASSES */
+
+// POINT: contains an x and y position
+function Point(x, y) {
+	this.x = x;
+	this.y = y;
+}
+
+// VECTOR: contains an x and y direction
+function Vector(x, y) {
+	this.x = x;
+	this.y = y;
+}
+
+// TRIANGLE: described by three points p1, p2 and p3
+//	which together form the verticies of the triangle.
+function Triangle(p1, p2, p3) {
+	this.p1 = p1;
+	this.p2 = p2;
+	this.p3 = p3;
+}
+
+// CIRCLE: described by an x and y position as the circle's
+//	center, and a radius.
+function Circle(center, radius) {
+	this.c = center;
+	this.r = radius;
+}
+
+
+
 /* GLOBAL FUNCTIONS */
 
 // TODO - (possibly) add these functions into a class:
 //	e.g. Cosmos.getRandNum(), or cosmos.pathRoundedRectangle(), etc.
+//	or Utils.strEndsWith("asdf")
 
 // returns a random number from 0 to the given range
 function getRandNum(range){

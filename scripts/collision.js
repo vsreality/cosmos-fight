@@ -1,34 +1,9 @@
-/* File comments updated: Sunday, March 25, 2012 at 12:38 AM
+/* File: collision.js
  *
  * COLLISION SYSTEM: provides functions to create collision objects
  *	and detect collisions between objects and points.
  * Used by most animated objects on the canvas to detect collisions.
  */
-
-// POINT: contains an x and y position
-function Point(x, y){
-	this.x = x;
-	this.y = y;
-}
-// VECTOR: contains an x and y direction
-function Vector(x, y){
-	this.x = x;
-	this.y = y;
-}
-// TRIANGLE: described by three points p1, p2 and p3
-//	which together form the verticies of the triangle.
-function Triangle(p1, p2, p3){
-	this.p1 = p1;
-	this.p2 = p2;
-	this.p3 = p3;
-}
-
-// CIRCLE: described by an x and y position as the circle's
-//	center, and a radius.
-function Circle(center, radius){
-	this.c = center;
-	this.r = radius;
-}
 
 // DOT PRODUCT OF TWO VECTORS
 function dotProduct(v1, v2){

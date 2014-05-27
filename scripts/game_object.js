@@ -12,15 +12,25 @@
 // GameObject class
 function GameObject() {
 
-	// this object's on-screen (x, y) coordinates
+	// this object's on-screen (x, y) coordinates and orientation angle
 	this.x = 0;
 	this.y = 0;
+	this.angle = ANGLE_UP;
 	
 	
 	// Add a Collision Manager to this object:
 	this.hasCollisionMngr = false;
 	this.setCollisionManager = function() {
-		
+		this.collisionMngr = new CollisionManager(this);
+		this.hasCollisionMngr = true;
+	}
+	// Returns the Collision Manager of this object. If no Collision Manager
+	//	was set, returns a new Collision Manager for this object.
+	this.getCollisionManager = function() {
+		if(this.hasCollisionMngr)
+			return this.collisionMngr;
+		else
+			return new CollisionManager(this);
 	}
 	
 	
@@ -32,7 +42,7 @@ function GameObject() {
 		this.motionCtrl.setAngle(angle);
 		this.hasMotionCtrl = true;
 	}
-	// Returns the motion controller of this object. If no motion controller
+	// Returns the Motion Controller of this object. If no Motion Controller
 	//	was set, returns a new Motion Controller for this object.
 	this.getMotionController = function() {
 		if(this.hasMotionCtrl)
@@ -50,16 +60,24 @@ function GameObject() {
 		return this.y;
 	}
 	
-	// Position setters:
-	this.setPosition = function(x, y) {
+	
+	// Position setter: given an x, y position and (optionally) an angle.
+	//	Angle defaults to facing up if no angle is provided.
+	this.setPosition = function(x, y, angle) {
 		this.x = x;
 		this.y = y;
+		this.angle = (typeof angle !== 'undefined' ? angle : ANGLE_UP);
 	}
+	
+	// Position setters for each variable:
 	this.setX = function(x) {
 		this.x = x;
 	}
 	this.setY = function(y) {
 		this.y = y;
+	}
+	this.setAngle = function(angle) {
+		this.angle = angle;
 	}
 	
 	
@@ -70,18 +88,17 @@ function GameObject() {
 	this.draw = function(ctx) { }
 	
 	
-	// Visual effects animations:
+	// Visual effects animations: TODO - put inside EffectsManager
 	this.hitEffect = function() { }
 	
 	
-	// Damage variables and functions:
+	// Damage variables and functions: TODO - put inside another manager class?
 	this.health = 0;
 	this.applyDamage = function(damage) {
 		this.health -= damage;
 		if(this.health < 0)
 			this.health = 0;
 	}
-	
 	
 	// isAlive is generally TRUE as long as this object is active and at some
 	//   amount of health in the game. It should return FALSE when the object
