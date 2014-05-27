@@ -24,7 +24,7 @@ function Bullet(x, y, angle, speed, damage){
 	this.collision = new standardCollision();
 	this.collision.parent = this;
 	
-	// TODO - these shouldn't exist
+	// TODO - these shouldn't exist - might glitch out on some enemies
 	/*this.setSpeedX = function(speedX){
 		this.motionCtrl.speedX = speedX * (30/FPS);
 		return this;

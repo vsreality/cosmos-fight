@@ -41,6 +41,7 @@ function MotionController(gameObj) {
 	// Set the speed of the object for the given amount of time (in seconds).
 	//	If no duration is provided, the speed change will be permanent and
 	//	will also set the normal speed to the given value.
+	// Parameters: the "speed" value to set, and the "duration" in seconds.
 	this.setSpeed = function(speed, duration) {
 		if (typeof duration === 'undefined') {
 			this.speed = speed;
@@ -56,6 +57,15 @@ function MotionController(gameObj) {
 		// TODO - scale FPS in update function!!!
 		this.speedX = this.speed * Math.cos(this.angle) * (30/FPS);
 		this.speedY = this.speed * Math.sin(this.angle) * (30/FPS);
+	}
+	
+	
+	// Set the speed of the object for a given amount of time (in seconds) by
+	//	the ratio amount given - for example, if 0.5 is given as ratio, the
+	//	speed will be half of what it was. Otherwise, same functionality as
+	//	setSpeed().
+	this.setSpeedRelative = function(ratio, duration) {
+		this.setSpeed(this.speed * ratio, duration);
 	}
 	
 	

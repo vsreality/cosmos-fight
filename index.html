@@ -21,8 +21,9 @@ Your browser does not support the canvas element.
 <script type="text/javascript" src="data/graphics/health_icons.js"></script>
 
 <!-- IMPORT SCRIPTS -->
+	<!-- game object: main interactive game object management class -->
 <script type="text/javascript" src="scripts/game_object.js"></script>
-
+	<!-- game object abstraction and utility classes -->
 <script type="text/javascript" src="scripts/bullets.js"></script>
 <script type="text/javascript" src="scripts/collision.js"></script>
 <script type="text/javascript" src="scripts/definitions.js"></script>
@@ -35,7 +36,6 @@ Your browser does not support the canvas element.
 <script type="text/javascript" src="scripts/media.js"></script>
 <script type="text/javascript" src="scripts/menu.js"></script>
 <script type="text/javascript" src="scripts/missiles.js"></script>
-<script type="text/javascript" src="scripts/motion_controller.js"></script>
 <script type="text/javascript" src="scripts/paths.js"></script>
 <script type="text/javascript" src="scripts/player.js"></script>
 <script type="text/javascript" src="scripts/player_weapons.js"></script>
@@ -43,9 +43,13 @@ Your browser does not support the canvas element.
 <script type="text/javascript" src="scripts/settings.js"></script>
 <script type="text/javascript" src="scripts/shields.js"></script>
 <script type="text/javascript" src="scripts/space.js"></script>
-<script type="text/javascript" src="scripts/team_manager.js"></script>
 <script type="text/javascript" src="scripts/timers.js"></script>
 <script type="text/javascript" src="scripts/utils.js"></script>
+	<!-- manager classes (for controlling and managing game objects) -->
+<script type="text/javascript" src="scripts/collision_manager.js"></script>
+<script type="text/javascript" src="scripts/effects_manager.js"></script>
+<script type="text/javascript" src="scripts/motion_controller.js"></script>
+<script type="text/javascript" src="scripts/team_manager.js"></script>
 
 <!-- IMPORT ENEMY SCRIPTS -->
 <script type="text/javascript" src="data/enemies/basic_enemy.js"></script>

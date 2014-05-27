@@ -17,8 +17,11 @@ function GameObject() {
 	this.y = 0;
 	
 	
-	// collision - TODO implement this part
-	this.collision = 0;
+	// Add a Collision Manager to this object:
+	this.hasCollisionMngr = false;
+	this.setCollisionManager = function() {
+		
+	}
 	
 	
 	// Add a Motion Controller to this object:
