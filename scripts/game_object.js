@@ -4,11 +4,15 @@
  * sprites seen throughout the game. This interface includes the (x, y)
  * position of an object, and common functions necessary to use the object
  * in the Level subsystem.
+ *
+ * Main Object: GameObject()
  */
 
+
+// GameObject class
 function GameObject() {
 
-	// this object's on-screen (x, y) coordinates.
+	// this object's on-screen (x, y) coordinates
 	this.x = 0;
 	this.y = 0;
 	
