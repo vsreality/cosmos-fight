@@ -1,7 +1,7 @@
 Cosmos Fight
 ============
 
-Cosmos Fight (working title) is a 2D space shooter game built using the HTML5 Canvas. It is written entirely in Javascript and runs on any modern browser. Cosmos Fight is a work-in-progress.
+Cosmos Fight (working title) is a 2D space shooter game built using the HTML5 Canvas. It is written entirely in JavaScript and runs on any modern web browser. Cosmos Fight is a work-in-progress.
 
 http://site.vsreality.com/
 
