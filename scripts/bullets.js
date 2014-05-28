@@ -12,7 +12,7 @@
 
 // Main Bullet object: sets up an arbitrary with all necessary initial
 //	variables and internal functions.
-function Bullet(x, y, angle, speed, damage){
+function Bullet(x, y, angle, speed, damage, color, size){
 	
 	// Set the bullets initial location
 	this.setPosition(x, y, angle);
@@ -46,11 +46,9 @@ function Bullet(x, y, angle, speed, damage){
 	// TODO - better comment here
 	this.appliedDamage = this.damage;
 	
-	// color of the bullet (animation color)
-    this.color = "#000000";
-	
-	// size of the bullet (how wide the line is)
-	this.size = 2;
+	// visual appearance of this bullet (color and size/thickness):
+    this.color = color;
+	this.size = size;
     
 	// update function: update the bullet x and y position on the
 	//	bases of x and y speed values.
@@ -89,30 +87,27 @@ var BulletFactory = {
 
 	// Create a Player Bullet with default values if none are specified.
 	playerBullet: function(x, y, dmg, angle, speed, color, size) {
-		return BulletFactory.createBullet(x, y,
+		return new Bullet(x, y,
 			typeof angle !== 'undefined' ? angle : ANGLE_UP,	// angle
 			typeof speed !== 'undefined' ? speed : 6,			// speed
-			typeof dmg !== 'undefined' ? dmg : 10,				// damage
+			typeof dmg   !== 'undefined' ? dmg   : 10,			// damage
 			typeof color !== 'undefined' ? color : "#FFFF66",	// color
-			typeof size !== 'undefined' ? size : 2				// size
+			typeof size  !== 'undefined' ? size  : 2			// size
 		);
 	},
 	
 	// Create an Enemy Bullet with default values if none are specified.
 	enemyBullet: function(x, y, angle, speed, dmg, color, size) {
-		return BulletFactory.createBullet(x, y, angle, speed,
-			typeof dmg !== 'undefined' ? dmg : 10,				// damage
+		return new Bullet(x, y, angle, speed,
+			typeof dmg   !== 'undefined' ? dmg   : 10,			// damage
 			typeof color !== 'undefined' ? color : "#FF0022",	// color
-			typeof size !== 'undefined' ? size : 2				// size
+			typeof size  !== 'undefined' ? size  : 2			// size
 		);
 	},
 	
 	// Construct an arbitrary bullet (given the pre-defined parameters).
 	createBullet: function(x, y, angle, speed, dmg, color, size) {
-		var newBullet = new Bullet(x, y, angle, speed, dmg);
-		newBullet.color = color;
-		newBullet.size = size;
-		return newBullet;
+		return new Bullet(x, y, angle, speed, dmg, color, size);
 	}
 
 }
