@@ -20,30 +20,17 @@ function Bullet(x, y, angle, speed, damage, color, size){
 	// Motion controller will move this bullet object when updated each frame.
 	this.setMotionController(speed, angle);
 	
-	// Collision, just a point
+	// Collision manager will manage this bullet's collision detection.
+	this.setCollisionManager();
+	
+	// TODO - remove
 	this.collision = new standardCollision();
 	this.collision.parent = this;
-	
-	// TODO - these shouldn't exist - might glitch out on some enemies
-	/*this.setSpeedX = function(speedX){
-		this.motionCtrl.speedX = speedX * (30/FPS);
-		return this;
-	}
-	this.setSpeedY = function(speedY){
-		this.motionCtrl.speedY = speedY * (30/FPS);
-		return this;
-	}*/
 	
 	// the amount of damage this bullet inflicts on hit
     this.damage = damage;
 	
-	// the amount of damage this bullet potentially applies
-	//	(this value can be modified by whatever the bullet interacts
-	//	with and change throughout the bullet's lifetime, and works
-	//	independently of the unchanging damage value.
-	// see player.js:[player.applyBulletDamage(bullet)]
-	//	for an example of this variable's application.
-	// TODO - better comment here
+	// Temporary variable used by external objects for damage manipulation.
 	this.appliedDamage = this.damage;
 	
 	// visual appearance of this bullet (color and size/thickness):
@@ -54,6 +41,7 @@ function Bullet(x, y, angle, speed, damage, color, size){
 	//	bases of x and y speed values.
     this.update = function() {
         this.getMotionController().update();
+        this.getCollisionManager().update();
     }
 	
 	// draw function: draw the bullet on the screen in the correct place

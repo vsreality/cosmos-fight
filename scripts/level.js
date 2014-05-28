@@ -66,7 +66,7 @@ function Level(){
 	
 	
     // player and alive status
-	this.player = new player();
+	this.player = new Player();
     
     // space (the background of stars (space background)
     this.space = new space(context);
@@ -622,7 +622,7 @@ function Level(){
 				//Update enemy bullet position
 				this.enemySys.enemyBullets[i].collision.updatePosition();
 				// check if player intersects bullet
-				if(isCollide(this.player.collision, this.enemySys.enemyBullets[i].collision)){
+				if(checkCollision(this.player, this.enemySys.enemyBullets[i])) {
 					// apply damage to player
 					var dmgText = this.player.applyBulletDamage(this.enemySys.enemyBullets[i]);
 					

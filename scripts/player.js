@@ -7,13 +7,13 @@
 /* Main player constructor: sets up player with all necessary
  *    initial variables.
  */
-function player(){
+function Player(){
 	// reference to the level's enemy system (for weapon targetting)
 	this.enemySys = null;
 
     // player variables
-    this.x = areaWidth / 2;
-    this.y = areaHeight - 30;
+    this.setPosition(areaWidth / 2, areaHeight - 30);
+    
     this.r = 17; //Radius of collision
 	
 	// score, health, life data
@@ -39,16 +39,9 @@ function player(){
     this.maxBulletSpeed = secToFrames(0.2);
     this.nextShotTime = 0;
 	
+	// true if immune to all damage (for testing)
 	this.invulnerable = false;
 	
-	// Get X
-	this.getX = function(){
-		return this.x;
-	}
-	// Get Y
-	this.getY = function(){
-		return this.y;
-	}
     /*************** PLAYER WEAPON VARIABLES ***************/
 	// weapon (defaults to basic weapon) and may be changed
 	//	by bonuses
@@ -74,7 +67,12 @@ function player(){
     this.shieldTimer.onTime = function(player){
             player.shield = noShield(this);
         };
+    
 	// Collision object
+	this.setCollisionManager(25);
+	this.getCollisionManager().addTriangle(-15, 17, 0, -18, 15, 17);
+	
+	// TODO - remove
     this.collision = new standardCollision(25);
 	this.collision.parent = this;
 	this.collision.addObject(new cTriangle({x:-15,y:17},{x:0,y:-18},{x:15,y:17}));
@@ -83,6 +81,7 @@ function player(){
 	// update function (player position based on keys currently held down,
 	//	and weapons)
     this.update = function(){
+    	this.getCollisionManager().update();
 		// update the weapon timer
         this.weaponTimer.update();
         
@@ -576,3 +575,5 @@ function player(){
         this.health = 100;
     }
 }
+// Player is a Game Object.
+Player.prototype = new GameObject();

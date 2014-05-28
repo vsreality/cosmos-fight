@@ -436,3 +436,10 @@ isCollide = function(cObje1, cObje2){
 		return false
 	}
 }
+
+
+// Global checkCollision function: returns true if the two Game Objects have
+//	collided, false otherwise.
+function checkCollision(obj1, obj2) {
+	return obj1.getCollisionManager().collidesWith(obj2);
+}

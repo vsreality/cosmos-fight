@@ -20,8 +20,9 @@ function GameObject() {
 	
 	// Add a Collision Manager to this object:
 	this.hasCollisionMngr = false;
-	this.setCollisionManager = function() {
+	this.setCollisionManager = function(radius) {
 		this.collisionMngr = new CollisionManager(this);
+		this.collisionMngr.setCollision(radius);
 		this.hasCollisionMngr = true;
 	}
 	// Returns the Collision Manager of this object. If no Collision Manager
