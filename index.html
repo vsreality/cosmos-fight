@@ -2,89 +2,97 @@
 <html lang="en-US">
 
 <head>
-	<title>Cosmos Fight</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-	<script type="text/javascript" src="jquery.js"></script>
+
+    <!---------- PAGE INFO, CSS, AND FAVICON -->
+    <title>Cosmos Fight</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    
+    
+    <!---------- INCLUDE 3RD PARTY LIBRARIES -->
+    <script type="text/javascript" src="jquery.js"></script>
+    
+    
+    <!---------- INCLUDE GRAPHICS -->
+    <script type="text/javascript" src="data/graphics/weapon_icons.js"></script>
+    <script type="text/javascript" src="data/graphics/shield_icons.js"></script>
+    <script type="text/javascript" src="data/graphics/health_icons.js"></script>
+
+
+    <!---------- INCLUDE SCRIPTS -->
+
+    <!-- necessary functions, objects, and definitions used by all classes -->
+    <script type="text/javascript" src="scripts/definitions.js"></script>
+    <script type="text/javascript" src="scripts/utils.js"></script>
+    <script type="text/javascript" src="scripts/timers.js"></script>
+
+    <!-- game object: main interactive game object management class -->
+    <script type="text/javascript" src="scripts/game_object.js"></script>
+
+    <!-- game object abstraction and utility classes -->
+    <script type="text/javascript" src="scripts/bullets.js"></script>
+    <script type="text/javascript" src="scripts/collision.js"></script>
+    <script type="text/javascript" src="scripts/effects.js"></script>
+    <script type="text/javascript" src="scripts/enemies.js"></script>
+    <script type="text/javascript" src="scripts/enemy_weapons.js"></script>
+    <script type="text/javascript" src="scripts/gui.js"></script>
+    <script type="text/javascript" src="scripts/lasers.js"></script>
+    <script type="text/javascript" src="scripts/level.js"></script>
+    <script type="text/javascript" src="scripts/media.js"></script>
+    <script type="text/javascript" src="scripts/menu.js"></script>
+    <script type="text/javascript" src="scripts/missiles.js"></script>
+    <script type="text/javascript" src="scripts/paths.js"></script>
+    <script type="text/javascript" src="scripts/player.js"></script>
+    <script type="text/javascript" src="scripts/player_weapons.js"></script>
+    <script type="text/javascript" src="scripts/powerups.js"></script>
+    <script type="text/javascript" src="scripts/settings.js"></script>
+    <script type="text/javascript" src="scripts/shields.js"></script>
+    <script type="text/javascript" src="scripts/space.js"></script>
+
+    <!-- manager classes (for controlling and managing game objects) -->
+    <script type="text/javascript" src="scripts/collision_manager.js"></script>
+    <script type="text/javascript" src="scripts/effects_manager.js"></script>
+    <script type="text/javascript" src="scripts/motion_controller.js"></script>
+    <script type="text/javascript" src="scripts/team_manager.js"></script>
+
+
+    <!---------- INCLUDE ENEMY SCRIPTS -->
+    <script type="text/javascript" src="data/enemies/basic_enemy.js"></script>
+    <script type="text/javascript" src="data/enemies/corvette_enemy.js"></script>
+    <script type="text/javascript" src="data/enemies/mini_boss_1.js"></script>
+    <script type="text/javascript" src="data/enemies/octopus_enemy.js"></script>
+    <script type="text/javascript" src="data/enemies/central_core_boss.js"></script>
+    <script type="text/javascript" src="data/enemies/small_tower.js"></script>
+    <script type="text/javascript" src="data/enemies/star3_enemy.js"></script>
+    <script type="text/javascript" src="data/enemies/twin_blades_boss.js"></script>
+    <script type="text/javascript" src="data/enemies/vampire_enemy.js"></script>
+    <script type="text/javascript" src="data/enemies/worm_enemy.js"></script>
+
+
+    <!---------- INCLUDE LEVELS -->
+    <script type="text/javascript" src="levels/level1.js"></script>
+    <script type="text/javascript" src="levels/level2.js"></script>
+    <script type="text/javascript" src="levels/levelSurvival.js"></script>
+    <script type="text/javascript" src="levels/levelTest.js"></script>
+    <script type="text/javascript" src="levels/APITestLevels.js"></script>
+    <script type="text/javascript" src="levels/levelEnemies.js"></script>
+
+
+    <!---------- INCLUDE MAIN GAME SCRIPT (starting script of the application) -->
+    <script type="text/javascript" src="scripts/main.js"></script>
+
 </head>
-<body>
-
-<h1>Cosmos Fight</h1>
-
-<p><canvas id="screen" width="800" height="500" style="background: #000000" role="img">
-Your browser does not support the canvas element.
-</canvas></p>
 
 
-<!---------- IMPORT GRAPHICAL DRAW FUNCTIONS -->
-<script type="text/javascript" src="data/graphics/weapon_icons.js"></script>
-<script type="text/javascript" src="data/graphics/shield_icons.js"></script>
-<script type="text/javascript" src="data/graphics/health_icons.js"></script>
 
+<body onload="initGame()">
 
-<!---------- IMPORT SCRIPTS -->
+    <h1>Cosmos Fight</h1>
 
-<!-- necessary functions, objects, and definitions used by all classes -->
-<script type="text/javascript" src="scripts/definitions.js"></script>
-<script type="text/javascript" src="scripts/utils.js"></script>
-<script type="text/javascript" src="scripts/timers.js"></script>
-
-<!-- game object: main interactive game object management class -->
-<script type="text/javascript" src="scripts/game_object.js"></script>
-
-<!-- game object abstraction and utility classes -->
-<script type="text/javascript" src="scripts/bullets.js"></script>
-<script type="text/javascript" src="scripts/collision.js"></script>
-<script type="text/javascript" src="scripts/effects.js"></script>
-<script type="text/javascript" src="scripts/enemies.js"></script>
-<script type="text/javascript" src="scripts/enemy_weapons.js"></script>
-<script type="text/javascript" src="scripts/gui.js"></script>
-<script type="text/javascript" src="scripts/lasers.js"></script>
-<script type="text/javascript" src="scripts/level.js"></script>
-<script type="text/javascript" src="scripts/media.js"></script>
-<script type="text/javascript" src="scripts/menu.js"></script>
-<script type="text/javascript" src="scripts/missiles.js"></script>
-<script type="text/javascript" src="scripts/paths.js"></script>
-<script type="text/javascript" src="scripts/player.js"></script>
-<script type="text/javascript" src="scripts/player_weapons.js"></script>
-<script type="text/javascript" src="scripts/powerups.js"></script>
-<script type="text/javascript" src="scripts/settings.js"></script>
-<script type="text/javascript" src="scripts/shields.js"></script>
-<script type="text/javascript" src="scripts/space.js"></script>
-
-<!-- manager classes (for controlling and managing game objects) -->
-<script type="text/javascript" src="scripts/collision_manager.js"></script>
-<script type="text/javascript" src="scripts/effects_manager.js"></script>
-<script type="text/javascript" src="scripts/motion_controller.js"></script>
-<script type="text/javascript" src="scripts/team_manager.js"></script>
-
-
-<!---------- IMPORT ENEMY SCRIPTS -->
-<script type="text/javascript" src="data/enemies/basic_enemy.js"></script>
-<script type="text/javascript" src="data/enemies/corvette_enemy.js"></script>
-<script type="text/javascript" src="data/enemies/mini_boss_1.js"></script>
-<script type="text/javascript" src="data/enemies/octopus_enemy.js"></script>
-<script type="text/javascript" src="data/enemies/central_core_boss.js"></script>
-<script type="text/javascript" src="data/enemies/small_tower.js"></script>
-<script type="text/javascript" src="data/enemies/star3_enemy.js"></script>
-<script type="text/javascript" src="data/enemies/twin_blades_boss.js"></script>
-<script type="text/javascript" src="data/enemies/vampire_enemy.js"></script>
-<script type="text/javascript" src="data/enemies/worm_enemy.js"></script>
-
-
-<!---------- IMPORT LEVELS -->
-<script type="text/javascript" src="levels/level1.js"></script>
-<script type="text/javascript" src="levels/level2.js"></script>
-<script type="text/javascript" src="levels/levelSurvival.js"></script>
-<script type="text/javascript" src="levels/levelTest.js"></script>
-<script type="text/javascript" src="levels/APITestLevels.js"></script>
-<script type="text/javascript" src="levels/levelEnemies.js"></script>
-
-
-<!---------- IMPORT MAIN GAME SCRIPT (starting script of the application) -->
-<script type="text/javascript" src="scripts/main.js"></script>
-
+    <p><canvas id="screen" width="800" height="500" style="background: #000000" role="img">
+    Your browser does not support the canvas element.
+    </canvas></p>
 
 </body>
 </html>

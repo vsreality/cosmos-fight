@@ -1,36 +1,41 @@
-/* File: main.js
+/* File: game.js
  *
- * TODO - might want to move this into a Game object?
+ * Contains the Game class. This class keeps track of all game variables and
+ *  runs the main game loop.
  */
 
 
+function Game(FPS, canvas_name) {
 
-/*** GENERAL GLOBAL VARIABLES ***/
-//FPS: the game's predetermined frames per second to animate at.
-var FPS = 30;
-// tLim is the number of milliseconds between each frame
-//  (used by animation/update functions)
-var tLim = Math.floor(1000/FPS);
-// true as long as the animation loop is running
-//	(set to false to pause or stop animation loop)
-var animating = true;
+    //FPS: the game's predetermined frames per second to animate at.
+    this.FPS = FPS;
 
-
-// time values used to determine how many milliseconds to wait
-//	until the next frame (dTime)
-// See animation loop below for details
-var currentTime = 0;
-var lastTime = 0;
-var dTime = 0;
+    // tLim is the number of milliseconds between each frame
+    //  (used by animation/update functions)
+    this.tLim = Math.floor(1000/FPS);
+    
+    // true as long as the animation loop is running
+    //	(set to false to pause or stop animation loop)
+    this.animating = true;
 
 
+    // time values used to determine how many milliseconds to wait
+    //	until the next frame (dTime)
+    // See animation loop below for details
+    this.currentTime = 0;
+    this.lastTime = 0;
+    this.dTime = 0;
 
-/*** INIT GAME: loads all game data and connects with the HTML5 Canvas ***/
-function initGame() {
+    // Time of game in frames (that is, how many frames passed since the game
+    //  game animation started)
+    this.gameTime = 0;
+    
+    // TODO - left off here
+
 
     /* LOAD GAME MEDIA (sounds and images) */
     // general images
-    gameImgs = new Images();
+    var gameImgs = new Images();
     gameImgs.add([
         ["payerBaseShip", "images/35_base.png"],
         ["corvetShip", "images/corvet1.png"],
@@ -40,11 +45,11 @@ function initGame() {
     gameImgs.loadImages();
 
     // player ship graphic
-    payerMassiveShip = new Image();
+    var payerMassiveShip = new Image();
     payerMassiveShip.src = "images/35_rockets.png";
 
     // general sounds
-    gameSounds = new Sounds();
+    var gameSounds = new Sounds();
     gameSounds.add([
         // add menu/gui sounds:
         ["menu_mouseover", "audio/gui/mouseover.mp3"],
@@ -66,42 +71,47 @@ function initGame() {
     gameSounds.loadSounds();
 
 
-    /* GLOBAL VARIABLES: initialize all global game variables */
-
-    // Time of game in frames (that is, how many frames passed since the game
-    //  game animation started)
-    gameTime = 0;
+    /* GLOBAL VARIABLES: initialize all  */
 
     // screen and context (painting system) variables
-    scrn = document.getElementById("screen");
-    scrnContext = scrn.getContext("2d");
+    var scrn = document.getElementById("screen");
+    var scrnContext = scrn.getContext("2d");
 
     // screen width/height
-    contextWidth = $("#screen").width();
-    contextHeight = $("#screen").height();
+    var contextWidth = $("#screen").width();
+    var contextHeight = $("#screen").height();
     // game area width/height (used by game levels if area is bigger that the screen size)
-    areaWidth = contextWidth;
-    areaHeight = contextHeight;
+    var areaWidth = contextWidth;
+    var areaHeight = contextHeight;
 
     // double canvas rendering variables
-    doubleCanvas = document.createElement("canvas");
+    var doubleCanvas = document.createElement("canvas");
     doubleCanvas.width = contextWidth;
     doubleCanvas.height = contextHeight;
-    context = doubleCanvas.getContext("2d");
+    var context = doubleCanvas.getContext("2d");
 
     // global game settings object
-    settings = new Settings();
+    var settings = new Settings();
 
     // key press values (checks which keys are pressed)
-    keyUpDown = false;
-    keyDownDown = false;
-    keyLeftDown = false;
-    keyRightDown = false;
-    keyShootDown = false;
-    keyEscDown = false;
+    var keyUpDown = false;
+    var keyDownDown = false;
+    var keyLeftDown = false;
+    var keyRightDown = false;
+    var keyShootDown = false;
+    var keyEscDown = false;
 
 
-    /* GAME LEVEL AND MENU: set up the menus and levels */
+/* GAME LEVEL AND MENU (for future reference and
+    initializing the game…
+    This is where the currentLevel and mainMenu global
+        variables get created, and this is where the
+        game update system loads.
+    This set of functions is called only after the entire
+        javascript/web page is loaded.
+*/
+//levels and loading (when everything is ready, start game)
+$(document).ready(function(){
     
     // create the options menu (set the back function to the main menu)
     optionsMenu = new OptionsMenu(function(){
@@ -157,12 +167,12 @@ function initGame() {
         currentLevel = mainMenu;
     });
     
-    // create the global currentLevel, and set it to be the
+    // create the GLOBAL currentLevel, and set it to be the
     //  main menu (currentLevel is either a menu or actual level)
     currentLevel = mainMenu;
     
     
-    /* MOUSE LISTENERS */
+    /***** ADD MOUSE LISTENERS *****/
     /* Mouse listener functions (click)
      *  These functions are used to listen for mouse clicks
      *  in menu screens and active levels. Levels which are not menus or any
@@ -193,13 +203,11 @@ function initGame() {
     // set last time to now
     lastTime = new Date().getTime();
     updateGame();
-
-}
-// END OF INIT FUNCTION -----
+});
 
 
 
-/*** ADD KEYBOARD LISTENERS ***/
+/***** ADD KEYBOARD LISTENERS *****/
 /* Keyboard listeners register a button when it is pressed,
  *	and un-register a button when it is released. Levels or menus
  *	can use the input from these events together with the key bindings
@@ -303,10 +311,8 @@ $(document).keyup(function(event){
    });
 
 
-
-/*** UPDATE GAME FUNCTION ***/
 /* Main update function called by timer interval,
- *   updates after initGame() is called in the beginning
+ *   updates after init() is called in the beginning
  *   of the script.
  */
 function updateGame(){
