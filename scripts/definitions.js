@@ -6,7 +6,7 @@
 
 
 // Angle values (relative to screen orientation):
-//	Angle 0 starts on the right and goes clockwise.
+//  Angle 0 starts on the right and goes clockwise.
 var ANGLE_RIGHT = 0;          // 0 degrees (facing right of the screen)
 var ANGLE_UP    = -Math.PI/2; // 90 degrees (facing up)
 var ANGLE_LEFT  = Math.PI;    // 180 degrees (facing left of the screen)
