@@ -12,7 +12,7 @@ function Timer(interval){
     // set a new interval to this event (change it from the last one)
     this.set = function(interval){
         this.interval = gameTime + interval;
-		// this.reactivate(); // reactivate in case it was deactivated
+        // this.reactivate(); // reactivate in case it was deactivated
     }
     
     // check if the timer's interval value is up-to-date with

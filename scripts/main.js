@@ -12,12 +12,12 @@ var FPS = 30;
 //  (used by animation/update functions)
 var tLim = Math.floor(1000/FPS);
 // true as long as the animation loop is running
-//	(set to false to pause or stop animation loop)
+//  (set to false to pause or stop animation loop)
 var animating = true;
 
 
 // time values used to determine how many milliseconds to wait
-//	until the next frame (dTime)
+//  until the next frame (dTime)
 // See animation loop below for details
 var currentTime = 0;
 var lastTime = 0;
@@ -180,8 +180,8 @@ function initGame() {
             currentLevel.mouseup(x, y);
         });
     // Mouse movement listener: used to listen to mouse motion.
-    //	currentLevel objects that do not use this function simply
-    //	ignore the function call.
+    //  currentLevel objects that do not use this function simply
+    //  ignore the function call.
     $("#screen").mousemove(function(e){
             var x = e.pageX - $("#screen").offset().left;
             var y = e.pageY - $("#screen").offset().top;
@@ -201,11 +201,11 @@ function initGame() {
 
 /*** ADD KEYBOARD LISTENERS ***/
 /* Keyboard listeners register a button when it is pressed,
- *	and un-register a button when it is released. Levels or menus
- *	can use the input from these events together with the key bindings
- *	object to create interactive user environments.
+ *  and un-register a button when it is released. Levels or menus
+ *  can use the input from these events together with the key bindings
+ *  object to create interactive user environments.
  * These functions also prevent default Javascript actions
- *	when buttons are pressed.
+ *  when buttons are pressed.
  */
 // keyboard button press listener
 $(document).keydown(function(event){
@@ -306,8 +306,8 @@ $(document).keyup(function(event){
 
 /*** UPDATE GAME FUNCTION ***/
 /* Main update function called by timer interval,
- *   updates after initGame() is called in the beginning
- *   of the script.
+ *  updates after initGame() is called in the beginning
+ *  of the script.
  */
 function updateGame(){
 
@@ -329,7 +329,7 @@ function updateGame(){
     currentTime = new Date().getTime();
     
     // set call next frame in the time of the maximum milliseconds between frames
-    //	minus the difference of current time (this frame) and last time (last frame)
+    //  minus the difference of current time (this frame) and last time (last frame)
     // dTime is the time to wait until calling the next frame
     dTime = tLim - (currentTime - lastTime);
     
@@ -338,11 +338,11 @@ function updateGame(){
         dTime = 1;
     
     // set lastTime to now plus dTime (the time it would take to get to next frame
-    //	if animation and updates took no time)
+    //  if animation and updates took no time)
     lastTime = currentTime + dTime;
 
     // if animating is TRUE (game is not stopped or paused) set the next update call
-    //	in dTime milliseconds
+    //  in dTime milliseconds
     if(animating)
         setTimeout(updateGame, dTime);
 }

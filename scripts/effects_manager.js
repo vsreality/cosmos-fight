@@ -12,7 +12,7 @@
 // Parameter: gameObj to control, must be a GameObject interface.
 function EffectsManager(gameObj) {
 
-	// keep track of the game object
-	this.gameObj = gameObj;
-	
+    // keep track of the game object
+    this.gameObj = gameObj;
+    
 }

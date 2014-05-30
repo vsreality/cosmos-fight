@@ -37,19 +37,19 @@ function StandardMissile(startX, startY, targetX, targetY,
     // destination locations of the missile (where it detonates)
     this.targetX = targetX;
     this.targetY = targetY;
-	
-	// calculate the orientation angle using the start and target locations
+    
+    // calculate the orientation angle using the start and target locations
     var distX = targetX - startX;
     var distY = targetY - startY;
-	this.angle = Math.atan(distY/distX);
+    this.angle = Math.atan(distY/distX);
     if(distX < 0)
         this.angle += Math.PI;
-	
-	// bullet speed (x and y)
-	this.speed = speed;
+    
+    // bullet speed (x and y)
+    this.speed = speed;
     this.speedX = speed*Math.cos(this.angle)*(30/FPS); // scaled speed by FPS
     this.speedY = speed*Math.sin(this.angle)*(30/FPS); // scaled speed by FPS
-	
+    
     // a link to the parent system (that contains this missile - such as enemySys)
     this.parentSys = parentSys;
     
@@ -58,19 +58,19 @@ function StandardMissile(startX, startY, targetX, targetY,
         .addObject(new cTriangle({x:-10,y:-4},{x:-10,y:4},{x:10,y:-4})) // body 1
         .addObject(new cTriangle({x:-10,y:4},{x:10,y:-4},{x:10,y:4}))   // body 2
         .addObject(new cTriangle({x:10,y:-4},{x:10,y:4},{x:15,y:0}));   // head
-	this.collision.parent = this;
-	
+    this.collision.parent = this;
+    
     // set the speed (x and y) of this missile manually
-	this.setSpeedX = function(speedX){
-		this.speedX = speedX * (30/FPS);
-		return this;
-	}
-	this.setSpeedY = function(speedY){
-		this.speedY = speedY * (30/FPS);
-		return this;
-	}
-	
-	// the amount of damage this bullet inflicts on hit
+    this.setSpeedX = function(speedX){
+        this.speedX = speedX * (30/FPS);
+        return this;
+    }
+    this.setSpeedY = function(speedY){
+        this.speedY = speedY * (30/FPS);
+        return this;
+    }
+    
+    // the amount of damage this bullet inflicts on hit
     this.damage = damage;
     
     // the blast radius (when the missile explodes, blast radius
@@ -81,8 +81,8 @@ function StandardMissile(startX, startY, targetX, targetY,
     
     // set up targets
     this.targetList = targetList;
-	
-	// color of the missile (animation color)
+    
+    // color of the missile (animation color)
     this.color = "#000000";
     
     // find sign of distance between the x-coordinates and then y-coordinates of
@@ -90,8 +90,8 @@ function StandardMissile(startX, startY, targetX, targetY,
     this.xSign = getSign(this.getX()-this.targetX);
     this.ySign = getSign(this.getY()-this.targetY);
     
-	// update function: update the missile x and y position on the
-	//	bases of x and y speed values.
+    // update function: update the missile x and y position on the
+    //  bases of x and y speed values.
     this.update = function(){
         // get the signs of the current non-absolute distance calculations
         var curXsign = getSign(this.getX()-this.targetX)

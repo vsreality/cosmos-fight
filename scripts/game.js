@@ -15,12 +15,12 @@ function Game(FPS, canvas_name) {
     this.tLim = Math.floor(1000/FPS);
     
     // true as long as the animation loop is running
-    //	(set to false to pause or stop animation loop)
+    //  (set to false to pause or stop animation loop)
     this.animating = true;
 
 
     // time values used to determine how many milliseconds to wait
-    //	until the next frame (dTime)
+    //  until the next frame (dTime)
     // See animation loop below for details
     this.currentTime = 0;
     this.lastTime = 0;

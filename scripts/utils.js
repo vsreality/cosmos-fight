@@ -2,29 +2,29 @@
 
 // POINT: contains an x and y position
 function Point(x, y) {
-	this.x = x;
-	this.y = y;
+    this.x = x;
+    this.y = y;
 }
 
 // VECTOR: contains an x and y direction
 function Vector(x, y) {
-	this.x = x;
-	this.y = y;
+    this.x = x;
+    this.y = y;
 }
 
 // TRIANGLE: described by three points p1, p2 and p3
-//	which together form the verticies of the triangle.
+//  which together form the verticies of the triangle.
 function Triangle(p1, p2, p3) {
-	this.p1 = p1;
-	this.p2 = p2;
-	this.p3 = p3;
+    this.p1 = p1;
+    this.p2 = p2;
+    this.p3 = p3;
 }
 
 // CIRCLE: described by an x and y position as the circle's
-//	center, and a radius.
+//  center, and a radius.
 function Circle(center, radius) {
-	this.c = center;
-	this.r = radius;
+    this.c = center;
+    this.r = radius;
 }
 
 
@@ -32,8 +32,8 @@ function Circle(center, radius) {
 /* GLOBAL FUNCTIONS */
 
 // TODO - (possibly) add these functions into a class:
-//	e.g. Cosmos.getRandNum(), or cosmos.pathRoundedRectangle(), etc.
-//	or Utils.strEndsWith("asdf")
+//  e.g. Cosmos.getRandNum(), or cosmos.pathRoundedRectangle(), etc.
+//  or Utils.strEndsWith("asdf")
 
 // returns a random number from 0 to the given range
 function getRandNum(range){
@@ -48,25 +48,25 @@ function secToFrames(sec){
 
 // Create path of rounded rectangle on context
 function pathRoundedRectangle(ctx,x,y,w,h,r){
-	// start point (upper left corner [after the arc])
-	ctx.moveTo(x+r, y);
-	// top line
-	ctx.lineTo(x+w-r, y);
-	// arc in upper right corner (all arcs are quarter circles of radius 10)
-	// arc: centerX, centerY, radius, startAngle, endAngle, clockwise
-	ctx.arc(x+w-r, y+r, r, -Math.PI/2, 0, false);
-	// right side line
-	ctx.lineTo(x+w, y+h-r);
-	// lower right corner arc
-	ctx.arc(x+w-r, y+h-r, r, 0, Math.PI/2, false);
-	// bottom line
-	ctx.lineTo(x+r, y+h);
-	// lower left corner
-	ctx.arc(x+r, y+h-r, r, Math.PI/2, Math.PI, false);
-	// left side line
-	ctx.lineTo(x, y+r);
-	// upper left corner
-	ctx.arc(x+r, y+r, r, Math.PI, 3*Math.PI/2, false);
+    // start point (upper left corner [after the arc])
+    ctx.moveTo(x+r, y);
+    // top line
+    ctx.lineTo(x+w-r, y);
+    // arc in upper right corner (all arcs are quarter circles of radius 10)
+    // arc: centerX, centerY, radius, startAngle, endAngle, clockwise
+    ctx.arc(x+w-r, y+r, r, -Math.PI/2, 0, false);
+    // right side line
+    ctx.lineTo(x+w, y+h-r);
+    // lower right corner arc
+    ctx.arc(x+w-r, y+h-r, r, 0, Math.PI/2, false);
+    // bottom line
+    ctx.lineTo(x+r, y+h);
+    // lower left corner
+    ctx.arc(x+r, y+h-r, r, Math.PI/2, Math.PI, false);
+    // left side line
+    ctx.lineTo(x, y+r);
+    // upper left corner
+    ctx.arc(x+r, y+r, r, Math.PI, 3*Math.PI/2, false);
 }
 
 // returns the distance between two points, given by coordinates
@@ -75,9 +75,9 @@ function getDistance(x1, y1, x2, y2){
 }
 
 // returns the distance between two points (squared, for optimization),
-//	given by coordinates
+//  given by coordinates
 function getDistance2(x1, y1, x2, y2){
-	return ((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+    return ((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
 }
 
 // returns 1 if positive, -1 if negative, or 0 if 0
@@ -91,7 +91,7 @@ function getSign(val){
 }
 
 // returns true if the first given string ends with the given suffix
-//	Source: http://stackoverflow.com/questions/280634/endswith-in-javascript
+//  Source: http://stackoverflow.com/questions/280634/endswith-in-javascript
 function strEndsWith(str, suffix){
-	return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
