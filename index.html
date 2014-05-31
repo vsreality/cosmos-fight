@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-
+    
     <!---------- PAGE INFO, CSS, AND FAVICON -->
     <title>Cosmos Fight</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -10,16 +10,19 @@
     <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
     
     
+    
     <!---------- INCLUDE 3RD PARTY LIBRARIES -->
     <script type="text/javascript" src="jquery.js"></script>
+    
     
     
     <!---------- INCLUDE GRAPHICS -->
     <script type="text/javascript" src="data/graphics/weapon_icons.js"></script>
     <script type="text/javascript" src="data/graphics/shield_icons.js"></script>
     <script type="text/javascript" src="data/graphics/health_icons.js"></script>
-
-
+    
+    
+    
     <!---------- INCLUDE SCRIPTS -->
 
     <!-- necessary functions, objects, and definitions used by all classes -->
@@ -29,6 +32,13 @@
 
     <!-- game object: main interactive game object management class -->
     <script type="text/javascript" src="scripts/game_object.js"></script>
+
+    <!-- manager classes (for controlling and managing game objects) -->
+    <script type="text/javascript" src="scripts/collision_manager.js"></script>
+    <script type="text/javascript" src="scripts/effects_manager.js"></script>
+    <script type="text/javascript" src="scripts/health_manager.js"></script>
+    <script type="text/javascript" src="scripts/motion_controller.js"></script>
+    <script type="text/javascript" src="scripts/team_manager.js"></script>
 
     <!-- game object abstraction and utility classes -->
     <script type="text/javascript" src="scripts/bullets.js"></script>
@@ -49,14 +59,9 @@
     <script type="text/javascript" src="scripts/settings.js"></script>
     <script type="text/javascript" src="scripts/shields.js"></script>
     <script type="text/javascript" src="scripts/space.js"></script>
-
-    <!-- manager classes (for controlling and managing game objects) -->
-    <script type="text/javascript" src="scripts/collision_manager.js"></script>
-    <script type="text/javascript" src="scripts/effects_manager.js"></script>
-    <script type="text/javascript" src="scripts/motion_controller.js"></script>
-    <script type="text/javascript" src="scripts/team_manager.js"></script>
-
-
+    
+    
+    
     <!---------- INCLUDE ENEMY SCRIPTS -->
     <script type="text/javascript" src="data/enemies/basic_enemy.js"></script>
     <script type="text/javascript" src="data/enemies/corvette_enemy.js"></script>
@@ -68,8 +73,9 @@
     <script type="text/javascript" src="data/enemies/twin_blades_boss.js"></script>
     <script type="text/javascript" src="data/enemies/vampire_enemy.js"></script>
     <script type="text/javascript" src="data/enemies/worm_enemy.js"></script>
-
-
+    
+    
+    
     <!---------- INCLUDE LEVELS -->
     <script type="text/javascript" src="levels/level1.js"></script>
     <script type="text/javascript" src="levels/level2.js"></script>
@@ -77,11 +83,13 @@
     <script type="text/javascript" src="levels/levelTest.js"></script>
     <script type="text/javascript" src="levels/APITestLevels.js"></script>
     <script type="text/javascript" src="levels/levelEnemies.js"></script>
-
-
+    
+    
+    
     <!---------- INCLUDE MAIN GAME SCRIPT (starting script of the application) -->
     <script type="text/javascript" src="scripts/main.js"></script>
-
+    
+    
 </head>
 
 
