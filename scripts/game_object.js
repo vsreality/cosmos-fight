@@ -12,10 +12,11 @@
 // GameObject class
 function GameObject() {
 
-    // this object's on-screen (x, y) coordinates and orientation angle
+    // this object's on-screen (x, y) coordinates, orientation angle, and size
     this.x = 0;
     this.y = 0;
     this.angle = ANGLE_UP;
+    this.size = 0;
     
     
     
@@ -44,6 +45,22 @@ function GameObject() {
     }
     this.getY = function() {
         return this.y;
+    }
+    
+    // Size setter and getter:
+    this.setSize = function(size) {
+        this.size = size;
+    }
+    this.getSize = function() {
+        return this.size;
+    }
+    
+    
+    
+    // Keep track of all of the object's events, and update them as they come.
+    this.events = new Array();
+    this.addEvent = function(event) {
+        this.events.push(event);
     }
     
     
@@ -108,6 +125,8 @@ function GameObject() {
     
     
     // Add an ATTACHMENT MANAGER to this object:
+    //  - weapons
+    //  - shields
     
     
     
@@ -128,12 +147,58 @@ function GameObject() {
         return this.alive;
     }
     
+    // Deactivates the object by flagging it as not alive.
+    this.deactivate = function() {
+        this.alive = false;
+    }
+    
     
     
     // Update function: update this object for this frame.
-    this.update = function() { }
+    this.update = function() {
+        // update all object controllers and managers
+        if(this.hasCollisionMngr)
+            this.getCollisionManager().update();
+        if(this.hasMotionCtrl)
+            this.getMotionController().update();
+        //if(this.hasEffectsMngr)
+        //    this.getEffectsManager().update();
+        if(this.hasHealthMngr)
+            this.getHealthManager().update();
+        //if(this.hasAttachmentsMngr)
+        //    this.hasAttachmentsManager().update();
+        //if(this.hasActionCtrl)
+        //    this.getActionController().update();
+        //if(this.hasInputMngr)
+        //    this.getInputManager().update();
+        
+        // Update all events associated with this object. If an event is fired,
+        //  its action is executed (this needs to be defined by each object
+        //  individually). The executeAction function can - and should - reset
+        //  the event if it's to be reused. If after this the event is still
+        //  flagged as dead (i.e. isAlive returns false), it will be removed.
+        for(var i=0; i<this.events.length; i++) {
+            this.events[i].update();
+            if(this.events[i].fired())
+                this.events[i].executeAction();
+            if(!this.events[i].isAlive()) {
+                this.events.splice(i, 1);
+                i--;
+            }
+        }
+    }
     
     // Draw function: animate this object on the screen.
-    this.draw = function(ctx) { }
+    // OVERRIDE to draw object-specific graphics. By default, it will draw
+    //  a red circle around the object's (x, y) position.
+    this.draw = function(ctx) {
+        ctx.save();
+        ctx.translate(this.getX(), this.getY());
+        ctx.fillStyle = "#FF0000";
+        ctx.beginPath();
+        ctx.arc(0, 0, 10, 0, ANGLE_FULL_CIRCLE);
+        ctx.fill();
+        ctx.restore();
+    }
     
 }

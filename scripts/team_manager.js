@@ -135,20 +135,14 @@ function TeamManager(lvl, teamNumber) {
             this.units[i].update();
         }
         
-        // Update all bullets.
+        // Update all bullets. If a bullet has been deactivated (most likely
+        //  from going off screen), remove it instead.
         for(var i=0; i<this.bullets.length; i++) {
-            this.bullets[i].update();
-        }
-        // Check if bullets go off screen, and if so, remove it.
-        for(var i=0; i<this.bullets.length; i++) {
-            // check if bullets go off screen
-            if(	this.bullets[i].y > areaHeight ||
-                this.bullets[i].y < 0 ||
-                this.bullets[i].x > areaWidth ||
-                this.bullets[i].x < 0){
+            if(this.bullets[i].isAlive()) {
+                this.bullets[i].update();
+            } else {
                 this.bullets.splice(i, 1);
                 i--;
-                continue;
             }
         }
         

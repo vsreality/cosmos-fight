@@ -15,4 +15,7 @@ function EffectsManager(gameObj) {
     // keep track of the game object
     this.gameObj = gameObj;
     
+    
+    this.particleSystems = new Array();
+    
 }

@@ -379,10 +379,7 @@ function enemySystem(lvl){
         // check if bullets go off screen
         for(var i=0; i<this.enemyBullets.length; i++){
             // check if bullets go off screen
-            if( this.enemyBullets[i].y > areaHeight ||
-                this.enemyBullets[i].y < 0 ||
-                this.enemyBullets[i].x > areaWidth ||
-                this.enemyBullets[i].x < 0){
+            if(!this.enemyBullets[i].isAlive()) {
                 this.enemyBullets.splice(i, 1);
                 i--;
                 continue;

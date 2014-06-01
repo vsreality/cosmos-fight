@@ -12,10 +12,11 @@
 
 // Main Bullet object: sets up an arbitrary with all necessary initial
 //  variables and internal functions.
-function Bullet(x, y, angle, speed, damage, color, size){
+function Bullet(x, y, angle, speed, damage, color, visualSize){
     
-    // Set the bullets initial location
+    // Set the bullets initial location and size (default 3)
     this.setPosition(x, y, angle);
+    this.setSize(3);
     
     // Motion controller will move this bullet object when updated each frame.
     this.setMotionController(speed, angle);
@@ -35,14 +36,15 @@ function Bullet(x, y, angle, speed, damage, color, size){
     
     // visual appearance of this bullet (color and size/thickness):
     this.color = color;
-    this.size = size;
+    this.visualSize = visualSize;
     
-    // update function: update the bullet x and y position on the
-    //  bases of x and y speed values.
-    this.update = function() {
-        this.getMotionController().update();
-        this.getCollisionManager().update();
+    // Add an off-screen event: once this bullet goes off screen, it
+    //  deactivates, flagging it for removal by the parent system.
+    var offscreenEvent = new GameEvents.OffscreenEvent(this);
+    offscreenEvent.executeAction = function() {
+        this.gameObj.deactivate();
     }
+    this.addEvent(offscreenEvent);
     
     // draw function: draw the bullet on the screen in the correct place
     this.draw = function(ctx) {
@@ -54,7 +56,7 @@ function Bullet(x, y, angle, speed, damage, color, size){
         
         // set to bullet's specified color, size, and draw it
         ctx.strokeStyle = this.color;
-        ctx.lineWidth = this.size;
+        ctx.lineWidth = this.visualSize;
         ctx.beginPath();
         ctx.moveTo(0, 3);
         ctx.lineTo(0, -3);
@@ -98,4 +100,4 @@ var BulletFactory = {
         return new Bullet(x, y, angle, speed, dmg, color, size);
     }
 
-}
+};
