@@ -52,7 +52,7 @@ function Bullet(x, y, angle, speed, damage, color, visualSize){
         
         // move to bullet's x and y position and rotate correctly
         ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle + ANGLE_DRAW_OFFSET);
+        ctx.rotate(this.getOrientation() + ANGLE_DRAW_OFFSET);
         
         // set to bullet's specified color, size, and draw it
         ctx.strokeStyle = this.color;

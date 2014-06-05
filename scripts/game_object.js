@@ -15,17 +15,17 @@ function GameObject() {
     // this object's on-screen (x, y) coordinates, orientation angle, and size
     this.x = 0;
     this.y = 0;
-    this.angle = ANGLE_UP;
+    this.orientation = ANGLE_UP;
     this.size = 0;
     
     
     
-    // Position setter: given an x, y position and (optionally) an angle.
-    //  Angle defaults to facing up if no angle is provided.
+    // Position setter: given an x, y position and (optionally) an orientation
+    //  angle. Angle defaults to facing up if no angle is provided.
     this.setPosition = function(x, y, angle) {
         this.x = x;
         this.y = y;
-        this.angle = (typeof angle !== 'undefined' ? angle : ANGLE_UP);
+        this.orientation = (typeof angle !== 'undefined' ? angle : ANGLE_UP);
     }
     
     // Position setters for each variable:
@@ -35,9 +35,10 @@ function GameObject() {
     this.setY = function(y) {
         this.y = y;
     }
-    this.setAngle = function(angle) {
-        this.angle = angle;
+    this.setOrientation = function(angle) {
+        this.orientation = angle;
     }
+    this.setAngle = this.setOrientation;
     
     // Position getters:
     this.getX = function() {
@@ -45,6 +46,9 @@ function GameObject() {
     }
     this.getY = function() {
         return this.y;
+    }
+    this.getOrientation = function() {
+        return this.orientation;
     }
     
     // Size setter and getter:

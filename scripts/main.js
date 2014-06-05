@@ -194,9 +194,6 @@ function initGame() {
     lastTime = new Date().getTime();
     updateGame();
 
-}
-// END OF INIT FUNCTION -----
-
 
 
 /*** ADD KEYBOARD LISTENERS ***/
@@ -301,6 +298,11 @@ $(document).keyup(function(event){
             keyEscDown = false;
         }
    });
+
+
+}
+// END OF INIT FUNCTION -----
+
 
 
 
