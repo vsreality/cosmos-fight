@@ -94,4 +94,9 @@ function HealthManager(gameObj) {
         if(this.health > this.maxHealth)
             this.health = this.maxHealth;
     }
+    
+    // Since shields may overwrite the applyDamage/applyHeal functions, these
+    //  defaults are set for convenience in case they are needed.
+    this.applyDamageDefault = this.applyDamage;
+    this.applyHealDefault = this.applyHeal;
 }

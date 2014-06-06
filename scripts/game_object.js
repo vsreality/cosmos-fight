@@ -126,11 +126,34 @@ function GameObject() {
             return new HealthManager(this);
     }
     
+    // A default handle for getHealthManager so that it can be reset when a
+    //  shield overwrites it.
+    this.getHealthManagerDefault = this.getHealthManager;
+    
     
     
     // Add an ATTACHMENT MANAGER to this object:
     //  - weapons
     //  - shields
+    
+    // Function to add a shield to this object. In order for a shield to be
+    //  added, the object must have an existing HealthManager. If this object
+    //  does not have a HealthManager, nothing will happen.
+    this.addShield = function(shield) {
+        if(this.hasHealthMngr) {
+            this.shield = shield;
+            this.getHealthManager = function() {
+                return this.shield.getHealthManager();
+            }
+        }
+    }
+    
+    // Removes any existing shield on this object by severing its ties with
+    //  the HealthManager and the object handle.
+    this.removeShield = function() {
+        this.getHealthManager = this.getHealthManagerDefault;
+        this.shield = false;
+    }
     
     
     
