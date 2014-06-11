@@ -7,4 +7,4 @@ http://site.vsreality.com/
 
 http://www.cs.utexas.edu/~teammco/projects/cosmos_fight/
 
-(c) 2014 VsReality
+Copyright 2014 VsReality
