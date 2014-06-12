@@ -10,7 +10,7 @@
 function Menu(){
     // add a title to this menu
     this.addTitle = function(titleText){
-        this.title = new GuiText(titleText, contextWidth/2, 60, "#AAAAFF", 30);
+        this.title = new GuiText(titleText, display.getWidth()/2, 60, "#AAAAFF", 30);
         this.title.center();
         this.guiSys.addElement(this.title);
     }
@@ -27,7 +27,7 @@ function Menu(){
     // the backFunction should be provided: this will be the function that is
     //  called by the button's click (generally, this will load the last menu)
     this.addBackButton = function(backFunction){
-        var backButton = new GuiButton("Back", 40, contextHeight-30, 18);
+        var backButton = new GuiButton("Back", 40, display.getHeight()-30, 18);
         backButton.left();
         backButton.onClick = backFunction;
         this.guiSys.addElement(backButton);
@@ -73,7 +73,7 @@ function StandardMenu(title, spacing){
     this.lineSpacing = spacing || 47;
     
     // create the background of this menu
-    this.background = new space(context);
+    this.background = new space(display.getContext());
     //Create layers of space
     this.background.createLayer(15, 4);
     this.background.createLayer(30, 2);
@@ -95,7 +95,7 @@ function StandardMenu(title, spacing){
     // add plain, non-interactive text to the menu:
     this.pushText = function(text){
         var y = 150 + (this.lineSpacing * this.lines);
-        var newLine = new GuiText(text, contextWidth/2, y, "#C35617", 18);
+        var newLine = new GuiText(text, display.getWidth()/2, y, "#C35617", 18);
         newLine.center();
         this.guiSys.addElement(newLine);
         this.lines++;
@@ -104,7 +104,7 @@ function StandardMenu(title, spacing){
     // add a standard button to the menu:
     this.pushButton = function(text){
         var y = 150 + (this.lineSpacing * this.lines);
-        var newLine = new GuiButton(text, contextWidth/2, y, 18);
+        var newLine = new GuiButton(text, display.getWidth()/2, y, 18);
         newLine.center();
         this.guiSys.addElement(newLine);
         this.lines++;
@@ -113,7 +113,7 @@ function StandardMenu(title, spacing){
     // add a text-only button to the menu
     this.pushTextButton = function(text){
         var y = 150 + (this.lineSpacing * this.lines);
-        var newLine = createGuiTextButton(text, contextWidth/2, y, 18);
+        var newLine = createGuiTextButton(text, display.getWidth()/2, y, 18);
         newLine.center();
         this.guiSys.addElement(newLine);
         this.lines++;
@@ -134,7 +134,7 @@ function StandardMenu(title, spacing){
     
     // add the VsReality logo to this menu:
     this.addText("VsReality",
-            contextWidth-20, contextHeight-20, "#AAAAFF", 16).right();
+            display.getWidth()-20, display.getHeight()-20, "#AAAAFF", 16).right();
 }
 // set the prototype to the generic menu
 StandardMenu.prototype = new Menu();
@@ -152,7 +152,7 @@ function OptionsMenu(backFunction){
     this.addTitle("Options");
     
     // create the background of this menu
-    this.background = new space(context);
+    this.background = new space(display.getContext());
     //Create layers of space
     this.background.createLayer(15, 4);
     this.background.createLayer(30, 2);
@@ -162,11 +162,11 @@ function OptionsMenu(backFunction){
     this.addBackButton(backFunction);
     
     // add a sound-enabled button and label
-    var enableSoundLabel = new GuiText("Enable Sound", contextWidth/2, 140, "#FFFF33", 18);
+    var enableSoundLabel = new GuiText("Enable Sound", display.getWidth()/2, 140, "#FFFF33", 18);
     enableSoundLabel.right();
     this.guiSys.addElement(enableSoundLabel);
     // add the checkbox button
-    var enableSoundCheckbox = new GuiCheckboxButton(contextWidth/2 + 30, 118, 25,
+    var enableSoundCheckbox = new GuiCheckboxButton(display.getWidth()/2 + 30, 118, 25,
             (settings.soundVolume == 1)); // set checked value based on settings
     enableSoundCheckbox.left();
     enableSoundCheckbox.onClick = function(checked){
@@ -175,12 +175,12 @@ function OptionsMenu(backFunction){
     this.guiSys.addElement(enableSoundCheckbox);
     
     // add an effects level option button and label
-    var effectsLevelLabel = new GuiText("Effects", contextWidth/2, 200, "#FFFF33", 18);
+    var effectsLevelLabel = new GuiText("Effects", display.getWidth()/2, 200, "#FFFF33", 18);
     effectsLevelLabel.right();
     this.guiSys.addElement(effectsLevelLabel);
     // create the selection list button
     var selList = new Array("Off", "Low", "Medium", "High", "Ultra");
-    var effectsLevelSelection = new GuiHorizontalListButton(contextWidth/2 + 30, 170, 40, selList,
+    var effectsLevelSelection = new GuiHorizontalListButton(display.getWidth()/2 + 30, 170, 40, selList,
             settings.effectsLevel); // set effects selection based on settings
     effectsLevelSelection.left();
     effectsLevelSelection.onClick = function(id){
@@ -189,7 +189,7 @@ function OptionsMenu(backFunction){
     this.guiSys.addElement(effectsLevelSelection);
     
     // add a keybindings button
-    var keybindingsButton = new GuiButton("Key Bindings", contextWidth/2, 280, 15);
+    var keybindingsButton = new GuiButton("Key Bindings", display.getWidth()/2, 280, 15);
     keybindingsButton.center();
     this.keybindingsMenu = new KeybindingsMenu(function(){
             currentLevel = optionsMenu;
@@ -202,12 +202,12 @@ function OptionsMenu(backFunction){
     
     // create a not-logged-in label
     var notLoggedInLabel = new GuiText("You are not logged in!",
-            contextWidth/2, 360, "#999999", 18);
+            display.getWidth()/2, 360, "#999999", 18);
     notLoggedInLabel.center();
     this.guiSysLoginMessage.addElement(notLoggedInLabel);
     var logInInstructions = new GuiText(
             "To save these options permanently, please log in or create an account from the main menu.",
-            contextWidth/2, 390, "#999999", 12);
+            display.getWidth()/2, 390, "#999999", 12);
     logInInstructions.font = "Arial";
     logInInstructions.center();
     this.guiSysLoginMessage.addElement(logInInstructions);
@@ -230,7 +230,7 @@ function OptionsMenu(backFunction){
     
     // add the VsReality logo to this menu:
     this.addText("VsReality",
-            contextWidth-20, contextHeight-20, "#AAAAFF", 16).right();
+            display.getWidth()-20, display.getHeight()-20, "#AAAAFF", 16).right();
 }
 // set the prototype to the generic menu
 OptionsMenu.prototype = new Menu();
@@ -247,14 +247,14 @@ function KeybindingsMenu(backFunction){
     this.addBackButton(backFunction);
     
     // create the background of this menu
-    this.background = new space(context);
+    this.background = new space(display.getContext());
     // create layers of space
     this.background.createLayer(15, 4);
     this.background.createLayer(30, 2);
     this.background.createLayer(70, 0.5);
     
     // add movement key binding options
-    var movementLabel = new GuiText("Movement Keys", contextWidth/4, 140, "#FFFF33", 16);
+    var movementLabel = new GuiText("Movement Keys", display.getWidth()/4, 140, "#FFFF33", 16);
     movementLabel.center();
     this.guiSys.addElement(movementLabel);
     // up
@@ -275,23 +275,23 @@ function KeybindingsMenu(backFunction){
     this.guiSys.addElement(rightBinding);
     
     // add action key binding options
-    var actionLabel = new GuiText("Action Keys", 3*contextWidth/4, 140, "#FFFF33", 16);
+    var actionLabel = new GuiText("Action Keys", 3*display.getWidth()/4, 140, "#FFFF33", 16);
     actionLabel.center();
     this.guiSys.addElement(actionLabel);
     // shoot
-    var shootBinding = new GuiText("Shoot", contextWidth/2+150, 190, "#FFFFFF", 10);
+    var shootBinding = new GuiText("Shoot", display.getWidth()/2+150, 190, "#FFFFFF", 10);
     shootBinding.right();
     this.guiSys.addElement(shootBinding);
     // pause
-    var pauseBinding = new GuiText("Pause Game", contextWidth/2+150, 230, "#FFFFFF", 10);
+    var pauseBinding = new GuiText("Pause Game", display.getWidth()/2+150, 230, "#FFFFFF", 10);
     pauseBinding.right();
     this.guiSys.addElement(pauseBinding);
     // health bars toggle
-    var healthToggleBinding = new GuiText("Toggle Health Bars", contextWidth/2+150, 270, "#FFFFFF", 10);
+    var healthToggleBinding = new GuiText("Toggle Health Bars", display.getWidth()/2+150, 270, "#FFFFFF", 10);
     healthToggleBinding.right();
     this.guiSys.addElement(healthToggleBinding);
     // timer bars toggle
-    var timerToggleBinding = new GuiText("Toggle Timer Bars", contextWidth/2+150, 310, "#FFFFFF", 10);
+    var timerToggleBinding = new GuiText("Toggle Timer Bars", display.getWidth()/2+150, 310, "#FFFFFF", 10);
     timerToggleBinding.right();
     this.guiSys.addElement(timerToggleBinding);
     
@@ -309,7 +309,7 @@ function KeybindingsMenu(backFunction){
     
     // add the VsReality logo to this menu:
     this.addText("VsReality",
-            contextWidth-20, contextHeight-20, "#AAAAFF", 16).right();
+            display.getWidth()-20, display.getHeight()-20, "#AAAAFF", 16).right();
 }
 // set the prototype to the generic menu
 KeybindingsMenu.prototype = new Menu();

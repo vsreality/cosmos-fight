@@ -159,21 +159,21 @@ function GameObject() {
     // Triggers this object to fire its weapon. If no weapon is attached to
     //	this object, nothing will happen.
     this.shoot = function() {
-    	this.weapon.shoot();
+        this.weapon.shoot();
     }
     
     // Function to add a weapon to this object. A weapon will enable the
     //	object to shoot. If a weapon is already attached, it will be replaced.
     this.hasWeapon = false;
     this.setWeapon = function(weapon) {
-    	this.weapon = weapon;
-    	this.hasWeapon = true;
+        this.weapon = weapon;
+        this.hasWeapon = true;
     }
     
     // Removes any existing weapon from this object.
     this.removeWeapon = function() {
-    	this.weapon = false;
-    	this.hasWeapon = false;
+        this.weapon = false;
+        this.hasWeapon = false;
     }
     
     

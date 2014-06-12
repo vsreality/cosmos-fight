@@ -258,7 +258,7 @@ function shield(unit, innerR, innerG, innerB, outerR, outerG, outerB){
     this.drawIcon = function(ctx){
         this.drawIconBorder(ctx);
         ctx.save();
-        ctx.translate(contextWidth - 18, contextHeight-17);
+        ctx.translate(display.getWidth() - 18, display.getHeight()-17);
         this.drawEmblem(ctx);
         ctx.restore();
     }
@@ -302,8 +302,8 @@ function shield(unit, innerR, innerG, innerB, outerR, outerG, outerB){
             //      red (time remaining) and white (time spent)
             //      the gradient is moved between the ratio of the timer (100 to 0)
             // create the gradient object between the start and end points:
-            var gradient = ctx.createLinearGradient(contextWidth, contextHeight-40,
-                                                    contextWidth-40, contextHeight);
+            var gradient = ctx.createLinearGradient(display.getWidth(), display.getHeight()-40,
+                                                    display.getWidth()-40, display.getHeight());
             // check if timer is still > 0 (if not, set it to 0 to prevent errors)
             if(this.timer == 0)
                 this.timer = 0;
@@ -316,25 +316,25 @@ function shield(unit, innerR, innerG, innerB, outerR, outerG, outerB){
             
             // create the fill gradient (bright to dark coloring of the icon)
             //	going from the corner up towards the upper-right end of the icon
-            var fillGrd = ctx.createLinearGradient(contextWidth, // inner x
-                                                   contextHeight, // inner y
-                                                   contextWidth-30, // outer x
-                                                   contextHeight-30); // outer y
+            var fillGrd = ctx.createLinearGradient(display.getWidth(), // inner x
+                                                   display.getHeight(), // inner y
+                                                   display.getWidth()-30, // outer x
+                                                   display.getHeight()-30); // outer y
             fillGrd.addColorStop(0, "#404040"); // dark color
             fillGrd.addColorStop(1, "#A0A0A0"); // bright color
             ctx.fillStyle = fillGrd;//"#808080";
             
             // starting point
-            ctx.moveTo(contextWidth, contextHeight-40);
+            ctx.moveTo(display.getWidth(), display.getHeight()-40);
             // line 1 (horizontal)
-            ctx.lineTo(contextWidth - 25, contextHeight-40);
+            ctx.lineTo(display.getWidth() - 25, display.getHeight()-40);
             // line 2 (angled)
-            ctx.lineTo(contextWidth - 40, contextHeight-25);
+            ctx.lineTo(display.getWidth() - 40, display.getHeight()-25);
             // line 3 (vertical)
-            ctx.lineTo(contextWidth - 40, contextHeight);
+            ctx.lineTo(display.getWidth() - 40, display.getHeight());
             ctx.stroke(); // draw the line
             // return to origin
-            ctx.lineTo(contextWidth, contextHeight);
+            ctx.lineTo(display.getWidth(), display.getHeight());
             ctx.fill(); // fill in the background
         ctx.closePath();
         

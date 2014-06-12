@@ -9,8 +9,8 @@ function Level(){
     /***************** GAME AREA VARIABLES ****************/
      
     // set the dimensions of the game area to the current screen size
-    areaWidth = contextWidth;
-    areaHeight = contextHeight;
+    areaWidth = display.getWidth();
+    areaHeight = display.getHeight();
     
     // create the area canvas to draw if area is active
     this.areaCanvas = document.createElement("canvas");
@@ -30,7 +30,7 @@ function Level(){
     // If parameters are invalid, returns FALSE
     this.enableGameArea = function(width, height){
         // check if parameters are valid:
-        if(width < contextWidth || height < contextHeight)
+        if(width < display.getWidth() || height < display.getHeight())
             return false;
         
         // set the global variables to the new width/height
@@ -49,15 +49,15 @@ function Level(){
     //  to the screen size.
     this.disableGameArea = function(){
         // reset the global variables to the screen size
-        areaWidth = contextWidth;
-        areaHeight = contextHeight;
+        areaWidth = display.getWidth();
+        areaHeight = display.getHeight();
         
         // make sure player also resets if the current position is out
         //  of the bounds of the smaller area
-        if(this.player.x > contextWidth-15)
-            this.player.x = contextWidth-15;
-        if(this.player.y > contextHeight-17)
-            this.player.y = contextHeight-17;
+        if(this.player.x > areaWidth-15)
+            this.player.x = areaWidth-15;
+        if(this.player.y > areaHeight-17)
+            this.player.y = areaHeight-17;
     
         // untoggle the flag as false
         this.areaEnabled = false;
@@ -69,7 +69,7 @@ function Level(){
     this.player = new Player();
     
     // space (the background of stars (space background)
-    this.space = new space(context);
+    this.space = new space(display.getContext());
     //Create layers of space
     this.space.createLayer(25, 4);
     this.space.createLayer(50, 2);
@@ -99,13 +99,13 @@ function Level(){
     this.guiSys = new GuiSystem();
     this.guiSys.level = this;
     //a rectangle that dims the screen when the menu is displayed
-    this.guiSys.addElement(new GuiFillRectangle(0,0,contextWidth,contextHeight)).style = function(ctx){
+    this.guiSys.addElement(new GuiFillRectangle(0,0,display.getWidth(),display.getHeight())).style = function(ctx){
         ctx.globalAlpha = 0.65;
         ctx.fillStyle = "#000000";
     }
     //add the rounded rectangle that contains the actual menu
     this.guiSys.addElement(
-            new GuiRoundedRectangle(contextWidth/2,70,240,180,10))
+            new GuiRoundedRectangle(display.getWidth()/2,70,240,180,10))
         .center()
         .style = function(ctx){
                 ctx.globalAlpha = 0.85;
@@ -113,10 +113,10 @@ function Level(){
                 ctx.fillStyle = "#000000";
         }
     //add the title of the menu
-    this.guiSys.addElement(new GuiText("Game Menu", contextWidth/2, 100, "#AAAAFF", 18)).center();
+    this.guiSys.addElement(new GuiText("Game Menu", display.getWidth()/2, 100, "#AAAAFF", 18)).center();
     //add the restart level button
     this.restartButton = this.guiSys.addElement(
-            createGuiTextButton("Restart Level",contextWidth/2, 150, 14));
+            createGuiTextButton("Restart Level",display.getWidth()/2, 150, 14));
     this.restartButton.center();
     //add a reference to the load level function here (set in the setLoadLevel function)
     this.restartButton.loadLevel = function(){}; // do nothing by default
@@ -125,12 +125,12 @@ function Level(){
             currentLevel = this.loadLevel();
         }
     //add a button to return to the level menu
-    this.guiSys.addElement(createGuiTextButton("Exit to Menu",contextWidth/2, 190, 14)).center()
+    this.guiSys.addElement(createGuiTextButton("Exit to Menu",display.getWidth()/2, 190, 14)).center()
         .onClick = function(){
             currentLevel = levelMenu;
         }
     //add a button to resume the game (resumes the game and makes the pause menu go away)
-    this.guiSys.addElement(createGuiTextButton("Resume Game",contextWidth/2, 230, 14)).center()
+    this.guiSys.addElement(createGuiTextButton("Resume Game",display.getWidth()/2, 230, 14)).center()
         .onClick = function(){
             currentLevel.paused=false;
         }
@@ -374,8 +374,8 @@ function Level(){
         
         // create a special death text message
         var deathText = new textObject(
-                            contextWidth/2,
-                            contextHeight/2 - 20,
+                            display.getWidth()/2,
+                            display.getHeight()/2 - 20,
                             "You have died!",
                             "30pt MainFont",
                             "#FF0000",
@@ -388,8 +388,8 @@ function Level(){
         if(this.player.lives > 1){
             // create a score loss by 10% message
             var continueText = new textObject(
-                                 contextWidth/2, // center on screen by width
-                                 contextHeight/2 + 10, // center by Y + offset of 10
+                                 display.getWidth()/2, // center on screen by width
+                                 display.getHeight()/2 + 10, // center by Y + offset of 10
                                  "You lose 10% of your score", // message
                                  "12pt MainFont", // font
                                  "#FF0000", // red color
@@ -401,8 +401,8 @@ function Level(){
         // otherwise create a message indicating game over
         else{
             var continueText = new textObject(
-                                contextWidth/2, // center on screen by width
-                                contextHeight/2 + 10, // center by Y + offset of 10
+                                display.getWidth()/2, // center on screen by width
+                                display.getHeight()/2 + 10, // center by Y + offset of 10
                                 "Game Over! (you have no more lives left)", // message
                                 "12pt MainFont", // font
                                 "#FF0000", // red color
@@ -413,8 +413,8 @@ function Level(){
         
         // create a click-to-continue text message
         var continueText = new textObject(
-                            contextWidth/2,
-                            contextHeight/2 + 50,
+                            display.getWidth()/2,
+                            display.getHeight()/2 + 50,
                             "Click on the screen to continue",
                             "12pt MainFont",
                             "#A0A0A0",
@@ -883,30 +883,30 @@ function Level(){
             //  or contextWidth (scaleX is 1) to pan the viewport correctly.
             // scaleX is the ratio: 0 means player is completely to the left, 1 means
             //  player is completely to the right
-            var viewLeftX = this.player.x - (contextWidth*scaleX);
+            var viewLeftX = this.player.x - (display.getWidth()*scaleX);
             // make sure that the left side of the viewport is at least 0
             if(viewLeftX < 0)
                 viewLeftX = 0;
             // make sure that the left side of the viewport is at least one screen-size
             //  (contextWidth) away from the right edge of the screen
-            else if(viewLeftX + contextWidth > areaWidth)
-                viewLeftX = areaWidth - contextWidth;
+            else if(viewLeftX + display.getWidth() > areaWidth)
+                viewLeftX = areaWidth - display.getWidth();
             
             // do the same for the Y-position (top edge of the viewport)
             var scaleY = (1/areaHeight)*this.player.y;
-            var viewTopY = this.player.y - (contextHeight*scaleY);
+            var viewTopY = this.player.y - (display.getHeight()*scaleY);
             if(viewTopY < 0)
                 viewTopY = 0;
-            else if(viewTopY + contextHeight > areaHeight)
-                viewTopY = areaHeight - contextHeight;
+            else if(viewTopY + display.getHeight() > areaHeight)
+                viewTopY = areaHeight - display.getHeight();
             
             // now draw the image of the area canvas (cropped to the position calculated
             //  above) to the actual canvas
-            ctx.drawImage(this.areaCanvas,				// draw the area canvas to the actual screen
-                          viewLeftX, viewTopY,			// top left corner of the area image to draw
-                          contextWidth, contextHeight,	// width and height of the image to draw
-                          0, 0,							// top left corner of the main screen to draw on
-                          contextWidth, contextHeight);	// width and height of the screen to draw on
+            ctx.drawImage(this.areaCanvas, // draw the area canvas to the actual screen
+                          viewLeftX, viewTopY, // top left corner of the area image to draw
+                          display.getWidth, display.getHeight(), // width and height of the image to draw
+                          0, 0, // top left corner of the main screen to draw on
+                          display.getWidth(), display.getHeight()); // width and height of the screen to draw on
         }
         
         
@@ -925,7 +925,7 @@ function Level(){
             ctx.globalAlpha = 0.6;
             //ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
             ctx.fillStyle = "#000000";
-            ctx.fillRect(0, 0, contextWidth, contextHeight);
+            ctx.fillRect(0, 0, display.getWidth(), display.getHeight());
             ctx.restore();
         }
         
@@ -1032,8 +1032,8 @@ function Level(){
     // create big message text
     this.createBigText = function(message, duration, fadeTime){
         var newWarning = new textObject(
-                                 contextWidth/2,
-                                 contextHeight/2,
+                                 display.getWidth()/2,
+                                 display.getHeight()/2,
                                  message,
                                  "36pt MainFont",
                                  "#FFFF00",
@@ -1045,8 +1045,8 @@ function Level(){
     // create warning message text
     this.createWarningText = function(message, duration, fadeTime){
         var newWarning = new textObject(
-                                 contextWidth/2,
-                                 contextHeight/2,
+                                 display.getWidth()/2,
+                                 display.getHeight()/2,
                                  message,
                                  "16pt MainFont", //"20pt MainFont",
                                  "#82CAFF", //"#FF3366",
@@ -1241,8 +1241,8 @@ function dialogSystem(lvl){
     
     // x and y position that any dialog box in this dialog system
     //  is centered on
-    this.x = contextWidth/2;
-    this.y = contextHeight-90;
+    this.x = display.getWidth()/2;
+    this.y = display.getHeight()-90;
     
     // array that contains all of the active queued dialog boxes
     this.dialogs = new Array();
@@ -1585,8 +1585,8 @@ function textObject(x, y, text, font, color, timeToLive, fadeTime){
     
     // center the text on the given x, y values using the
     //  given FONT value
-    context.font = font;
-    this.x = x - context.measureText(text).width / 2;
+    display.getContext().font = font;
+    this.x = x - display.getContext().measureText(text).width / 2;
     this.y = y;
     
     // scale intervals to current framerate

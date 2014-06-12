@@ -322,16 +322,16 @@ function Player(){
                 // set up the gradient (center to edge of decreasingly
                 //  transparent red coloring)
                 var grd = ctx.createRadialGradient(
-                        contextWidth/2, // inner x (center of screen)
-                        contextHeight/2, // inner y (center of screen)
+                        display.getWidth()/2, // inner x (center of screen)
+                        display.getHeight()/2, // inner y (center of screen)
                         0, // inner radius (staring at 0, center)
-                        contextWidth/2, // outer x (center of screen as well)
-                        contextHeight/2, // outer y (center of screen as well)
-                        contextWidth/2); // outer radius: half of screen width
+                        display.getWidth()/2, // outer x (center of screen as well)
+                        display.getHeight()/2, // outer y (center of screen as well)
+                        display.getWidth()/2); // outer radius: half of screen width
                 grd.addColorStop(0, "rgba(255, 0, 0, 0)"); // inner color (transparent)
                 grd.addColorStop(1, "rgba(255, 0, 0, 0.4)"); // outer color (faded red)
                 ctx.fillStyle = grd;
-                ctx.fillRect(0, 0, contextWidth, contextHeight);
+                ctx.fillRect(0, 0, display.getWidth(), display.getHeight());
             ctx.restore();
         }
         
@@ -341,9 +341,9 @@ function Player(){
         ctx.fillStyle = "rgba(255, 102, 102, 0.7)";
         ctx.strokeStyle = "#CCFFCC";
         ctx.lineWidth = 2;
-        ctx.fillRect(contextWidth-250, 15,
+        ctx.fillRect(display.getWidth()-250, 15,
             235 * (this.health / 100), 15);
-        ctx.strokeRect(contextWidth-250, 15, 235, 15);
+        ctx.strokeRect(display.getWidth()-250, 15, 235, 15);
         
         // draw the texts (health and score)
         ctx.fillStyle = "#CCFFCC"; // text color
@@ -352,7 +352,7 @@ function Player(){
         var textWidth = ctx.measureText(healthText).width;
         // draw health text (in the center of health bar):
         ctx.fillText(healthText,
-            contextWidth-250 + 117 - textWidth/2, // x-pos
+            display.getWidth()-250 + 117 - textWidth/2, // x-pos
             27); // y-pos
         
         ctx.font = "18pt MainFont"; // text font/size for score
@@ -376,7 +376,7 @@ function Player(){
         //      taking half of the offset from either side, we get +12.5 offset from the right
         //      the hearts are 10 pixels wide, so we leave room for +10 pixels.
         //      10 + 15 + 12.5 = 37.5 ; we round down to 37.
-        var heartX = contextWidth - 37;
+        var heartX = display.getWidth() - 37;
         // heartY is simply a good y-position under the healthbar.
         var heartY = 45;
         //currentLevel.player.lives = 10;

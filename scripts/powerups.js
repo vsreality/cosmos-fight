@@ -30,7 +30,7 @@ function bonus(x,y, lifeTime){
     this.collision.parent = this;
     
     // create radial gradient
-    this.grd = context.createRadialGradient(2, -2, this.r*0.15, 0, 0, this.r*0.85);
+    this.grd = display.getContext().createRadialGradient(2, -2, this.r*0.15, 0, 0, this.r*0.85);
     
     // label is the text associated with this bonus (usually pops up
     //  as floating text when the user collects it)
@@ -53,7 +53,7 @@ function bonus(x,y, lifeTime){
     this.update = function(){
         // if the bonus is above the top third of the screen, move it down
         //  to be more easily reachable by the player.
-        if(this.y < contextHeight/3)
+        if(this.y < display.getHeight()/3)
             this.y += this.speedY;
     }
     

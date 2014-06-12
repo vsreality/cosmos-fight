@@ -71,25 +71,18 @@ function initGame() {
     // Time of game in frames (that is, how many frames passed since the game
     //  game animation started)
     gameTime = 0;
+    
+    // create the Display object to contain pointers to the canvas and context
+    display = new Display("screen");
+    
+    // TODO - remove this
+    areaWidth = display.getWidth();
+    areaHeight = display.getHeight();
+    
+    // create the GameWorld object
+    world = new GameWorld(display.getWidth(), display.getHeight());
 
-    // screen and context (painting system) variables
-    scrn = document.getElementById("screen");
-    scrnContext = scrn.getContext("2d");
-
-    // screen width/height
-    contextWidth = $("#screen").width();
-    contextHeight = $("#screen").height();
-    // game area width/height (used by game levels if area is bigger that the screen size)
-    areaWidth = contextWidth;
-    areaHeight = contextHeight;
-
-    // double canvas rendering variables
-    doubleCanvas = document.createElement("canvas");
-    doubleCanvas.width = contextWidth;
-    doubleCanvas.height = contextHeight;
-    context = doubleCanvas.getContext("2d");
-
-    // global game settings object
+    // global game Settings object
     settings = new Settings();
 
     // key press values (checks which keys are pressed)
@@ -321,11 +314,11 @@ function updateGame(){
     }
     
     // clear the screen and redraw background
-    context.clearRect(0, 0, contextWidth, contextHeight);
+    display.clear();
     // draw the current level
-    currentLevel.draw(context);
-    scrnContext.clearRect(0, 0, contextWidth, contextHeight);
-    scrnContext.drawImage(doubleCanvas, 0, 0);
+    currentLevel.draw(display.getContext());
+    // render the context to the main canvas
+    display.render();
     
     // find what the current time is
     currentTime = new Date().getTime();

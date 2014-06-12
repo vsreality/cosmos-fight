@@ -132,6 +132,8 @@ function GuiText(text, x, y, color, size){
     this.y = y;
     this.size = size;
     
+    var context = display.getContext();
+    
     this.font = "MainFont";
     context.font = "" + this.size + "pt " + this.font;
     this.width = context.measureText(this.text).width;
@@ -237,6 +239,8 @@ function GuiButton(text, x, y, size){
         else
             this.mode = GUI_BUTTON_NORMAL;
     }
+    
+    var context = display.getContext();
     
     // determine the width of the button's text using context measureText function
     context.font = "" + this.size + "pt MainFont";
