@@ -1,12 +1,12 @@
-/* File comments updated: Friday, May 11, 2012 at 9:49 PM
+/* File: player.js
  *
- *  PLAYER CLASS
+ * Contains the Player object definition. The Player object is a special
+ * instance of GameObject controlled by the user. The Player object is a
+ * unique space ship which can be equipped with shields, weapons, and can
+ * move within the game world.
  */
  
 
-/* Main player constructor: sets up player with all necessary
- *      initial variables.
- */
 function Player(){
     // reference to the level's enemy system (for weapon targetting)
     this.enemySys = null;
