@@ -132,14 +132,12 @@ function GameObject() {
     
     
     
-    // Add an ATTACHMENT MANAGER to this object:
-    //  - weapons
-    //  - shields
-    
     // Function to add a shield to this object. In order for a shield to be
     //  added, the object must have an existing HealthManager. If this object
-    //  does not have a HealthManager, nothing will happen.
-    this.addShield = function(shield) {
+    //  does not have a HealthManager, nothing will happen. If a shield is
+    //	already attached, the existing shield will be replaced.
+    this.hasShield = false;
+    this.setShield = function(shield) {
         if(this.hasHealthMngr) {
             this.shield = shield;
             this.getHealthManager = function() {
@@ -153,6 +151,29 @@ function GameObject() {
     this.removeShield = function() {
         this.getHealthManager = this.getHealthManagerDefault;
         this.shield = false;
+        this.hasShield = false;
+    }
+    
+    
+    
+    // Triggers this object to fire its weapon. If no weapon is attached to
+    //	this object, nothing will happen.
+    this.shoot = function() {
+    	this.weapon.shoot();
+    }
+    
+    // Function to add a weapon to this object. A weapon will enable the
+    //	object to shoot. If a weapon is already attached, it will be replaced.
+    this.hasWeapon = false;
+    this.setWeapon = function(weapon) {
+    	this.weapon = weapon;
+    	this.hasWeapon = true;
+    }
+    
+    // Removes any existing weapon from this object.
+    this.removeWeapon = function() {
+    	this.weapon = false;
+    	this.hasWeapon = false;
     }
     
     
