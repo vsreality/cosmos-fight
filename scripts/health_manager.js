@@ -80,10 +80,12 @@ function HealthManager(gameObj) {
     // Apply the given amount of damage to this object: reduce its health
     //  by that amount. If health goes below 0, it is cut off at 0.
     // Parameters: amount should be a positive value.
+    // Returns: amount of damage applied (all of it, by default).
     this.applyDamage = function(amount) {
         this.health -= amount;
         if(this.health < 0)
             this.health = 0;
+        return amount;
     }
     
     // Heal the object by the given amount of points: increase its health by

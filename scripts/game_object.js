@@ -211,8 +211,6 @@ function GameObject() {
             this.getMotionController().update();
         //if(this.hasEffectsMngr)
         //    this.getEffectsManager().update();
-        if(this.hasHealthMngr)
-            this.getHealthManager().update();
         //if(this.hasAttachmentsMngr)
         //    this.hasAttachmentsManager().update();
         //if(this.hasActionCtrl)

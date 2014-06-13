@@ -11,18 +11,31 @@ function Player(){
     // reference to the level's enemy system (for weapon targetting)
     this.enemySys = null;
 
-    // player variables
+    /*** Set Player Object values ***/
+    
     this.setPosition(areaWidth / 2, areaHeight - 30);
+    this.setSize(17);
     
-    this.r = 17; //Radius of collision
+    this.setCollisionManager(25);
+    this.getCollisionManager().addTriangle(-15, 17, 0, -18, 15, 17);
     
-    // score, health, life data
-    this.score = 0;
-    this.health = 100;
+    // this.setEffectsManager(---);
+    
+    this.setHealthManager(100);
+    
+    
+    /*// TODO - remove
+    this.collision = new standardCollision(25);
+    this.collision.parent = this;
+    this.collision.addObject(new cTriangle({x:-15,y:17},{x:0,y:-18},{x:15,y:17}));
+    //this.collision.addObject(new cCircle({x:0,y:0}, 10));*/
+    
+    /*** Set Player-specific values ***/
     this.lives = 2;
+    this.score = 0;
     
-    // animation and movement variables
     this.balance = 0;
+    // movement variables - TODO, replace with InputManager
     this.speed = 5 * (30/FPS);
     this.speedX = 0;
     this.speedY = 0;
@@ -31,6 +44,7 @@ function Player(){
     //  primarily the ship's rocket fire particle system.
     this.effectSys = new effectSystem();
     
+    // TODO - replace with TeamManager for the player
     // all bullets associated with the player
     this.bullets = new Array();
     // all lasers associated with the player
@@ -67,21 +81,13 @@ function Player(){
     this.shieldTimer.onTime = function(player){
             player.shield = noShield(this);
         };
-    
-    // Collision object
-    this.setCollisionManager(25);
-    this.getCollisionManager().addTriangle(-15, 17, 0, -18, 15, 17);
-    
-    // TODO - remove
-    this.collision = new standardCollision(25);
-    this.collision.parent = this;
-    this.collision.addObject(new cTriangle({x:-15,y:17},{x:0,y:-18},{x:15,y:17}));
-    //this.collision.addObject(new cCircle({x:0,y:0}, 10));
 
     // update function (player position based on keys currently held down,
     //  and weapons)
     this.update = function(){
+        // TODO - all of these should be in GameObject, so remove them
         this.getCollisionManager().update();
+        
         // update the weapon timer
         this.weaponTimer.update();
         
@@ -310,6 +316,7 @@ function Player(){
         ctx.restore();
     }
     
+    // TODO - move to a different hud/gui class
     // draw GUI function: draws the GUI components of the player, including
     //  the health bar, score and indicator icons. This is drawn relative to
     //  the screen exactly. The parameter should be the MAIN CANVAS CONTEXT.
