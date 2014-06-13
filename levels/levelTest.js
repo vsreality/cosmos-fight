@@ -139,7 +139,7 @@ function createLevelTest2(){
     
 	// create vampire enemy test
 	/*testLevel.addPhase(function(lvl){
-		var vEnemy = vampireEnemy(contextWidth/2, 100, 0, 4);
+		var vEnemy = vampireEnemy(display.getWidth()/2, 100, 0, 4);
 		lvl.enemySys.addEnemy(vEnemy);
 	});
 	

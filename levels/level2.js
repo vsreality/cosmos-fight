@@ -22,9 +22,9 @@ function createLevel2(){
 	
 	level2.initEvents = function(){
 		this.bonusSys.createHealthBonus(50, 75, 300);
-		this.bonusSys.createHealthBonus(contextWidth-50, 75, 300);
-		this.bonusSys.createHealthBonus(50, contextHeight-50, 300);
-		this.bonusSys.createHealthBonus(contextWidth-50, contextHeight-50, 300);
+		this.bonusSys.createHealthBonus(display.getWidth()-50, 75, 300);
+		this.bonusSys.createHealthBonus(50, display.getHeight()-50, 300);
+		this.bonusSys.createHealthBonus(display.getWidth()-50, display.getHeight()-50, 300);
 	}
 	
 	//Phase 1 Create 30 enemies
@@ -79,17 +79,17 @@ function createLevel2(){
 		// create extra bonuses
 		lvl.bonusSys.createHealthBonus(100, 200, 90);
 		lvl.bonusSys.createHealthBonus(200, 200, 90);
-		lvl.bonusSys.createTrippleGunBonus(contextWidth/2, 250, 90);
-        lvl.bonusSys.createTrippleGunBonus(contextWidth/2, 350, 90);
-        lvl.bonusSys.createHealthBonus(contextWidth-200, 200, 90);
-		lvl.bonusSys.createHealthBonus(contextWidth-100, 200, 90);
+		lvl.bonusSys.createTrippleGunBonus(display.getWidth()/2, 250, 90);
+        lvl.bonusSys.createTrippleGunBonus(display.getWidth()/2, 350, 90);
+        lvl.bonusSys.createHealthBonus(display.getWidth()-200, 200, 90);
+		lvl.bonusSys.createHealthBonus(display.getWidth()-100, 200, 90);
 		lvl.createEvent(secToFrames(8)).onTime = function(l){
 			l.healBy = 5;
 			for(var i=0; i<20; i++){// Create 20 small enemies
 				l.enemySys.createEnemy();
 			}
 			for(var i=0; i<5; i++){// Create 5 small bosses
-				l.enemySys.addEnemy(miniBoss1(getRandNum(contextWidth-60) + 30, -50, Math.PI/2, 1));
+				l.enemySys.addEnemy(miniBoss1(getRandNum(display.getWidth()-60) + 30, -50, Math.PI/2, 1));
 			}
 			l.createLoopedEvent(1).onTime = function(l){
 				if(l.enemyCount() == 0){

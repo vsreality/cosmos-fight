@@ -258,22 +258,22 @@ function vampireEnemy(x, y, angle, speed){
 	//	in reach of the player's attacks.
 	newEnemy.findEvasionPoint = function(){
 		// randomly choose a point x, y on the upper half of the screen (50 px margins)
-		var evadeToY = getRandNum(contextHeight/2)+25;
-		var evadeToX = getRandNum(contextWidth);
+		var evadeToY = getRandNum(display.getHeight()/2)+25;
+		var evadeToX = getRandNum(display.getWidth());
 		
 		// if player X is within 30% of the screen width of evadeToX value,
 		//	add or substract 50% of the screen width (and adjust overflow to other
 		//	side of screen if it goes off screen).
 		var plyr = this.enemySys.lvl.player;
-		if(Math.abs(plyr.getX() - evadeToX) <= contextWidth/10 * 3){
-			var modify = contextWidth/2;
+		if(Math.abs(plyr.getX() - evadeToX) <= display.getWidth()/10 * 3){
+			var modify = display.getWidth()/2;
 			if((plyr.getX() - evadeToX) > 0)
 				modify *= -1;
 			evadeToX += modify;
 			if(evadeToX < 0){
-				evadeToX += contextWidth;
-			}else if(evadeToX > contextWidth){
-				evadeToX -= contextWidth;
+				evadeToX += display.getWidth();
+			}else if(evadeToX > display.getWidth()){
+				evadeToX -= display.getWidth();
 			}
 		}
 		

@@ -163,7 +163,7 @@ function createLevel1(){
 					lvl.createEvent(secToFrames(3)).onTime = function(l){
 						var boss1 = level1.enemySys.addEnemy(
 								miniBoss1(
-										contextWidth / 2,
+										display.getWidth() / 2,
 										-50, 0.6, 1));
 										
 						boss1.player = l.player;
@@ -172,8 +172,8 @@ function createLevel1(){
 							var delta = this.player.y-this.y;
 							if(Math.abs(delta-10)>20){
 								this.y += delta/Math.abs(delta)*this.speedY;
-								if(this.y>contextHeight/3)
-									this.y=contextHeight/3;
+								if(this.y>display.geteHeight()/3)
+									this.y=display.geteHeight()/3;
 							}
 								
 							if(this.x < this.player.x-20)
@@ -190,7 +190,7 @@ function createLevel1(){
 									l.createWarningText("You win! Level 1 Complete!", 3, 2);
 									
 								// create gifts
-								l.bonusSys.createExtraLifeBonus(contextWidth/2, contextHeight/2, 30);
+								l.bonusSys.createExtraLifeBonus(display.getWidth()/2, display.getHeight()/2, 30);
 								
 								var nlTimer = l.createEvent(secToFrames(5));
 								nlTimer.property = l;

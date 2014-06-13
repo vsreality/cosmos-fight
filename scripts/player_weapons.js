@@ -38,7 +38,7 @@ function weapon(unit){
     this.drawIcon = function(ctx){
         this.drawIconBorder(ctx);
         ctx.save();
-        ctx.translate(19, contextHeight-17);
+        ctx.translate(19, display.getHeight()-17);
         this.drawEmblem(ctx);
         ctx.restore();
     }
@@ -83,7 +83,7 @@ function weapon(unit){
             //      red (time remaining) and white (time spent)
             //      the gradient is moved between the ratio of the timer (100 to 0)
             // create the gradient object between the start and end points:
-            var gradient = ctx.createLinearGradient(0, contextHeight-40, 40, contextHeight);
+            var gradient = ctx.createLinearGradient(0, display.getHeight()-40, 40, display.getHeight());
             // check if timer is still > 0 (if not, set it to 0 to prevent errors)
             if(this.timer == 0)
                 this.timer = 0;
@@ -97,24 +97,24 @@ function weapon(unit){
             // create the fill gradient (bright to dark coloring of the icon)
             //  going from the corner up towards the upper-left end of the icon
             var fillGrd = ctx.createLinearGradient(0, // inner x
-                                                   contextHeight, // inner y
+                                                   display.getHeight(), // inner y
                                                    30, // outer x
-                                                   contextHeight-30); // outer y
+                                                   display.getHeight()-30); // outer y
             fillGrd.addColorStop(0, "#001144"); // dark color
             fillGrd.addColorStop(1, "#00AACC"); // bright color
             ctx.fillStyle = fillGrd;//"#003366";
             
             // starting point
-            ctx.moveTo(0, contextHeight-40);
+            ctx.moveTo(0, display.getHeight()-40);
             // line 1 (horizontal)
-            ctx.lineTo(25, contextHeight-40);
+            ctx.lineTo(25, display.getHeight()-40);
             // line 2 (angled)
-            ctx.lineTo(40, contextHeight-25);
+            ctx.lineTo(40, display.getHeight()-25);
             // line 3 (vertical)
-            ctx.lineTo(40, contextHeight);
+            ctx.lineTo(40, display.getHeight());
             ctx.stroke(); // draw the line
             // return to origin
-            ctx.lineTo(0, contextHeight);
+            ctx.lineTo(0, display.getHeight());
             ctx.fill(); // fill in the background
         ctx.closePath();
         
