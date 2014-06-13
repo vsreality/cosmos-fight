@@ -24,6 +24,27 @@ var lastTime = 0;
 var dTime = 0;
 
 
+// Global variables
+var gameImgs; // TODO - put inside a container class
+var playerMassiveShip; // TODO - put inside a container class
+var gameSounds; // TODO - put inside a container class
+var gameTime;
+var display;
+var areaWidth; // TODO - put inside world class
+var areaHeight; // TODO - put insider world class
+var world;
+var settings;
+var keyUpDown; // TODO - put inside a keyboard manager class
+var keyDownDown; // TODO - put inside a keyboard manager class
+var keyLeftDown; // TODO - put inside a keyboard manager class
+var keyRightDown; // TODO - put inside a keyboard manager class
+var keyShootDown; // TODO - put inside a keyboard manager class
+var keyEscDown; // TODO - put inside a keyboard manager class
+var optionsMenu; // TODO - put inside a menu manager class
+var mainMenu; // TODO - put inside a menu manager class
+var levelMenu; // TODO - put inside a menu manager class
+var currentLevel;
+
 
 /*** INIT GAME: loads all game data and connects with the HTML5 Canvas ***/
 function initGame() {
