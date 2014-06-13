@@ -74,6 +74,7 @@ function initGame() {
     
     // create the Display object to contain pointers to the canvas and context
     display = new Display("screen");
+    display.enableDoubleBuffering();
     
     // TODO - remove this
     areaWidth = display.getWidth();
