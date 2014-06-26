@@ -29,6 +29,7 @@ function Level() {
     this.toggleTimerBars = function() {}
     
     this.player = new Player();
+    this.player.setPosition(areaWidth / 2, areaHeight - 30);
 	
     this.update = function() {
         this.player.update();

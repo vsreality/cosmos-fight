@@ -7,42 +7,28 @@
  */
  
 
-function Player(){
-    // reference to the level's enemy system (for weapon targetting)
-    this.enemySys = null;
-
-    /*** Set Player Object values ***/
-    
-    this.setPosition(areaWidth / 2, areaHeight - 30);
+function Player() {
+    // set Player ship size (approx 17 pixels)
     this.setSize(17);
     
+    // create the collision system for the player
     this.setCollisionManager(25);
     this.getCollisionManager().addTriangle(-15, 17, 0, -18, 15, 17);
     
     // this.setEffectsManager(---);
+    this.effectSys = new effectSystem(); // TODO - replace this
     
     this.setHealthManager(100);
     
     
-    /*// TODO - remove
-    this.collision = new standardCollision(25);
-    this.collision.parent = this;
-    this.collision.addObject(new cTriangle({x:-15,y:17},{x:0,y:-18},{x:15,y:17}));
-    //this.collision.addObject(new cCircle({x:0,y:0}, 10));*/
-    
-    /*** Set Player-specific values ***/
+    // set Player-specific values
     this.lives = 2;
     this.score = 0;
     
-    this.balance = 0;
     // movement variables - TODO, replace with InputManager
     this.speed = 5 * (30/FPS);
     this.speedX = 0;
     this.speedY = 0;
-    
-    // effect system for player: contains all effects,
-    //  primarily the ship's rocket fire particle system.
-    this.effectSys = new effectSystem();
     
     // TODO - replace with TeamManager for the player
     // all bullets associated with the player
