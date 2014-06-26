@@ -550,9 +550,10 @@ function Player(){
     
     // returns TRUE if the player is dead; that is, if the player's health
     //  is 0.
-    this.isAlive = function(){
+    /*this.isAlive = function(){
         return (this.health > 0);
-    }
+    }*/
+    this.setHealthManager(100);
     
     
     // RESET FUNCTION: reset the player to a default position after the player

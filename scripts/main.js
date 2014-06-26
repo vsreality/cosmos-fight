@@ -174,7 +174,7 @@ function initGame() {
     
     // create the global currentLevel, and set it to be the
     //  main menu (currentLevel is either a menu or actual level)
-    currentLevel = mainMenu;
+    currentLevel = createDevLevel();//mainMenu;
     
     
     /* MOUSE LISTENERS */
