@@ -7,6 +7,7 @@
 
 function Display(canvasID) {
     // set the canvas and context variables
+    this.canvasID = canvasID;
     this.canvas = document.getElementById(canvasID);
     this.context = this.canvas.getContext("2d");
     
@@ -76,4 +77,8 @@ function Display(canvasID) {
         return this.height;
     }
     
+    // Returns the ID value of the canvas this Display object is using.
+    this.getCanvasID = function() {
+        return this.canvasID;
+    }
 }
