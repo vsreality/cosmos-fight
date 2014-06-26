@@ -615,7 +615,7 @@ function Level(){
             this.dialogSys.update();
             
             // Update payer collision
-            //this.player.collision.updatePosition();
+            this.player.collision.updatePosition();
             
             // check if bullet hits player
             for(var i=0; i<this.enemySys.enemyBullets.length; i++){
@@ -750,9 +750,7 @@ function Level(){
             for(var i=0; i<this.bonusSys.bonuses.length; i++){
                 // Update bonus collision position
                 this.bonusSys.bonuses[i].collision.updatePosition();
-                // TODO - bonuses don't have collision yet
-                if(checkCollision(this.player, this.bonusSys.bonuses[i])) {
-                //if(isCollide(this.player.collision,this.bonusSys.bonuses[i].collision)){
+                if(isCollide(this.player.collision,this.bonusSys.bonuses[i].collision)){
                     this.onCollectBonus(this.bonusSys.bonuses[i]);
                     this.createFloatingTextPlayerHeal(this.bonusSys.bonuses[i].label,
                         this.player.x, this.player.y);
@@ -768,9 +766,7 @@ function Level(){
             for(var i=0; i<this.enemySys.enemies.length; i++){
                 this.enemySys.enemies[i].collision.updateAngle();
                 this.enemySys.enemies[i].collision.updatePosition();
-                // TODO - enemies don't have collision yet
-                if(checkCollision(this.player, this.enemySys.enemies[i])) {
-                //if(isCollide(this.player.collision, this.enemySys.enemies[i].collision)){
+                if(isCollide(this.player.collision, this.enemySys.enemies[i].collision)){
                 //if(this.player.intersectsEnemy(this.enemySys.enemies[i])){
                     // apply function onPlayerCrash_GENERAL with enemy,
                     //  and check to see if the enemy disappears or not (if it does not,
@@ -800,10 +796,8 @@ function Level(){
                 this.enemySys.enemyMissiles[i].collision.updatePosition();
                 
                 // check if a collision happened
-                // TODO - missiles don't have new collision yet
-                if(checkCollision(this.player, this.enemySys.enemyMissiles[i])){
-                //if(isCollide(this.player.collision,
-                //             this.enemySys.enemyMissiles[i].collision)){
+                if(isCollide(this.player.collision,
+                             this.enemySys.enemyMissiles[i].collision)){
                     this.enemySys.enemyMissiles[i].detonate();
                 }
             }
