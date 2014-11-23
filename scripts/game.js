@@ -3,79 +3,61 @@
  * The Game class contains all of the global game variables and settings.
  */
 
-function Game() {
-    // gameTime starts at 0
-    this.gameTime = 0;
-    
-    // global game variables
-    this.display;
-    this.world;
-    this.images = new Images();
-    this.sounds = new Sounds();
-    this.settings;
-    // this.menus = dictionary?
-    this.userInputMngr = new UserInputManager();
-    
-    this.current;
-    
-    // Initialize all game variables, and connect with the HTML5 canvas.
-    // TODO - fix this as needed...
-    // Parameters:
-    //      canvas_id   - the ID value of the canvas to use in the document
-    this.init = function(canvas_id) {
-        // create the display, which interfaces with the HTML5 canvas
-        this.display = new Display(canvas_id);
-        this.display.enableDoubleBuffering();
-        
-        // create the GameWorld object of the same size as the canvas
-        this.world = new GameWorld(this.display.getWidth(),
-                                   this.display.getHeight());
 
-        // create the global game Settings object
-        this.settings = new Settings();
-        
-        // load all global game images
-        this.images.add([
-            ["payerBaseShip", "images/35_base.png"],
-            ["playerMassiveShip", "images/35_rockets.png"],
-            ["corvetShip", "images/corvet1.png"],
-            ["smallTower", "images/small_tower.png"],
-            ["star3Ship", "images/3-star-70.png"]
-        ]);
-        this.images.loadImages(); // TODO - change this to just load()
-        
-        // load all global game sound effects and music
-        this.sounds.add([
-            // add menu/gui sounds:
-            ["menu_mouseover", "audio/gui/mouseover.mp3"],
-            ["menu_click", "audio/gui/click.mp3"],
-            ["menu_back", "audio/gui/back.mp3"],
-            // add standard ambiance sounds:
-            //["ambiance_cosmic_energy", "audio/ambiance/cosmic_energy.mp3"],
-            // add standard game sounds:
-            ["low_health", "audio/common/low_health.mp3"],
-            ["bonus_heal", "audio/common/bonus_heal.wav"],
-            ["bonus_shield", "audio/common/bonus_shield.mp3"],
-            //["bonus_weapon", "audio/common/bonus_weapon.wav"], TODO - bad sound, replace
-            ["bonus_weapon", "audio/common/bonus_shield.mp3"],
-            ["explosion1", "audio/common/explosion1.mp3"],
-            ["death_explosion", "audio/common/death_explosion.mp3"],
-            ["level_complete", "audio/common/level_complete.wav"],
-            ["shoot_basic", "audio/common/shoot_basic.wav"],
-        ]);
-        this.sounds.loadSounds(); // TODO - change this to just load()
-        
-        // TODO - add all menus here
-        
-        // bind user input events to the UserInputManager
-        this.userInputMngr.bindKeyboardEvents();
-        this.userInputMngr.bindMouseEvents(display.getCanvasID());
-    }
+function Game(canvas_id) {
+    /* Constructor:
+     *  Sets up global game values, adds global event listeners, loads all global game
+     *  data, and displays the main menu.
+     *  Parameters:
+     *      canvas_id   - the ID value of the canvas to use in the document.
+     */
+    
+    this.gameTime = 0; // TODO - do we need this once framerate becomes arbitrary?
+    this.settings = new Settings();
+    this.display = new Display(canvas_id);
+    this.display.enableDoubleBuffering();
+    
+    // GameWorld defines global properties of the 2D virtual world.
+    this.world = new GameWorld(this.display.getWidth(), this.display.getHeight());
+    
+    this.images = new Images(); // TODO - rename class?
+    this.images.add([
+        ["payerBaseShip", "images/35_base.png"],
+        ["playerMassiveShip", "images/35_rockets.png"],
+        ["corvetShip", "images/corvet1.png"],
+        ["smallTower", "images/small_tower.png"],
+        ["star3Ship", "images/3-star-70.png"]
+    ]);
+    this.images.loadImages(); // TODO - change this to just load()
+    
+    this.sounds = new Sounds(); // TODO - rename class?
+    this.sounds.add([
+        // add menu/gui sounds:
+        ["menu_mouseover", "audio/gui/mouseover.mp3"],
+        ["menu_click", "audio/gui/click.mp3"],
+        ["menu_back", "audio/gui/back.mp3"],
+        // add standard ambiance sounds:
+        //["ambiance_cosmic_energy", "audio/ambiance/cosmic_energy.mp3"],
+        // add standard game sounds:
+        ["low_health", "audio/common/low_health.mp3"],
+        ["bonus_heal", "audio/common/bonus_heal.wav"],
+        ["bonus_shield", "audio/common/bonus_shield.mp3"],
+        //["bonus_weapon", "audio/common/bonus_weapon.wav"], TODO - bad sound, replace
+        ["bonus_weapon", "audio/common/bonus_shield.mp3"],
+        ["explosion1", "audio/common/explosion1.mp3"],
+        ["death_explosion", "audio/common/death_explosion.mp3"],
+        ["level_complete", "audio/common/level_complete.wav"],
+        ["shoot_basic", "audio/common/shoot_basic.wav"]
+    ]);
+    this.sounds.loadSounds(); // TODO - change this to just load()
+    
+    this.userInputMngr = new UserInputManager();
+    this.userInputMngr.bindKeyboardEvents();
+    this.userInputMngr.bindMouseEvents(this.display.getCanvasID());
     
     this.start = function() {
     
     }
-    
     this.stop = function() {
     
     }
