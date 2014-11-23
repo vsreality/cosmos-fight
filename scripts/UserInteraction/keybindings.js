@@ -1,14 +1,17 @@
 /* File: keybindings.js
  *
- * The KeyBindings class provides bindings for 
+ * The KeyBindings class maps key strokes to actions that are used by the
+ * UserInteraction object to provide an interface between a user's keyboard
+ * input and the game.
  */
 
 
-// KEY BINDINGS:
-// this class is used to set up and apply bindings from different keyboard input
-//  to pre-determined actions of gameplay, such as ship movement.
-function KeyBindings(){
-    /***** KEY BINDING VARIABLES (defaults set here) *****/
+function KeyBindings() {
+    /* Constructor:
+     * Initializes all ASCII key values to their default bindings. Unbound values
+     * are set to -1.
+     */
+
     this.up1 = 119;			// 'w'
     this.up2 = 87;			// 'W'
     this.up3 = 38;			// up arrow
@@ -53,9 +56,9 @@ function KeyBindings(){
     // bind all functions (uses settings to access user database if the user
     //  is logged in to load the user's custom keybindings. Otherwise, it keeps
     //  the default bindings.
-    this.bind = function(settingsObject){
+    this.bind = function(settings) {
         // if not logged in, return
-        if(!settingsObject.loggedIn)
+        if(!settings.loggedIn)
             return;
     }
     
