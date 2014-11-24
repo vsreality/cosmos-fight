@@ -1,167 +1,170 @@
-/* GUI CLASS:
+/* File: gui.js
  *  Elements that are used by the menus and other GUI containers, such as buttons.
  *  These elements all share the same GuiObject prototype.
  */
 
 
-/***** GLOBAL VARIABLES (used to identify GUI modes) *****/
+// GLOBAL VARIABLES (used to identify GUI modes)
 var GUI_BUTTON_NORMAL = 0;
 var GUI_BUTTON_HIGHLIGHTED = 1;
 var GUI_BUTTON_DEPRESSED = 2;
+var GUI_POSITION_LEFT = 1;
+var GUI_POSITION_CENTER = 2;
+var GUI_POSITION_RIGHT = 3;
 
 
-/***** STANDARD GUI OBJECT (prototype for all other objects *****/
-function GuiObject(x, y, w, h){
-    // standard position and size values
-    this.x = x;
-    this.x2 = x;
-    this.y = y;
-    this.width = w;
-    this.height = h;
+// Basic GUI Object prototype.
+function GuiObject() {
+    // position values (x_default is the initial, unaltered x position)
+    this.x = 0;
+    this.x_default = 0;
+    this.y = 0;
+    this.position = GUI_POSITION_LEFT;
+    
+    // size values
+    this.width = 0;
+    this.height = 0;
     this.size = 0; // size is used for text objects
-    this.position = 1; // defaults to 1 (right alignment)
     this.focused = false; // this element is not focused by default
+    this.ctxStyle = "black";
     
     // Mouse event action functions
-    this.mousemove = function(x, y){}
-    this.mousedown = function(x, y){}
-    this.mouseup = function(x, y){}
+    this.mousedown = function(x, y) { }
+    this.mouseup = function(x, y) { }
+    this.mousemove = function(x, y) { }
     
-    // update: sets the position of this GUI rectangle based on the
-    //  current positioning option.
-    this.update = function(){
-        switch(this.position){
-            case 1 : this.x2 = this.x; break;
-            case 2 : this.x2 = this.x - this.width / 2; break;
-            case 3 : this.x2 = this.x - this.width; break;
+    // Returns the width of this GUI component to be used for other computations
+    // that rely on width. By default, returns the width variable value.
+    this.getWidth = function() {
+        return this.width;
+    }
+    
+    // Returns the context drawing style of this object.
+    this.getStyle = function() {
+        return this.ctxStyle;
+    }
+    
+    // Set the style of the given context in the draw function.
+    //  this function needs to be overridden specifically
+    this.setStyle = function(style) {
+        this.ctxStyle = style;
+    }
+    
+    // Set the position of this object. Use this function to set position - do not
+    // set the variables directly. Call update() after setting position.
+    this.setPosition = function(x, y) {
+        this.x = x;
+        this.x_default = x;
+        this.y = y;
+    }
+    
+    // Sets the position of this GUI rectangle based on its current positioning.
+    this.update = function() {
+        switch(this.position) {
+            case GUI_POSITION_CENTER:
+                this.x2 = this.x - this.getWidth() / 2;
+                break;
+            case GUI_POSITION_RIGHT:
+                this.x2 = this.x - this.getWidth();
+                break;
+            case GUI_POSITION_LEFT:
+            default:
+                this.x2 = this.x;
+                break;
         }
     }
     
     // draw function: must be overridden for specific objects
-    this.draw = function(ctx){}
+    this.draw = function(ctx) { }
     
     // Alignment functions:
-    this.left = function(){ // align this object to the left side
-        this.position = 1;
+    this.left = function() { // align this object to the left side
+        this.position = GUI_POSITION_LEFT;
         return this;
     }
-    this.center = function(){ // align this object to the center
-        this.position = 2;
+    this.center = function() { // align this object to the center
+        this.position = GUI_POSITION_CENTER;
         return this;
     }
-    this.right = function(){ // align this object to the right side
-        this.position = 3;
+    this.right = function() { // align this object to the right side
+        this.position = GUI_POSITION_RIGHT;
         return this;
     }
     
     // returns TRUE if the given x, y coordinate overlap the position
     //  of this rectangle GUI.
-    this.intersects = function(x, y){
+    this.intersects = function(x, y) {
         y += this.size;
         return (x > this.x2 && x < (this.x2 + this.width) &&
                 y > this.y && y < (this.y + this.size));
-    };
+    }
 }
 
 
 // GUI Filled Rectangle:
-//  create a rectangular GUI object with the given rectangular dimensions.
+//  Creates a rectangular GUI object with the given rectangular dimensions.
 //  This object is used as an embedded or popup menu within the level.
-function GuiFillRectangle(x, y, w, h){
-    this.x = x;
-    this.x2= x;
-    this.y = y;
+// Parameters:
+//  x, y position of the object, and its width and height.
+// To create a rounded rectangle, the 5th and 6th parameters must be set to
+//  true and radius, respectively.
+function GuiRectangle(x, y, w, h, rounded = false, r = 0) {
+    this.setPosition(x, y);
     this.width = w;
     this.height = h;
-    
-    // set the style of the given context in the draw function.
-    //  this function needs to be overridden specifically
-    this.style = function(ctx){};
-    
-    // draw the GUI rectangle
-    this.draw = function(ctx){
-        ctx.save();
-        this.style(ctx);
-        ctx.fillRect(this.x2, this.y, this.width, this.height);
-        ctx.restore();
-    }
-}
-// make GuiFillRectangle a subclass of the generic GuiObject:
-GuiFillRectangle.prototype = new GuiObject(0, 0, 0, 0);
-
-
-// GUI Rounded Rectangle:
-//  same as GUI Fill Rectangle, except draws a rounded rectangle instead
-function GuiRoundedRectangle( x, y, w, h, r){
-    // setup specific values for this GUI rectangle
-    this.x = x;
-    this.x2= x;
-    this.y = y;
-    this.width = w;
-    this.height = h;
+    this.rounded = rounded;
     this.r = r;
     
-    // set the style of the given context in the draw function.
-    //	this function needs to be overridden specifically
-    this.style = function(ctx){};
-    
-    // override the draw function to draw a rounded rectangle instead
-    this.draw = function(ctx){
+    // draw the GUI rectangle
+    this.draw = function(ctx) {
         ctx.save();
-        ctx.beginPath();
-        this.style(ctx);
-        pathRoundedRectangle(ctx, this.x2, this.y, this.width, this.height, this.r);
-        ctx.fill();
-        ctx.stroke();
-        ctx.closePath();
+        ctx.style = this.getStyle();
+        if(this.rounded) {
+            ctx.beginPath();
+            pathRoundedRectangle(ctx, this.x, this.y, this.width, this.height, this.r);
+            ctx.fill();
+        }
+        else
+            ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.restore();
     }
 }
 // make GuiFillRectangle a subclass of the generic GuiObject:
-GuiRoundedRectangle.prototype = new GuiObject(0, 0, 0, 0);
+GuiFillRectangle.prototype = new GuiObject();
 
 
 // GUI Text object:
-//  create a text object to be used inside a GUI menu. A text object is NOT
+//  Creates a text object to be used inside a GUI menu. A text object is NOT
 //  interactive, as opposed to a GUI button.
-function GuiText(text, x, y, color, size){
-    // text object variables
+function GuiText(text, x, y, color, size, ctx) {
     this.text = text;
-    this.x = x;
-    this.x2= x;
-    this.y = y;
+    this.setPosition(x, y);
     this.size = size;
-    
-    var context = display.getContext();
+    this.setStyle(color);
     
     this.font = "MainFont";
-    context.font = "" + this.size + "pt " + this.font;
-    this.width = context.measureText(this.text).width;
+    ctx.save();
+    ctx.font = "" + this.size + "pt " + this.font;
+    this.width = ctx.measureText(this.text).width;
+    ctx.restore();
     
-    this.color = color;
-    
-    this.update = function(){
-        context.font = "" + this.size + "pt " + this.font;
+    this.update = function() {
+        ctx.font = "" + this.size + "pt " + this.font;
         this.width = context.measureText(this.text).width;
-        switch(this.position){
-            case 1 : this.x2 = this.x; break;
-            case 2 : this.x2 = this.x - (context.measureText(this.text).width / 2); break;
-            case 3 : this.x2 = this.x - context.measureText(this.text).width; break;
-        }
-        // GuiText.prototype.draw.call(this, ctx);
+        GuiText.prototype.update.call(this);
     }
     
     this.draw = function(ctx){
         ctx.font = "" + this.size + "pt " + this.font;
-        ctx.fillStyle = this.color;
-        ctx.fillText(this.text, this.x2, this.y);
-        ctx.strokeStyle = this.color;
-        //ctx.strokeRect(this.x,  this.y - this.size, this.width, this.size);
+        ctx.fillStyle = this.getStyle();
+        ctx.fillText(this.text, this.x, this.y);
     }
 }
 // make GuiText a subclass of the generic GuiObject:
 GuiText.prototype = new GuiObject(0, 0, 0, 0);
 
+
+/*** GOT UP TO HERE ***/
 
 // GUI Button object:
 //  create a button object to be used inside a GUI menu. A button object is fully
@@ -251,9 +254,16 @@ function GuiButton(text, x, y, size){
         context.font = "" + this.size + "pt MainFont";
         this.width = context.measureText(this.text).width;
         switch(this.position){
-            case 1 : this.x2 = this.x; break;
-            case 2 : this.x2 = this.x - (context.measureText(this.text).width / 2); break;
-            case 3 : this.x2 = this.x - context.measureText(this.text).width; break;
+            case GUI_POSITION_CENTER:
+                this.x2 = this.x - (context.measureText(this.text).width / 2);
+                break;
+            case GUI_POSITION_RIGHT:
+                this.x2 = this.x - context.measureText(this.text).width;
+                break;
+            case GUI_POSITION_LEFT:
+            default:
+                this.x2 = this.x;
+                break;
         }
         // GuiButton.prototype.draw.call(this, ctx);
     }
@@ -464,11 +474,18 @@ function GuiCheckboxButton(x, y, size, checked){
     }
     
     // update function (called each frame, and sets up allignment as needed)
-    this.update = function(){
-        switch(this.position){
-            case 1 : this.x2 = this.x; break;
-            case 2 : this.x2 = this.x - (this.size / 2); break;
-            case 3 : this.x2 = this.x - this.size; break;
+    this.update = function() {
+        switch(this.position) {
+            case GUI_POSITION_CENTER:
+                this.x2 = this.x - (this.size / 2);
+                break;
+            case GUI_POSITION_RIGHT:
+                this.x2 = this.x - this.size;
+                break;
+            case GUI_POSITION_LEFT:
+            default:
+                this.x2 = this.x;
+                break;
         }
     }
     
@@ -691,11 +708,18 @@ function GuiHorizontalListButton(x, y, size, selectionList, selected){
     }
     
     // update function (called each frame, and sets up allignment as needed)
-    this.update = function(){
-        switch(this.position){
-            case 1 : this.x2 = this.x; break;
-            case 2 : this.x2 = this.x - (this.size / 2); break;
-            case 3 : this.x2 = this.x - this.size; break;
+    this.update = function() {
+        switch(this.position) {
+            case GUI_POSITION_CENTER:
+                this.x2 = this.x - (this.size / 2);
+                break;
+            case GUI_POSITION_RIGHT:
+                this.x2 = this.x - this.size;
+                break;
+            case GUI_POSITION_LEFT:
+            default:
+                this.x2 = this.x;
+                break;
         }
     }
     

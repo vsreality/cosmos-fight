@@ -1,12 +1,10 @@
-/* MENU CLASS:
+/* File: menu.js
  *  Contains code to create and implement a variety of menus. Menus all use the
  *  GUI system and various GUI elements together to construct a complete menu.
  */
 
 
-/***** PROTOTYPE GENERIC MENU *****/
-// Contains all input event listeners and standard functions (for all future menus):
-//  "this.guiSys" must be created (GuiSystem object) for all menus
+// TODO - the menus can be improved using HTML instead of Canvas drawings.
 function Menu(){
     // add a title to this menu
     this.addTitle = function(titleText){
