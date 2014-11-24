@@ -17,9 +17,9 @@ function UserInteractionManager() {
     // Binds mouse events that happen on the canvas to the appropriate event handles.
     this.bindMouseEvents = function(canvasID) {
         var canvas = document.getElementById(canvasID);
+        /*canvas.onmouseclick = this.handleMouseClick;
         canvas.onmouseclick = this.handleMouseClick;
         canvas.onmouseclick = this.handleMouseClick;
-        canvas.onmouseclick = this.handleMouseClick;
-        canvas.onmouseclick = this.handleMouseClick;
+        canvas.onmouseclick = this.handleMouseClick;*/
     }
 }

@@ -12,7 +12,7 @@ function Game(canvas_id) {
      *      canvas_id   - the ID value of the canvas to use in the document.
      */
     
-    this.gameTime = 0; // TODO - do we need this once framerate becomes arbitrary?
+    this.last_frame_time = 0;
     this.settings = new Settings();
     this.display = new Display(canvas_id);
     this.display.enableDoubleBuffering();
@@ -52,23 +52,40 @@ function Game(canvas_id) {
     this.sounds.loadSounds(); // TODO - change this to just load()
     
     this.userInputMngr = new UserInputManager();
-    this.userInputMngr.bindKeyboardEvents();
-    this.userInputMngr.bindMouseEvents(this.display.getCanvasID());
+    //this.userInputMngr.bindKeyboardEvents();
+    //this.userInputMngr.bindMouseEvents(this.display.getCanvasID());
     
+    // start initially with the main menu
+    this.state = new GameMenu(); // TODO - not implemented
+    // TODO - force state prototypes on Menu and Level
+    
+    
+    // Starts updating the current state (i.e. menu or level) of the game. The
+    // updates will be called automatically until the game is stopped.
     this.start = function() {
-    
+        this.last_frame_time = Date.now();
+        window.requestAnimationFrame(this.update);
     }
+    
+    // Stops updating the game state (i.e. current menu or level).
+    // Calling this function will freeze the current game state.
     this.stop = function() {
-    
+        window.cancelAnimationFrame();
     }
     
+    // Computes the elapsed time (in milliseconds) since the last update call, and
+    // calls update to the current game state with that value.
     this.update = function() {
-    
+        var cur_time = Date.now();
+        var elapsed = cur_time - this.last_frame_time;
+        this.last_frame_time = cur_time;
+        this.state.update(elapsed);
+        window.requestAnimationFrame(this.update);
     }
 }
 
 
-    /* GAME LEVEL AND MENU: set up the menus and levels */
+/*
     
     // create the options menu (set the back function to the main menu)
     optionsMenu = new OptionsMenu(function(){
@@ -129,13 +146,7 @@ function Game(canvas_id) {
     currentLevel = createDevLevel();//mainMenu;
     
     
-    /* MOUSE LISTENERS */
-    /* Mouse listener functions (click)
-     *  These functions are used to listen for mouse clicks
-     *  in menu screens and active levels. Levels which are not menus or any
-     *  object referenced to by "currentLevel" simply ignores
-     *  it if they do not need click events.
-     */
+
     $("#screen").mousedown(function(e){
             var x = e.pageX - $("#screen").offset().left;
             var y = e.pageY - $("#screen").offset().top;
@@ -163,14 +174,6 @@ function Game(canvas_id) {
 
 
 
-/*** ADD KEYBOARD LISTENERS ***/
-/* Keyboard listeners register a button when it is pressed,
- *  and un-register a button when it is released. Levels or menus
- *  can use the input from these events together with the key bindings
- *  object to create interactive user environments.
- * These functions also prevent default Javascript actions
- *  when buttons are pressed.
- */
 // keyboard button press listener
 $(document).keydown(function(event){
         // get the key code
@@ -271,13 +274,6 @@ $(document).keyup(function(event){
 // END OF INIT FUNCTION -----
 
 
-
-
-/*** UPDATE GAME FUNCTION ***/
-/* Main update function called by timer interval,
- *  updates after initGame() is called in the beginning
- *  of the script.
- */
 function updateGame(){
 
     currentLevel.update();
@@ -315,3 +311,4 @@ function updateGame(){
     if(animating)
         setTimeout(updateGame, dTime);
 }
+*/
