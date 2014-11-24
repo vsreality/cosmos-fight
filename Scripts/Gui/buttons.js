@@ -1,180 +1,23 @@
-/* File: gui.js
- *  Elements that are used by the menus and other GUI containers, such as buttons.
- *  These elements all share the same GuiObject prototype.
+/* File: buttons.js
+ *  Defines GUI buttons (extensions of the GuiObject prototype).
  */
 
 
 // GLOBAL VARIABLES (used to identify GUI modes)
-var GUI_POSITION_LEFT = 1;
-var GUI_POSITION_CENTER = 2;
-var GUI_POSITION_RIGHT = 3;
+var GUI_BUTTON_NORMAL = 0;
+var GUI_BUTTON_HIGHLIGHTED = 1;
+var GUI_BUTTON_DEPRESSED = 2;
 
-
-// Basic GUI Object prototype.
-function GuiObject() {
-    // position values (x_default is the initial, unaltered x position)
-    this.x = 0;
-    this.x_default = 0;
-    this.y = 0;
-    this.position = GUI_POSITION_LEFT;
-    
-    // size values
-    this.width = 0;
-    this.height = 0;
-    this.size = 0; // size is used for text objects
-    this.focused = false; // this element is not focused by default
-    this.ctxStyle = "#000000";
-    
-    // Mouse event action functions
-    this.mousedown = function(x, y) { }
-    this.mouseup = function(x, y) { }
-    this.mousemove = function(x, y) { }
-    
-    // Returns the width of this GUI component to be used for other computations
-    // that rely on width. By default, returns the width variable value.
-    this.getWidth = function() {
-        return this.width;
-    }
-    
-    // Returns the context drawing style of this object.
-    this.getStyle = function() {
-        return this.ctxStyle;
-    }
-    
-    // Set the style of the given context in the draw function.
-    //  this function needs to be overridden specifically
-    this.setStyle = function(style) {
-        this.ctxStyle = style;
-    }
-    
-    // Set the position of this object. Use this function to set position - do not
-    // set the variables directly. Call update() after setting position.
-    this.setPosition = function(x, y) {
-        this.x = x;
-        this.x_default = x;
-        this.y = y;
-    }
-    
-    // Sets the position of this GUI rectangle based on its current positioning.
-    this.update = function() {
-        switch(this.position) {
-            case GUI_POSITION_CENTER:
-                this.x2 = this.x - this.getWidth() / 2;
-                break;
-            case GUI_POSITION_RIGHT:
-                this.x2 = this.x - this.getWidth();
-                break;
-            case GUI_POSITION_LEFT:
-            default:
-                this.x2 = this.x;
-                break;
-        }
-    }
-    
-    // draw function: must be overridden for specific objects
-    this.draw = function(ctx) { }
-    
-    // Alignment functions:
-    this.left = function() { // align this object to the left side
-        this.position = GUI_POSITION_LEFT;
-        return this;
-    }
-    this.center = function() { // align this object to the center
-        this.position = GUI_POSITION_CENTER;
-        return this;
-    }
-    this.right = function() { // align this object to the right side
-        this.position = GUI_POSITION_RIGHT;
-        return this;
-    }
-    
-    // returns TRUE if the given x, y coordinate overlap the position
-    //  of this rectangle GUI.
-    this.intersects = function(x, y) {
-        y += this.size;
-        return (x > this.x && x < (this.x + this.width) &&
-                y > this.y && y < (this.y + this.size));
-    }
-}
-
-
-// GUI Filled Rectangle:
-//  Creates a rectangular GUI object with the given rectangular dimensions.
-//  This object is used as an embedded or popup menu within the level.
-// Parameters:
-//  x, y position of the object, and its width and height.
-// To create a rounded rectangle, the 5th and 6th parameters must be set to
-//  true and radius, respectively.
-function GuiRectangle(x, y, w, h, rounded = false, r = 0) {
-    this.setPosition(x, y);
-    this.width = w;
-    this.height = h;
-    this.rounded = rounded;
-    this.r = r;
-    
-    // draw the GUI rectangle
-    this.draw = function(ctx) {
-        ctx.save();
-        ctx.style = this.getStyle();
-        if(this.rounded) {
-            ctx.beginPath();
-            pathRoundedRectangle(ctx, this.x, this.y, this.width, this.height, this.r);
-            ctx.fill();
-        }
-        else
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.restore();
-    }
-}
-// make GuiFillRectangle a subclass of the generic GuiObject:
-GuiFillRectangle.prototype = new GuiObject();
-
-
-// GUI Text object:
-//  Creates a text object to be used inside a GUI menu. A text object is NOT
-//  interactive, as opposed to a GUI button.
-function GuiText(text, x, y, color, size, ctx) {
-    this.text = text;
-    this.setPosition(x, y);
-    this.size = size;
-    this.setStyle(color);
-    
-    // TODO - use some kind of global ctx reference
-    this.font = "MainFont";
-    ctx.save();
-    ctx.font = "" + this.size + "pt " + this.font;
-    this.width = ctx.measureText(this.text).width;
-    ctx.restore();
-    
-    this.getText = function() {
-        return this.text;
-    }
-    
-    this.update = function() {
-        ctx.font = "" + this.size + "pt " + this.font;
-        this.width = context.measureText(this.text).width;
-        GuiText.prototype.update.call(this);
-    }
-    
-    this.draw = function(ctx){
-        ctx.font = "" + this.size + "pt " + this.font;
-        ctx.fillStyle = this.getStyle();
-        ctx.fillText(this.text, this.x, this.y);
-    }
-}
-// make GuiText a subclass of the generic GuiObject:
-GuiText.prototype = new GuiObject(0, 0, 0, 0);
-
+// TODO - define all colors up here
 
 
 // GUI Button object:
 //  create a button object to be used inside a GUI menu. A button object is fully
 //  interactive, and executes events when clicked.
-function GuiButton(text, x, y, size){
-    // button variables
-    this.text = text;
+function GuiButton(text, x, y, size, ctx) {
     this.setPosition(x, y);
-    this.size = size;
+    var color = "#FFFFFF";
+    this.text = GuiText(text, x, y, color, size, ctx);
     
     // enabled: if not enabled, the button will not be clickable
     this.enabled = true;
@@ -186,7 +29,7 @@ function GuiButton(text, x, y, size){
     // EVENT that occurs when this button is successfully clicked
     this.onClick = function() { }
     
-    // TODO - possibly use a sound manager here
+    // TODO - use a sound manager here
     // PLAYBACK events that occur when this button is successfully clicked or
     //  moused over (highlighted).
     // Override if this button should play a differet sound when clicked.
@@ -206,12 +49,12 @@ function GuiButton(text, x, y, size){
     // A button will automatically call its onClick event when it detects that it
     //  has been successfully clicked.
     // mouseover: called whenever the mouse moves
-    this.mousemove = function(x, y){
+    this.mousemove = function(x, y) {
         // if button isn't currently pressed down and the mouse moves over it,
         //  set it to highlighted (mouse over) mode.
         // if button wasn't already highligted and is active,
         //  also play the mouseover sound
-        if(this.mode != GUI_BUTTON_DEPRESSED && this.intersects(x, y)){
+        if(this.mode != GUI_BUTTON_DEPRESSED && this.intersects(x, y)) {
             if(this.mode != GUI_BUTTON_HIGHLIGHTED && this.enabled)
                 this.playMouseoverSound();
             this.mode = GUI_BUTTON_HIGHLIGHTED;
@@ -221,7 +64,7 @@ function GuiButton(text, x, y, size){
             this.mode = GUI_BUTTON_NORMAL;
     }
     // mousedown: called when the mouse button is pushed down
-    this.mousedown = function(x, y){
+    this.mousedown = function(x, y) {
         // if the mouse button was pushed down over this button, set it to depressed
         //	(pressed down) mode
         if(this.intersects(x, y) && this.enabled)
@@ -229,11 +72,11 @@ function GuiButton(text, x, y, size){
     }
     // mouseup: called when the mouse button is released (if it has already been pressed down
     //	before)
-    this.mouseup = function(x, y){
+    this.mouseup = function(x, y) {
         // if this button is pressed down and the mouse is released over it, this means the
         //  click action occurred. Set the button to highlighted (moused over) mode, and
         //  play click sound and run the onClick event!
-        if(this.mode == GUI_BUTTON_DEPRESSED && this.intersects(x, y)){
+        if(this.mode == GUI_BUTTON_DEPRESSED && this.intersects(x, y)) {
             this.mode = GUI_BUTTON_NORMAL;
             this.playClickSound();
             this.onClick();
@@ -243,29 +86,14 @@ function GuiButton(text, x, y, size){
             this.mode = GUI_BUTTON_NORMAL;
     }
     
-    var context = display.getContext();
-    
-    // determine the width of the button's text using context measureText function
-    context.font = "" + this.size + "pt MainFont";
-    this.width = context.measureText(this.text).width;
+    this.getWidth = function() {
+        return this.text.getWidth();
+    }
     
     // update function (called each frame, corrects any font metrics as needed)
     this.update = function(){
-        context.font = "" + this.size + "pt MainFont";
-        this.width = context.measureText(this.text).width;
-        switch(this.position){
-            case GUI_POSITION_CENTER:
-                this.x2 = this.x - (context.measureText(this.text).width / 2);
-                break;
-            case GUI_POSITION_RIGHT:
-                this.x2 = this.x - context.measureText(this.text).width;
-                break;
-            case GUI_POSITION_LEFT:
-            default:
-                this.x2 = this.x;
-                break;
-        }
-        // GuiButton.prototype.draw.call(this, ctx);
+        this.text.update();
+        GuiButton.prototype.update.call(this);
     }
     
     // DRAW FUNCTION:
@@ -274,10 +102,11 @@ function GuiButton(text, x, y, size){
         ctx.save();
         
         // coloring if the button is enabled
-        if(this.enabled){
+        if(this.enabled) {
             // setup stroke (border) with gradient
             var strokeGrd =
-                ctx.createLinearGradient(this.x2-20, this.y-8, this.x2+this.width+20, this.y-8);
+                ctx.createLinearGradient(this.x - 20, this.y - 8,
+                                         this.x + this.width + 20, this.y - 8);
             strokeGrd.addColorStop(0, "#006600");
             // setup inner coloring based on button mode
             if(this.mode == GUI_BUTTON_NORMAL)
@@ -289,8 +118,8 @@ function GuiButton(text, x, y, size){
             ctx.lineWidth = 3;
             // setup fill gradient
             var fillGrd =
-                ctx.createRadialGradient(this.x2+this.width/2, this.y-8, 0,
-                                         this.x2+this.width/2, this.y-8, this.width/2);
+                ctx.createRadialGradient(this.x + this.width/2, this.y - 8, 0,
+                                         this.x + this.width/2, this.y - 8, this.width/2);
             fillGrd.addColorStop(0, "#330033");
             // setup outside coloring based on button mode
             if(this.mode == GUI_BUTTON_NORMAL)
@@ -305,7 +134,8 @@ function GuiButton(text, x, y, size){
         // coloring if the button is NOT enabled:
         else{
             var strokeGrd =
-                ctx.createLinearGradient(this.x2-20, this.y-8, this.x2+this.width+20, this.y-8);
+                ctx.createLinearGradient(this.x - 20, this.y - 8,
+                                         this.x + this.width + 20, this.y - 8);
             strokeGrd.addColorStop(0, "#224422");
             strokeGrd.addColorStop(0.5, "#AA7744");
             strokeGrd.addColorStop(1, "#224422");
@@ -313,8 +143,8 @@ function GuiButton(text, x, y, size){
             ctx.lineWidth = 3;
             // setup fill gradient
             var fillGrd =
-                ctx.createRadialGradient(this.x2+this.width/2, this.y-8, 0,
-                                         this.x2+this.width/2, this.y-8, this.width/2);
+                ctx.createRadialGradient(this.x + this.width/2, this.y - 8, 0,
+                                         this.x + this.width/2, this.y - 8, this.width/2);
             fillGrd.addColorStop(0, "#000000");
             fillGrd.addColorStop(1, "#333333");
             ctx.fillStyle = fillGrd;
@@ -322,15 +152,15 @@ function GuiButton(text, x, y, size){
         
         // draw the button shape
         ctx.beginPath();
-            ctx.moveTo(this.x2 + this.width/2, this.y - 23);
-            ctx.lineTo(this.x2 - 20, this.y - 28);
-            ctx.lineTo(this.x2 - 15, this.y - 8);
-            ctx.lineTo(this.x2 - 20, this.y + 12);
-            ctx.lineTo(this.x2 + this.width/2, this.y + 7);
-            ctx.lineTo(this.x2 + this.width + 20, this.y + 12);
-            ctx.lineTo(this.x2 + this.width + 15, this.y - 8);
-            ctx.lineTo(this.x2 + this.width + 20, this.y - 28);
-            ctx.lineTo(this.x2 + this.width/2, this.y - 23);
+            ctx.moveTo(this.x + this.width/2, this.y - 23);
+            ctx.lineTo(this.x - 20, this.y - 28);
+            ctx.lineTo(this.x - 15, this.y - 8);
+            ctx.lineTo(this.x - 20, this.y + 12);
+            ctx.lineTo(this.x + this.width/2, this.y + 7);
+            ctx.lineTo(this.x + this.width + 20, this.y + 12);
+            ctx.lineTo(this.x + this.width + 15, this.y - 8);
+            ctx.lineTo(this.x + this.width + 20, this.y - 28);
+            ctx.lineTo(this.x + this.width/2, this.y - 23);
             ctx.stroke();
             ctx.globalAlpha = 0.4;
             ctx.fill();
@@ -338,8 +168,6 @@ function GuiButton(text, x, y, size){
         ctx.globalAlpha = 1.0;
         
         // fill in the button text
-        ctx.font = "" + this.size + "pt MainFont";
-        // coloring if enabled:
         if(this.enabled){
             if(this.mode == GUI_BUTTON_NORMAL)
                 ctx.fillStyle = "#FFFF33";
@@ -352,24 +180,24 @@ function GuiButton(text, x, y, size){
             ctx.fillStyle = "#777777";
         }
         // draw the text
-        ctx.fillText(this.text, this.x2, this.y);
+        ctx.fillText(this.text.getText(), this.x, this.y);
         
         ctx.restore();
     }
     
     // toggle enabled true or false with this option
-    this.setEnabled = function(enabled){
+    this.setEnabled = function(enabled) {
         this.enabled = enabled;
     }
     
     // customized intersects function (because the button is bigger than the text)
-    this.intersects = function(x, y){
-        return (x > this.x2 - 20 && x < (this.x2 + this.width + 20) &&
+    this.intersects = function(x, y) {
+        return (x > this.x - 20 && x < (this.x + this.width + 20) &&
                 y > this.y - 28 && y < (this.y + 12));
-    };
+    }
 }
 // make GuiButton a subclass of the generic GuiObject:
-GuiButton.prototype = new GuiObject(0, 0, 0, 0);
+GuiButton.prototype = new GuiObject();
 
 
 // function to create an instance of a TEXT button (similar to a normal button,
@@ -394,15 +222,15 @@ function createGuiTextButton(text, x, y, size){
             ctx.fillStyle = "#FFCCCC";
         else // if depressed
             ctx.fillStyle = "#88AA88";
-        ctx.fillText(this.text, this.x2, this.y);
+        ctx.fillText(this.text.getText(), this.x2, this.y);
         
         ctx.restore();
     }
     
     // revert the intersect function to the prototype's function
-    textButton.intersects = function(x, y){
+    textButton.intersects = function(x, y) {
         return GuiButton.prototype.intersects.call(this, x, y);
-    };
+    }
     
     return textButton;
 }
@@ -413,11 +241,9 @@ function createGuiTextButton(text, x, y, size){
 //  is like a button, except its action determines two states: checked or unchecked,
 //  and activating this button runs the onClick event with checked passed in as true/false.
 // This button is a square, and "size: determines its width/height dimension.
-function GuiCheckboxButton(x, y, size, checked){
+function GuiCheckboxButton(x, y, size, checked) {
     // button variables
-    this.x = x;
-    this.x2= x;
-    this.y = y;
+    this.setPosition(x, y);
     this.size = size;
     
     // enabled: if not enabled, the button will not be clickable
@@ -559,7 +385,7 @@ function GuiCheckboxButton(x, y, size, checked){
     };
 }
 // make GuiCheckboxButton a subclass of the generic GuiObject:
-GuiCheckboxButton.prototype = new GuiObject(0, 0, 0, 0);
+GuiCheckboxButton.prototype = new GuiObject();
 
 
 // GUI Horizontal List Button object:
@@ -788,51 +614,4 @@ function GuiHorizontalListButton(x, y, size, selectionList, selected){
     };
 }
 // make GuiHorizontalListButton a subclass of the generic GuiObject:
-GuiHorizontalListButton.prototype = new GuiObject(0, 0, 0, 0);
-
-
-// GUI SYSTEM: a system implemented by menus and other GUI containers to
-//  keep track of all GUI elements.
-function GuiSystem(){
-    this.guiElements = new Array();
-    this.focusedElement = 0;
-    
-    // add an element into the GuiSystem's element list (e.g. button or text)
-    this.addElement = function(el){
-        this.guiElements.push(el);
-        return el;
-    }
-    
-    // update function: check if all gui elements are alive (if not,
-    //  remove them and do not continue to draw them).
-    this.update = function(){
-        for(var i=0; i<this.guiElements.length; i++){
-            this.guiElements[i].update();
-        }
-    }
-    
-    // draw function: loop through and draw all active gui elements
-    this.draw = function(ctx){
-        for(var i=0; i<this.guiElements.length; i++){
-            this.guiElements[i].draw(ctx);
-        }
-    }
-    
-    // mouse action functions
-    this.mousedown = function(x, y){
-        for(var i=this.guiElements.length-1; i>=0; i--){
-            this.guiElements[i].mousedown(x, y);
-        }
-    }
-    this.mouseup = function(x, y){
-        for(var i=this.guiElements.length-1; i>=0; i--){
-            this.guiElements[i].mouseup(x, y);
-        }
-    }
-    this.mousemove = function(x, y){
-        for(var i=this.guiElements.length-1; i>=0; i--){
-            this.guiElements[i].mousemove(x, y);
-        }
-    }
-    return this;
-}
+GuiHorizontalListButton.prototype = new GuiObject();
