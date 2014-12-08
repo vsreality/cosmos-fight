@@ -16,6 +16,6 @@
  */
 @font-face {
     font-family: "MainFont";
-	src:	url('fonts/orbitron-black-webfont.eot?'),
-			url('fonts/ethnocentric_rg.ttf') format('truetype');
+	src:	url('../fonts/orbitron-black-webfont.eot?'),
+			url('../fonts/ethnocentric_rg.ttf') format('truetype');
 }

@@ -14,3 +14,10 @@
 .gui_button {
     color: blue;
 }
+
+
+/* Style properties for GUI labels. */
+.gui_label {
+    font-family: "MainFont";
+    color: yellow;
+}
