@@ -7,6 +7,16 @@
 
 
 function GameState() {
-    this.update = function() {}
-    this.draw = function(ctx) {}
+    this.update = function(dT) {
+        if(this.background !== 'undefined')
+            this.background.update(dT);
+    }
+    this.draw = function(ctx) {
+        if(this.background !== 'undefined')
+            this.background.draw(ctx);
+    }
+    
+    this.setBackground = function(background) {
+        this.background = background;
+    }
 }
