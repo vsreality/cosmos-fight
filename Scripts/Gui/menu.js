@@ -9,7 +9,7 @@
 
 function Menu() {
 
-
+    
     // Adds a button the the screen. This button will be positioned on the
     // screen at the given x, y location. If "callback" is provided, that
     // function will be invoked when the button is clicked.
@@ -21,7 +21,7 @@ function Menu() {
         var text = document.createTextNode(text);
         button.appendChild(text);
         
-        button.className = "gui_button";
+        button.className = "gui_element gui_button";
         button.style.left = xPos;
         button.style.top = yPos;
         button.style.width = width;
@@ -29,6 +29,24 @@ function Menu() {
         
         button.onclick = callback;
         document.getElementById("screen_container").appendChild(button);
+    }
+    
+    
+    // Adds a text label to the screen.
+    this.addLabel = function(text, xPos, yPos, size) {
+        ;
+    }
+    
+    
+    this.destroy = function() {
+        var container = document.getElementById("screen_container");
+        for(var i=0; i<container.children.length; i++) {
+            var child = container.children[i];
+            if(child.id !== "screen") {
+                container.removeChild(child)
+                i--;
+            }
+        }
     }
     
     

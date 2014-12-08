@@ -4,7 +4,13 @@
  */
 
 
-.gui_button {
+/* Style properties for all game GUI elements. */
+.gui_element {
     position: absolute;
+}
+
+
+/* Style properties for GUI buttons. */
+.gui_button {
     color: blue;
 }
