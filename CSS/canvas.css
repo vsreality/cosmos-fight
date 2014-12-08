@@ -1,0 +1,47 @@
+/* File: canvas.css
+ *
+ * Contains style properties for the HTML5 canvas screen which is used to
+ * render the game graphics to.
+ */
+
+
+/* Screen is black, and should fit inside its div container. */
+#screen {
+    background-color: black;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Screen cursor modifications. */
+#screen {
+	/* CURSOR CREDITS: http://www.rw-designer.com/cursor-set/cast-iron */
+	cursor: url("images/cursors/iron.cur"), default;
+}
+#screen:active {
+	cursor: url("images/cursors/iron.cur"), default;
+}
+
+
+/* Prevent double clicking on the canvas from highlighting the HTML element.
+ *	source: http://stackoverflow.com/questions/10184539/how-to-prevent-the-double-click-select-text-in-javascript
+ */
+#screen {
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+
+/* Adjustments for the screen container element, which will contain the screen
+ * and Menu/gui components as needed.
+ */
+#screen_container {
+    position: relative;
+    margin: 0 auto 0;
+    width: 800px;
+    height: 500px;
+}

@@ -3,11 +3,14 @@
  * TODO - might want to move this into a Game object?
  */
 
-
+var game;
+function initGame() {
+    game = new Game("screen");
+}
 
 /*** GENERAL GLOBAL VARIABLES ***/
 //FPS: the game's predetermined frames per second to animate at.
-var FPS = 30;
+/*var FPS = 30;
 // tLim is the number of milliseconds between each frame
 //  (used by animation/update functions)
 var tLim = Math.floor(1000/FPS);
@@ -47,11 +50,11 @@ var currentLevel;
 
 
 /*** INIT GAME: loads all game data and connects with the HTML5 Canvas ***/
-function initGame() {
+/*function initGame() {
 
     /* LOAD GAME MEDIA (sounds and images) */
     // general images
-    gameImgs = new Images();
+/*    gameImgs = new Images();
     gameImgs.add([
         ["payerBaseShip", "images/35_base.png"],
         ["corvetShip", "images/corvet1.png"],
@@ -91,7 +94,7 @@ function initGame() {
 
     // Time of game in frames (that is, how many frames passed since the game
     //  game animation started)
-    gameTime = 0;
+/*    gameTime = 0;
     
     // create the Display object to contain pointers to the canvas and context
     display = new Display("screen");
@@ -119,7 +122,7 @@ function initGame() {
     /* GAME LEVEL AND MENU: set up the menus and levels */
     
     // create the options menu (set the back function to the main menu)
-    optionsMenu = new OptionsMenu(function(){
+/*    optionsMenu = new OptionsMenu(function(){
         currentLevel = mainMenu;
     });
     
@@ -184,7 +187,7 @@ function initGame() {
      *  object referenced to by "currentLevel" simply ignores
      *  it if they do not need click events.
      */
-    $("#screen").mousedown(function(e){
+/*    $("#screen").mousedown(function(e){
             var x = e.pageX - $("#screen").offset().left;
             var y = e.pageY - $("#screen").offset().top;
             currentLevel.mousedown(x, y);
@@ -220,7 +223,7 @@ function initGame() {
  *  when buttons are pressed.
  */
 // keyboard button press listener
-$(document).keydown(function(event){
+/*$(document).keydown(function(event){
         // get the key code
         var key = event.keyCode;
         
@@ -326,7 +329,7 @@ $(document).keyup(function(event){
  *  updates after initGame() is called in the beginning
  *  of the script.
  */
-function updateGame(){
+/*function updateGame(){
 
     currentLevel.update();
     if(!currentLevel.paused){
@@ -363,3 +366,4 @@ function updateGame(){
     if(animating)
         setTimeout(updateGame, dTime);
 }
+*/

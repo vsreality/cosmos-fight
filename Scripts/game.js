@@ -51,13 +51,12 @@ function Game(canvas_id) {
     ]);
     this.sounds.loadSounds(); // TODO - change this to just load()
     
-    this.userInputMngr = new UserInputManager();
+    this.userInteractionMngr = new UserInteractionManager();
     //this.userInputMngr.bindKeyboardEvents();
     //this.userInputMngr.bindMouseEvents(this.display.getCanvasID());
     
     // start initially with the main menu
-    this.state = new GameMenu(); // TODO - not implemented
-    // TODO - force state prototypes on Menu and Level
+    this.state = new GameMenu();
     
     
     // Starts updating the current state (i.e. menu or level) of the game. The

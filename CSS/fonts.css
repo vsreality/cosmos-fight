@@ -1,0 +1,21 @@
+/* File: fonts.css
+ *
+ * Fonts used by the game.
+ */
+
+
+/*
+@font-face {
+    font-family: "MainFont";
+    src: url("fonts/ethnocentric_rg.ttf") format("truetype");
+}*/
+
+/*
+ * In order to work in IE, we had to modify the original font import
+ *	to what it is below. Thanks, Microsoft.
+ */
+@font-face {
+    font-family: "MainFont";
+	src:	url('fonts/orbitron-black-webfont.eot?'),
+			url('fonts/ethnocentric_rg.ttf') format('truetype');
+}

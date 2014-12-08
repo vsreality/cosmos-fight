@@ -5,5 +5,6 @@
 
 
 function GameMenu() {
-    ;
+    this.addButton("hi", 100, 100, 100, 30);
 }
+GameMenu.prototype = new Menu();

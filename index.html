@@ -3,20 +3,23 @@
 
 <head>
     
-    <!---------- PAGE INFO, CSS, AND FAVICON -->
+    <!---------- PAGE INFO -->
     <title>Cosmos Fight</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
     
-    
+    <!---------- STYLESHEETS -->
+    <link rel="stylesheet" type="text/css" href="CSS/html.css">
+    <link rel="stylesheet" type="text/css" href="CSS/canvas.css">
+    <link rel="stylesheet" type="text/css" href="CSS/fonts.css">
+    <link rel="stylesheet" type="text/css" href="CSS/gui.css">
     
     <!---------- INCLUDE 3RD PARTY LIBRARIES -->
     <script type="text/javascript" src="jquery.js"></script>
     
     
     
-    <!---------- INCLUDE GRAPHICS -->
+    <!---------- INCLUDE GRAPHICS (TODO) -->
     <script type="text/javascript" src="data/graphics/weapon_icons.js"></script>
     <script type="text/javascript" src="data/graphics/shield_icons.js"></script>
     <script type="text/javascript" src="data/graphics/health_icons.js"></script>
@@ -38,6 +41,7 @@
     <script type="text/javascript" src="Scripts/Media/media.js"></script>
     
     <!-- main interactive game management classes -->
+    <script type="text/javascript" src="Scripts/game_state.js"></script>
     <script type="text/javascript" src="Scripts/GameObjects/game_object.js"></script>
     <script type="text/javascript" src="Scripts/game_world.js"></script>
     <script type="text/javascript" src="Scripts/settings.js"></script>
@@ -55,6 +59,7 @@
     <script type="text/javascript" src="Scripts/Gui/gui.js"></script>
     <script type="text/javascript" src="Scripts/Gui/buttons.js"></script>
     <script type="text/javascript" src="Scripts/Gui/menu.js"></script>
+    <script type="text/javascript" src="Scripts/Gui/game_menu.js"></script>
 
     <!-- game objects and utility classes -->
     <script type="text/javascript" src="Scripts/GameObjects/bullets.js"></script>
@@ -100,6 +105,7 @@
     
     
     <!---------- INCLUDE MAIN GAME SCRIPT (starting script of the application) -->
+    <script type="text/javascript" src="Scripts/game.js"></script>
     <script type="text/javascript" src="Scripts/main.js"></script>
     
     
@@ -111,9 +117,11 @@
 
     <h1>Cosmos Fight - Dev Mode</h1>
 
-    <p><canvas id="screen" width="800" height="500" style="background: #000000" role="img">
+    <div id="screen_container">
+    <canvas id="screen" role="img">
     Your browser does not support the canvas element.
-    </canvas></p>
+    </canvas>
+    </div>
 
 </body>
 </html>

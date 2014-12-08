@@ -1,0 +1,10 @@
+/* File: gui.css
+ *
+ * Contains style properties for the game GUI and Menus.
+ */
+
+
+.gui_button {
+    position: absolute;
+    color: blue;
+}
