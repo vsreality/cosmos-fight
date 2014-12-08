@@ -4,11 +4,11 @@
  */
 
 
-function GameMenu() {
+function GameMenu(game) {
     
     // Callback function for the start level button.
     this.startTestLevel = function() {
-        alert("starting level!");
+        game.loadState("level 1");
     }
     
     

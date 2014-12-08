@@ -1,8 +1,13 @@
-/*
- *  SPACE CLASS
+/* File: space.js
+ *
+ * A Background object that animates moving stars across the canvas as space.
  */
+
  
-function space(ctx){
+function Space() {
+    // TODO - this needs to be re-implemented using relative positions and variable
+    // time step support.
+    
     //Array of layers
     this.layers = new Array();
     //Layer Object

@@ -56,7 +56,21 @@ function Game(canvas_id) {
     //this.userInputMngr.bindMouseEvents(this.display.getCanvasID());
     
     // start initially with the main menu
-    this.state = new GameMenu();
+    this.state = new GameMenu(this);
+    
+    // Loads the given state by the given state string (a "state factory" of sorts).
+    this.loadState = function(state_str) {
+        switch(state_str) {
+            case "level 1":
+                alert("START LEVEL 1 (not really)");
+                //this.state = new Level("1");
+                break;
+            case "main menu":
+            default:
+                this.state = new GameMenu();
+                break;
+        }
+    }
     
     
     // Starts updating the current state (i.e. menu or level) of the game. The
