@@ -39,10 +39,17 @@ function Menu() {
         button.appendChild(button_text);
         
         button.className = "gui_element gui_button";
-        button.style.left = xPos;
         button.style.top = yPos;
         button.style.width = width + "px";
         button.style.height = height + "px";
+        
+        // set x position based on positioning scheme
+        if(this.position == "center")
+            button.style.left = xPos - Math.floor(width / 2);
+        else if(this.position == "right")
+            button.style.left = xPos - width;
+        else
+            button.style.left = xPos;
         
         button.onclick = callback;
         document.getElementById(SCREEN_CONTAINER_ID).appendChild(button);
@@ -50,8 +57,8 @@ function Menu() {
     
     
     // Adds a regular text label to the screen. The size will be the size of the
-    // label's text. Set "centered" to true to center this label on the screen
-    // horizontally.
+    // label's text. When positioning is centered, the xPos parameter will act as
+    // an offset.
     this.addLabel = function(text, xPos, yPos, size) {
         var label = document.createElement("span");
         var label_text = document.createTextNode(text);
@@ -61,10 +68,10 @@ function Menu() {
         label.style.top = yPos;
         label.style.fontSize = size + "px";
         
-        // set position based on positioning scheme
+        // set x position based on positioning scheme
         if(this.position == "center") {
             label.style.width = SCREEN_WIDTH + "px";
-            label.style.left = 0;
+            label.style.left = xPos;
         }
         else if(this.position == "right") {
             label.style.right = xPos;
