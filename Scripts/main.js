@@ -3,9 +3,26 @@
  * TODO - might want to move this into a Game object?
  */
 
+
+var SCREEN_ID;
+var SCREEN_CONTAINER_ID;
+var SCREEN_WIDTH;
+var SCREEN_HEIGHT;
+
 var game;
+
 function initGame() {
-    game = new Game("screen");
+    SCREEN_ID = "screen";
+    SCREEN_CONTAINER_ID = "screen_container";
+    
+    // TODO - hack (fix this)
+    var canvas = document.getElementById(SCREEN_ID);
+    canvas.width = 800;
+    canvas.height = 500;
+    
+    SCREEN_WIDTH = document.getElementById(SCREEN_ID).width;
+    SCREEN_HEIGHT = document.getElementById(SCREEN_ID).height;
+    game = new Game(SCREEN_ID);
 }
 
 /*** GENERAL GLOBAL VARIABLES ***/
