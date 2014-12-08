@@ -30,6 +30,7 @@ function Menu() {
     // Adds a button the the screen. This button will be positioned on the
     // screen at the given x, y location. If "callback" is provided, that
     // function will be invoked when the button is clicked.
+    // Center-positioning a will center this element around its x-position.
     this.addButton = function(text, xPos, yPos, width, height, callback) {
         // handle default parameters
         callback = typeof callback !== 'undefined' ? callback : this.doNothing;
@@ -58,7 +59,7 @@ function Menu() {
     
     // Adds a regular text label to the screen. The size will be the size of the
     // label's text. When positioning is centered, the xPos parameter will act as
-    // an offset.
+    // an offset. Center-positioning a will center this element on the screen.
     this.addLabel = function(text, xPos, yPos, size) {
         var label = document.createElement("span");
         var label_text = document.createTextNode(text);
