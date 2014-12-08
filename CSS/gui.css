@@ -19,5 +19,11 @@
 /* Style properties for GUI labels. */
 .gui_label {
     font-family: "MainFont";
+    color: white;
+}
+.gui_label_title {
     color: yellow;
+}
+.gui_label_credit {
+    color: blue;
 }

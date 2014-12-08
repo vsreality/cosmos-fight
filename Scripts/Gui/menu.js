@@ -4,6 +4,9 @@
  * that serve as various game menus.
  * A menu contains buttons, links, selection options, etc. Each action can have
  * a callback function associated with it.
+ *
+ * TODO - create a wrapper object for the elements so they can be
+ * manipulated individually (e.g. elem.center(), etc.).
  */
 
 
@@ -24,6 +27,26 @@ function Menu() {
     // Existing elements (already added) will be unaffected.
     this.elementPosition = function(pos) {
         this.position = pos;
+    }
+    
+    
+    // Adds a title (essentially just a text label centered and large).
+    this.addTitle = function(text) {
+        var last_pos_setting = this.position;
+        this.elementPosition("center");
+        var label = this.addLabel(text, 0, 40, 30);
+        this.elementPosition(last_pos_setting);
+        label.className += " gui_label_title";
+    }
+    
+    
+    // Adds a credit label (lower right corner).
+    this.addCredit = function(text) {
+        var last_pos_setting = this.position;
+        this.elementPosition("right");
+        var label = this.addLabel(text, 30, SCREEN_HEIGHT - 50, 20);
+        this.elementPosition(last_pos_setting);
+        label.className += " gui_label_credit";
     }
     
     
@@ -54,6 +77,8 @@ function Menu() {
         
         button.onclick = callback;
         document.getElementById(SCREEN_CONTAINER_ID).appendChild(button);
+        
+        return button;
     }
     
     
@@ -82,6 +107,8 @@ function Menu() {
         }
         
         document.getElementById(SCREEN_CONTAINER_ID).appendChild(label);
+        
+        return label;
     }
     
     

@@ -1,12 +1,11 @@
 /* File: game_menu.js
  *
- * TODO - will contain the game's main menu.
+ * Contains the game's main menu.
  */
 
 
 function GameMenu() {
-    this.elementPosition("center");
-    this.addLabel("Main Menu", 0, 40, 30);
+    this.addTitle("Main Menu");
     
     this.elementPosition("center");
     var center = Math.floor(SCREEN_WIDTH / 2);
@@ -14,7 +13,7 @@ function GameMenu() {
     this.addButton("Settings", center, 180, 150, 30);
     this.addButton("Log In", center, 240, 150, 30);
     
-    this.elementPosition("right");
-    this.addLabel("VsReality", 30, SCREEN_HEIGHT - 50, 20);
+    this.addCredit("VsReality");
 }
+
 GameMenu.prototype = new Menu();
