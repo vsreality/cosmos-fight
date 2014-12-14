@@ -69,7 +69,7 @@ function Game(canvas_id) {
         this.userInteractionMngr.unsetTarget();
         switch(state_str) {
             case "level 1":
-                this.setState(new Level("1"));
+                this.setState(new Level("1", this.settings));
                 break;
             case "main menu":
             default:

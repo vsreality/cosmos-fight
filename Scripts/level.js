@@ -1,6 +1,11 @@
-// NOTE: Work in progress.
+/* File: level.js
+ *
+ * Defines a Level GameState. The Level object defines all standard gameplay
+ * mechanics that are related to each level. It also provides interaction handles
+ * for user input using KeyBindings.
+ */
 
-function Level(lvl_id) {
+function Level(level_name, settings) {
 	
 	// API:
 	//  setLevelName(str)
@@ -21,14 +26,13 @@ function Level(lvl_id) {
 	
 	this.paused = false;
 	
-    this.mousedown = function(x, y) { }
-    this.mouseup = function(x, y) { }
-    this.mousemove = function(x, y) { }
-    
     this.toggleHealthBars = function() {}
     this.toggleTimerBars = function() {}
     
     this.player = new Player();
+    //this.keybindings = settings.getKeyBindings();
+    //this.keybindings.bindKeyDown("pause", this.togglePauseMenu);
+    //this.keybindings.bindKeyDown("move up", this.player.moveUp);
     
     this.mouseDown = function(x, y) {
         alert("DID IT @ " + x + ", " + y);

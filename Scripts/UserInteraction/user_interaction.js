@@ -11,7 +11,7 @@
  *      mouseDown(x, y)
  *      mouseUp(x, y)
  *      mouseMove(x, y)
- * TODO - keyboard events pass through keyBindings filter?? here or at level scope
+ *
  * If a function remains undefined, that event will not be triggered.
  */
 
