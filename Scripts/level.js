@@ -1,6 +1,6 @@
 // NOTE: Work in progress.
 
-function Level() {
+function Level(lvl_id) {
 	
 	// API:
 	//  setLevelName(str)
@@ -19,6 +19,8 @@ function Level() {
 
 	//  sounds, images, paused
 	
+	alert(lvl_id);
+	
 	this.paused = false;
 	
     this.mousedown = function(x, y) { }
@@ -28,7 +30,7 @@ function Level() {
     this.toggleHealthBars = function() {}
     this.toggleTimerBars = function() {}
     
-    this.player = new Player();
+    /*this.player = new Player();
     this.player.setPosition(areaWidth / 2, areaHeight - 30);
 	
     this.update = function() {
@@ -37,10 +39,12 @@ function Level() {
     
     this.draw = function(ctx) {
         this.player.draw(ctx);
-    }
+    }*/
     
     this.start = function() { }
 }
+
+Level.prototype = new GameState();
 
 // 
 //  *  LEVEL CLASS

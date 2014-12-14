@@ -60,10 +60,10 @@ function Game(canvas_id) {
     
     // Loads the given state by the given state string (a "state factory" of sorts).
     this.loadState = function(state_str) {
+        this.state.destroy();
         switch(state_str) {
             case "level 1":
-                alert("START LEVEL 1 (not really)");
-                //this.state = new Level("1");
+                this.state = new Level("1");
                 break;
             case "main menu":
             default:
@@ -91,11 +91,13 @@ function Game(canvas_id) {
     this.update = function() {
         var cur_time = Date.now();
         var elapsed = cur_time - this.last_frame_time;
-        this.display.clear();
         this.last_frame_time = cur_time;
+        
         this.state.update(elapsed);
+        this.display.clear();
         this.state.draw(this.display.getContext());
         this.display.render();
+        
         window.requestAnimationFrame(this.update.bind(this));
     }
 }
