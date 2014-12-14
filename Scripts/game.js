@@ -52,22 +52,28 @@ function Game(canvas_id) {
     this.sounds.loadSounds(); // TODO - change this to just load()
     
     this.userInteractionMngr = new UserInteractionManager();
-    //this.userInputMngr.bindKeyboardEvents();
-    //this.userInputMngr.bindMouseEvents(this.display.getCanvasID());
+    this.userInteractionMngr.bindTo(this.display.getCanvasID());
     
     // start initially with the main menu
     this.state = new GameMenu(this);
     
+    // Sets the state and binds the user interaction manager to it.
+    this.setState = function(game_state_obj) {
+        this.state = game_state_obj;
+        this.userInteractionMngr.setTarget(this.state);
+    }
+    
     // Loads the given state by the given state string (a "state factory" of sorts).
     this.loadState = function(state_str) {
         this.state.destroy();
+        this.userInteractionMngr.unsetTarget();
         switch(state_str) {
             case "level 1":
-                this.state = new Level("1");
+                this.setState(new Level("1"));
                 break;
             case "main menu":
             default:
-                this.state = new GameMenu();
+                this.setStat(new GameMenu());
                 break;
         }
     }

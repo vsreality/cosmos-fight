@@ -29,6 +29,10 @@ function Level(lvl_id) {
     this.toggleTimerBars = function() {}
     
     this.player = new Player();
+    
+    this.mouseDown = function(x, y) {
+        alert("DID IT @ " + x + ", " + y);
+    }
 	
     this.update = function() {
         this.player.update();
