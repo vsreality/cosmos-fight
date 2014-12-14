@@ -10,6 +10,7 @@
 function Player() {
     // set Player ship size (approx 17 pixels)
     this.setSize(17);
+    this.setPosition(Math.floor(SCREEN_WIDTH/2), SCREEN_HEIGHT - 30);
     
     // create the collision system for the player
     this.setCollisionManager(25);
@@ -26,7 +27,7 @@ function Player() {
     this.score = 0;
     
     // movement variables - TODO, replace with InputManager
-    this.speed = 5 * (30/FPS);
+    this.speed = 5;
     this.speedX = 0;
     this.speedY = 0;
     
@@ -36,7 +37,7 @@ function Player() {
     // all lasers associated with the player
     this.lasers = new Array();
     // standard bullet speed
-    this.maxBulletSpeed = secToFrames(0.2);
+    this.maxBulletSpeed = 0.2;
     this.nextShotTime = 0;
     
     // true if immune to all damage (for testing)
@@ -45,7 +46,7 @@ function Player() {
     /*************** PLAYER WEAPON VARIABLES ***************/
     // weapon (defaults to basic weapon) and may be changed
     //  by bonuses
-    this.weapon = basicWeapon(this);//basicWeapon(this);
+    /*this.weapon = basicWeapon(this);//basicWeapon(this);
     // when weaponTimer expires, switch back to default weapon
     //  -1 means timer defaults to expired, so it doesn't execute right away
     this.weaponTimer = new Timer(-1);
@@ -53,12 +54,12 @@ function Player() {
     // switch to basic weapon when timer expires
     this.weaponTimer.onTime = function(player){
             player.weapon = basicWeapon(player);
-        };
+        };*/
     
     /*************** PLAYER SHIELD VARIABLES ***************/
     // the active shield (by default none) and may be changed by
     //  bonuses
-    this.shield = noShield(this);
+    /*this.shield = noShield(this);
     // when shieldTimer expires, switch back to default (none) shield
     //  -1 means timer defaults to expired, so it doesn't execute right away
     this.shieldTimer = new Timer(-1);
@@ -66,11 +67,11 @@ function Player() {
     // switch to default shield (none) when timer expires
     this.shieldTimer.onTime = function(player){
             player.shield = noShield(this);
-        };
+        };*/
 
     // update function (player position based on keys currently held down,
     //  and weapons)
-    this.update = function(){
+    /*this.update = function(){
         // TODO - all of these should be in GameObject, so remove them
         this.getCollisionManager().update();
         
@@ -83,12 +84,12 @@ function Player() {
         // update weapon and shield animation timers
         this.weapon.update();
         this.shield.update();
-    
+    */
     
         /*************** LEFT-RIGHT MOVEMENT ***************/
         
         // if LEFT button is pressed
-        if(keyLeftDown){
+   /*     if(keyLeftDown){
             // increasingly decrement x-velocity when moving left as long as max
             //  left (negative) speed is not surpassed
             if(this.speedX > -1*this.speed)
@@ -131,13 +132,13 @@ function Player() {
         else if(this.x < 15){
             this.x = 15;
             this.speedX = 0;
-        }
+        }*/
         
         
         /*************** UP-DOWN MOVEMENT ***************/
         
         // if UP key is pressed
-        if(keyUpDown){
+  /*      if(keyUpDown){
             // increasingly decrement y-velocity when moving up as long as max
             //  up (negative) speed is not surpassed
             if(this.speedY > -1*this.speed)
@@ -195,13 +196,13 @@ function Player() {
         
         // update all effects
         this.effectSys.update();
-        
+        */
         
         /*************** SHOOT MECHANISM ***************/
         
         // if SHOOT BUTTON is pushed, use the timer system to identify and
         //  launch a new bullet when appropriate (there is a timer delay)
-        if(keyShootDown){
+       /* if(keyShootDown){
             // call the shoot function on the weapon, but the parameter will only be
             //  TRUE if it's time to shoot. Some weapons ignore cooldown time, but
             //  most will not fire if the value passed in is false.
@@ -238,7 +239,7 @@ function Player() {
                 i--;
             }
         }
-    }
+    }*/
     
     
     // draw function: draws the player ship on the canvas
@@ -250,8 +251,10 @@ function Player() {
     this.draw = function(ctx){
         ctx.save();
         
+        ctx.fillStyle = "red";
+        ctx.fillRect(this.getX(), this.getY(), 15, 15);
         // draw all of player's bullets
-        for(var i=0; i<this.bullets.length; i++){
+       /* for(var i=0; i<this.bullets.length; i++){
             this.bullets[i].draw(ctx);
         }
         
@@ -263,7 +266,7 @@ function Player() {
         /*************** DRAW THE PLAYER SHIP ***************/
         
         // (only draw it if the player is alive)
-        if(this.isAlive()){
+        /*if(this.isAlive()){
             // save the context and start drawing this specific ship
             ctx.save();
             ctx.translate(this.x, this.y);
@@ -288,7 +291,7 @@ function Player() {
             //-------------------------------
             
             // draw the currently active weapon
-            this.weapon.draw(ctx);
+         /*   this.weapon.draw(ctx);
             
             // draw the currently active shield
             this.shield.draw(ctx);
@@ -297,7 +300,7 @@ function Player() {
         }
         
         // draw all of the effects (e.g. rocket fire)
-        this.effectSys.draw(ctx);
+        this.effectSys.draw(ctx);*/
         
         ctx.restore();
     }
@@ -539,7 +542,7 @@ function Player() {
     /*this.isAlive = function(){
         return (this.health > 0);
     }*/
-    this.setHealthManager(100);
+    /*this.setHealthManager(100);
     
     
     // RESET FUNCTION: reset the player to a default position after the player
@@ -567,7 +570,7 @@ function Player() {
         // reset lives and health (1 less life, 100 health)
         this.lives--;
         this.health = 100;
-    }
+    }*/
 }
 // Player is a Game Object.
 Player.prototype = new GameObject();

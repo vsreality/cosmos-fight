@@ -19,8 +19,6 @@ function Level(lvl_id) {
 
 	//  sounds, images, paused
 	
-	alert(lvl_id);
-	
 	this.paused = false;
 	
     this.mousedown = function(x, y) { }
@@ -30,8 +28,7 @@ function Level(lvl_id) {
     this.toggleHealthBars = function() {}
     this.toggleTimerBars = function() {}
     
-    /*this.player = new Player();
-    this.player.setPosition(areaWidth / 2, areaHeight - 30);
+    this.player = new Player();
 	
     this.update = function() {
         this.player.update();
@@ -39,7 +36,7 @@ function Level(lvl_id) {
     
     this.draw = function(ctx) {
         this.player.draw(ctx);
-    }*/
+    }
     
     this.start = function() { }
 }
