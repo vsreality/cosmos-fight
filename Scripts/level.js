@@ -30,12 +30,19 @@ function Level(level_name, settings) {
     this.toggleTimerBars = function() {}
     
     this.player = new Player();
-    //this.keybindings = settings.getKeyBindings();
+    
+    var keyBindings = settings.getKeyBindings();
+    this.setKeyBindings(keyBindings);
+    this.testFunc = function() {
+        this.player.setPosition(30,30);
+    }
+    keyBindings.bindEvent(UP_PRESSED, this.testFunc.bind(this));
+    //keyBindings.bindKeyDown("pause", this.togglePauseMenu);
     //this.keybindings.bindKeyDown("pause", this.togglePauseMenu);
     //this.keybindings.bindKeyDown("move up", this.player.moveUp);
     
     this.mouseDown = function(x, y) {
-        alert("DID IT @ " + x + ", " + y);
+        //alert("DID IT @ " + x + ", " + y);
     }
 	
     this.update = function() {

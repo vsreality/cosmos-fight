@@ -1,4 +1,5 @@
-/* GLOBAL UTILITY CLASSES */
+/* File: utils.js
+ */
 
 // POINT: contains an x and y position
 function Point(x, y) {

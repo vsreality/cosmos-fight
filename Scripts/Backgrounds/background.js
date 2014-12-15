@@ -18,7 +18,7 @@ function Background() {
     // By default, the screen will just be black.
     this.draw = function(ctx) {
         ctx.save();
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = "gray";
         ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         ctx.restore();
     }

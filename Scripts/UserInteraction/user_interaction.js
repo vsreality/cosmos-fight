@@ -28,16 +28,18 @@ function UserInteractionManager() {
         this.element.onmousedown = this.mouseDown.bind(this);
         this.element.onmouseup = this.mouseUp.bind(this);
         this.element.onmousemove = this.mouseMove.bind(this);
+        window.onkeydown = this.keyDown.bind(this);
+        window.onkeyup = this.keyUp.bind(this);
     }
     
     // Keyboard event handlers:
-    this.keyDown = function(ascii_val) {
+    this.keyDown = function(event) {
         if(this.target !== null && this.target.keyDown !== undefined)
-            this.target.keyDown(ascii_val);
+            this.target.keyDown(event.keyCode);
     }
-    this.keyUp = function(ascii_val) {
+    this.keyUp = function(event) {
         if(this.target !== null && this.target.keyUp !== undefined)
-            this.target.keyUp(ascii_val);
+            this.target.keyUp(event.keyCode);
     }
     
     // Mouse event handlers:

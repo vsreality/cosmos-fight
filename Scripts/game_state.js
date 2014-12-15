@@ -40,6 +40,18 @@ function GameState() {
         this.components.push(component);
     }
     
+    // Attaches a KeyBindings object that creates and links event listener
+    // functions for key presses to be forwarded to the KeyBindings object instead.
+    // The functions setup adhere to the UserInteractionManager's event API.
+    this.setKeyBindings = function(keyBindings) {
+        this.keyDown = function(ascii_val) {
+            keyBindings.keyDown(ascii_val);
+        }
+        this.keyUp = function(ascii_val) {
+            keyBindings.keyUp(ascii_val);
+        }
+    }
+    
     // OVERRIDE - clears off any HTML components added for this GameState.
     this.destroy = function() { }
 }
