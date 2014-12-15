@@ -5,7 +5,7 @@
  * for user input using KeyBindings.
  */
 
-function Level(level_name, settings) {
+function Level(level_name, game) {
 	
 	// API:
 	//  setLevelName(str)
@@ -31,12 +31,17 @@ function Level(level_name, settings) {
     
     this.player = new Player();
     
-    var keyBindings = settings.getKeyBindings();
+    var keyBindings = game.settings.getKeyBindings();
     this.setKeyBindings(keyBindings);
     this.testFunc = function() {
         this.player.setPosition(30,30);
     }
+    this.loadGameMenu = function() {
+        game.loadState("main menu");
+    }
     keyBindings.bindEvent(UP_PRESSED, this.testFunc.bind(this));
+    keyBindings.bindEvent(PAUSE_PRESSED, this.loadGameMenu.bind(this));
+    
     //keyBindings.bindKeyDown("pause", this.togglePauseMenu);
     //this.keybindings.bindKeyDown("pause", this.togglePauseMenu);
     //this.keybindings.bindKeyDown("move up", this.player.moveUp);

@@ -67,13 +67,14 @@ function Game(canvas_id) {
     this.loadState = function(state_str) {
         this.state.destroy();
         this.userInteractionMngr.unsetTarget();
+        this.settings.getKeyBindings().resetKeys();
         switch(state_str) {
             case "level 1":
-                this.setState(new Level("1", this.settings));
+                this.setState(new Level("1", this));
                 break;
             case "main menu":
             default:
-                this.setStat(new GameMenu());
+                this.setState(new GameMenu(this));
                 break;
         }
     }

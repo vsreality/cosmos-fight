@@ -30,8 +30,11 @@ OTHER_KEY_RELEASED = "other key released";
 function KeyBindings() {
 
     // array tracking all keys currently pressed (ASCII)
-    this.keys_pressed = Array.apply(null,
-        new Array(256)).map(Boolean.prototype.valueOf, false);
+    this.resetKeys = function() {
+        this.keys_pressed = Array.apply(null,
+            new Array(256)).map(Boolean.prototype.valueOf, false);
+    }
+    this.resetKeys();
     
     // Fordward key press events to these functions:
     this.keyDown = function(ascii_val) {
@@ -138,6 +141,38 @@ function KeyBindings() {
                 break;
             case RIGHT_RELEASED:
                 this.rightReleaseEvent = func;
+                break;
+            case SHOOT_PRESSED:
+                this.shootPressEvent = func;
+                break;
+            case SHOOT_RELEASED:
+                this.shootReleaseEvent = func;
+                break;
+            case PAUSE_PRESSED:
+                this.pausePressEvent = func;
+                break;
+            case PAUSE_RELEASED:
+                this.pauseReleaseEvent = func;
+                break;
+            case HEALTH_TOGGLE_PRESSED:
+                this.healthBarTogglePressEvent = func;
+                break;
+            case HEALTH_TOGGLE_RELEASED:
+                this.healthBarToggleReleaseEvent = func;
+                break;
+            case TIMER_BAR_TOGGLE_PRESSED:
+                this.timerBarTogglePressEvent = func;
+                break;
+            case TIMER_BAR_TOGGLE_RELEASED:
+                this.timerBarToggleReleaseEvent = func;
+                break;
+            case OTHER_KEY_PRESSED:
+                this.otherKeyPressEvent = func;
+                break;
+            case OTHER_KEY_RELEASED:
+                this.otherKeyReleaseEvent = func;
+                break;
+            default:
                 break;
         }
     }
