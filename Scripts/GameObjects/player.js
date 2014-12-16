@@ -7,7 +7,47 @@
  */
  
 
+// Number of degrees of freedom (up, down, left, right).
+NUM_DOF = 4;
+
+// Direction constants
+PLAYER_MOVE_UP = 0;
+PLAYER_MOVE_DOWN = 1;
+PLAYER_MOVE_LEFT = 2;
+PLAYER_MOVE_RIGHT = 3;
+
+
 function Player() {
+
+    // Movement value for each degree of freedom.
+    this.motion_dirs = new Array(NUM_DOF).map(Boolean.prototype.valueOf, false);
+    
+    // Toggle movement in the given direction (identified by the constant values).
+    // To start movement, set on = true; to stop movement, set on = false;
+    this.move = function(direction, on) {
+        if(direction >= 0 && direction < NUM_DOF)
+            this.motion_dirs[direction] = on;
+    }
+    
+    
+    // TODO - this needs to be done using the motion controller:
+    this.update = function(dT) {
+        var speed = 0.25;
+        var x_vel = 0;
+        var y_vel = 0;
+        if(this.motion_dirs[PLAYER_MOVE_UP])
+            y_vel -= speed;
+        if(this.motion_dirs[PLAYER_MOVE_DOWN])
+            y_vel += speed;
+        if(this.motion_dirs[PLAYER_MOVE_LEFT])
+            x_vel -= speed;
+        if(this.motion_dirs[PLAYER_MOVE_RIGHT])
+            x_vel += speed;
+        this.setX(this.getX() + x_vel * dT);
+        this.setY(this.getY() + y_vel * dT);
+    }
+
+
     // set Player ship size (approx 17 pixels)
     this.setSize(17);
     this.setPosition(Math.floor(SCREEN_WIDTH/2), SCREEN_HEIGHT - 30);

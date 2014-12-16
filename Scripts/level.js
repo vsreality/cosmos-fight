@@ -67,11 +67,39 @@ function Level(level_name, game) {
     // Set up keybindings and user interaction events.
     var keyBindings = game.settings.getKeyBindings();
     this.setKeyBindings(keyBindings);
-    this.testFunc = function() {
-        this.player.setPosition(30,30);
+    this.moveUpStart = function() {
+        this.player.move(PLAYER_MOVE_UP, true);
+    }
+    this.moveUpEnd = function() {
+        this.player.move(PLAYER_MOVE_UP, false);
+    }
+    this.moveDownStart = function() {
+        this.player.move(PLAYER_MOVE_DOWN, true);
+    }
+    this.moveDownEnd = function() {
+        this.player.move(PLAYER_MOVE_DOWN, false);
+    }
+    this.moveLeftStart = function() {
+        this.player.move(PLAYER_MOVE_LEFT, true);
+    }
+    this.moveLeftEnd = function() {
+        this.player.move(PLAYER_MOVE_LEFT, false);
+    }
+    this.moveRightStart = function() {
+        this.player.move(PLAYER_MOVE_RIGHT, true);
+    }
+    this.moveRightEnd = function() {
+        this.player.move(PLAYER_MOVE_RIGHT, false);
     }
     // Player controls
-    keyBindings.bindEvent(UP_PRESSED, this.testFunc.bind(this));
+    keyBindings.bindEvent(UP_PRESSED, this.moveUpStart.bind(this));
+    keyBindings.bindEvent(UP_RELEASED, this.moveUpEnd.bind(this));
+    keyBindings.bindEvent(DOWN_PRESSED, this.moveDownStart.bind(this));
+    keyBindings.bindEvent(DOWN_RELEASED, this.moveDownEnd.bind(this));
+    keyBindings.bindEvent(LEFT_PRESSED, this.moveLeftStart.bind(this));
+    keyBindings.bindEvent(LEFT_RELEASED, this.moveLeftEnd.bind(this));
+    keyBindings.bindEvent(RIGHT_PRESSED, this.moveRightStart.bind(this));
+    keyBindings.bindEvent(RIGHT_RELEASED, this.moveRightEnd.bind(this));
     // GUI interaction
     keyBindings.bindEvent(PAUSE_PRESSED, this.pause.bind(this));
     // Mouse events - TODO (do we need these?)
@@ -81,8 +109,8 @@ function Level(level_name, game) {
 	
 	
 	// TODO - necessary, or can we automate these through this.components?
-    this.update = function() {
-        this.player.update();
+    this.update = function(dT) {
+        this.player.update(dT);
     }
     this.draw = function(ctx) {
         this.player.draw(ctx);
