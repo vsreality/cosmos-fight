@@ -23,8 +23,42 @@ function Level(level_name, game) {
 	// draw, update
 
 	//  sounds, images, paused
-	
 	this.paused = false;
+	this.pauseMenu = null;
+	
+	// Destroys the pause menu, if it exists, and removes it from the level.
+	this.clearMenu = function() {
+        if(this.pauseMenu !== null) {
+            this.pauseMenu.destroy();
+            this.pauseMenu = null;
+        }
+    }
+	
+    // When the pause button is pressed, the level pauses and displays the
+    // pause menu.
+    this.pause = function() {
+        this.paused = true;
+        this.pauseMenu = new PauseMenu(this);
+    }
+    
+    // When the game is resumed from the pause menu, the level unpauses and
+    // removes the pause menu (if it exists).
+    this.resume = function() {
+        this.paused = false;
+        this.clearMenu();
+    }
+    
+    // Restarts the level, starting again from the first phase.
+    this.restart = function() {
+        // TODO
+        this.clearMenu();
+    }
+	
+	// Quits the level, returning the GameState to the main menu.
+	this.quit = function() {
+	    game.loadState("main menu");
+	}
+	
 	
     this.toggleHealthBars = function() {}
     this.toggleTimerBars = function() {}
@@ -40,7 +74,7 @@ function Level(level_name, game) {
         game.loadState("main menu");
     }
     keyBindings.bindEvent(UP_PRESSED, this.testFunc.bind(this));
-    keyBindings.bindEvent(PAUSE_PRESSED, this.loadGameMenu.bind(this));
+    keyBindings.bindEvent(PAUSE_PRESSED, this.pause.bind(this));
     
     //keyBindings.bindKeyDown("pause", this.togglePauseMenu);
     //this.keybindings.bindKeyDown("pause", this.togglePauseMenu);
