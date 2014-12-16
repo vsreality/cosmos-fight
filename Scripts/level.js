@@ -21,10 +21,14 @@ function Level(level_name, game) {
 	// mousedown, mouseup, mousemove
 	// toggleHealthBars, toggleTimerBars
 	// draw, update
+	// sounds, images, paused
+    
+    // TODO - player as a component?
+    this.player = new Player();
 
-	//  sounds, images, paused
 	this.paused = false;
 	this.pauseMenu = null;
+	
 	
 	// Destroys the pause menu, if it exists, and removes it from the level.
 	this.clearMenu = function() {
@@ -58,41 +62,38 @@ function Level(level_name, game) {
 	this.quit = function() {
 	    game.loadState("main menu");
 	}
-	
-	
-    this.toggleHealthBars = function() {}
-    this.toggleTimerBars = function() {}
     
-    this.player = new Player();
     
+    // Set up keybindings and user interaction events.
     var keyBindings = game.settings.getKeyBindings();
     this.setKeyBindings(keyBindings);
     this.testFunc = function() {
         this.player.setPosition(30,30);
     }
-    this.loadGameMenu = function() {
-        game.loadState("main menu");
-    }
+    // Player controls
     keyBindings.bindEvent(UP_PRESSED, this.testFunc.bind(this));
+    // GUI interaction
     keyBindings.bindEvent(PAUSE_PRESSED, this.pause.bind(this));
-    
-    //keyBindings.bindKeyDown("pause", this.togglePauseMenu);
-    //this.keybindings.bindKeyDown("pause", this.togglePauseMenu);
-    //this.keybindings.bindKeyDown("move up", this.player.moveUp);
-    
+    // Mouse events - TODO (do we need these?)
     this.mouseDown = function(x, y) {
         //alert("DID IT @ " + x + ", " + y);
     }
 	
+	
+	// TODO - necessary, or can we automate these through this.components?
     this.update = function() {
         this.player.update();
     }
-    
     this.draw = function(ctx) {
         this.player.draw(ctx);
     }
     
-    this.start = function() { }
+    
+    // Destructor: clears off any remaining GUI components from the screen.
+    this.destroy = function() {
+        this.clearMenu();
+    }
+    
 }
 
 Level.prototype = new GameState();
