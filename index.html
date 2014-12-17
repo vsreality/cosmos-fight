@@ -125,6 +125,19 @@
     Your browser does not support the canvas element.
     </canvas>
     </div>
+    
+    <script>
+        // TODO: developer hack (this should be done through internal game settings)
+        function DEV_toggleStats() {
+            if(game.display.stats_enabled)
+                game.display.disableStats();
+            else
+                game.display.enableStats(100);
+        }
+    </script>
+    <p>
+        <button onclick="DEV_toggleStats();">Toggle Game Stats</button>
+    </p>
 
 </body>
 </html>
