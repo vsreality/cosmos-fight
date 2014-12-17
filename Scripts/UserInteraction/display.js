@@ -5,15 +5,45 @@
  */
 
 
-function Display(canvasID) {
+function Display(canvas_id) {
     // set the canvas and context variables
-    this.canvasID = canvasID;
-    this.canvas = document.getElementById(canvasID);
+    this.canvas_id = canvas_id;
+    this.canvas = document.getElementById(canvas_id);
     this.context = this.canvas.getContext("2d");
     
     // width and height values from context
     this.width = this.canvas.width;
     this.height = this.canvas.height;
+    
+    
+    // flags and variables for displaying statistics on the screen
+    this.stats_enabled = false;
+    this.FPS = 0;
+    
+    // Stats get refreshed every time the interval triggers (set up in enableStats).
+    this.refresh_handle = -1;
+    this.refresh_stats = true;
+    this.refreshStats = function() {
+        this.refresh_stats = true;
+    }
+       
+    // Enables showing statistics (such as the framerate) on or off. Stats are drawn
+    // as text on the screen after rendering everything else.
+    // The refresh rate (given in milliseconds) is how often stats will refresh.
+    this.enableStats = function(refresh_rate) {
+        this.stats_enabled = true;
+        this.refresh_handle = setInterval(this.refreshStats.bind(this), refresh_rate);
+    }
+    
+    // Disables showing all statistics.
+    this.disableStats = function() {
+        if(this.refresh_handle !== -1) {
+            clearInterval(this.refresh_handle);
+            this.refresh_handle = -1;
+        }
+        this.stats_enabled = false;
+    }
+    
     
     // Creates a second context that will be drawn to, and each frame the
     //  context data will be drawn into the main context.
@@ -63,9 +93,29 @@ function Display(canvasID) {
     // If using a double buffering setup, this function will draw the second
     //  context's data into the main context to render it to the screen. If
     //  double-buffering is not enabled, this will do nothing.
-    this.render = function() {
+    // If stats are enabled, stats will be drawn to whichever context is viewed.
+    this.render = function(dT) {
         if(this.hasDoubleBuffering)
             this.context.drawImage(this.canvas2, 0, 0);
+        if(this.stats_enabled) {
+            this.context.save();
+            this.context.fillStyle = "rgba(0, 0, 0, 0.75)";
+            this.context.fillRect(20, 20, 200, 30);
+            this.context.fillStyle = "rgb(0, 255, 0)";
+            this.context.font = "16px Ariel";
+            this.updateStats(dT);
+            this.context.fillText("FPS: " + this.FPS, 30, 40);
+            this.context.restore();
+        }
+    }
+    
+    
+    // Returns the current framerate of the game by computing the dT.
+    this.updateStats = function(dT) {
+        if(this.refresh_stats) {
+            this.FPS = Math.floor(1000 / dT);
+            this.refresh_stats = false;
+        }
     }
     
     
@@ -79,6 +129,6 @@ function Display(canvasID) {
     
     // Returns the ID value of the canvas this Display object is using.
     this.getCanvasID = function() {
-        return this.canvasID;
+        return this.canvas_id;
     }
 }

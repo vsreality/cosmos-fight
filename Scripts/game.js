@@ -16,6 +16,7 @@ function Game(canvas_id) {
     this.settings = new Settings();
     this.display = new Display(canvas_id);
     this.display.enableDoubleBuffering();
+    this.display.enableStats(100);
     
     // GameWorld defines global properties of the 2D virtual world.
     this.world = new GameWorld(this.display.getWidth(), this.display.getHeight());
@@ -103,7 +104,7 @@ function Game(canvas_id) {
         this.state.update(elapsed);
         this.display.clear();
         this.state.draw(this.display.getContext());
-        this.display.render();
+        this.display.render(elapsed);
         
         window.requestAnimationFrame(this.update.bind(this));
     }

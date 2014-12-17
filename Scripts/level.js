@@ -6,7 +6,7 @@
  */
 
 function Level(level_name, game) {
-	
+
 	// API:
 	//  setLevelName(str)
 	//  setNextLevelName(str)
