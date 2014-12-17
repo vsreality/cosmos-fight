@@ -24,15 +24,22 @@ function Player() {
     
     // Toggle movement in the given direction (identified by the constant values).
     // To start movement, set on = true; to stop movement, set on = false;
+    // TODO - add to GameObject?
     this.move = function(direction, on) {
         if(direction >= 0 && direction < NUM_DOF)
             this.motion_dirs[direction] = on;
     }
     
+    // TODO - add to GameObject?
+    this.shooting = false;
+    this.shoot = function(on) {
+        this.shooting = on;
+        // TODO - use JS timer interval
+    }
     
     // TODO - this needs to be done using the motion controller:
     this.update = function(dT) {
-        var speed = 0.25;
+        var speed = 50;
         var x_vel = 0;
         var y_vel = 0;
         if(this.motion_dirs[PLAYER_MOVE_UP])
@@ -43,8 +50,10 @@ function Player() {
             x_vel -= speed;
         if(this.motion_dirs[PLAYER_MOVE_RIGHT])
             x_vel += speed;
-        this.setX(this.getX() + x_vel * dT);
-        this.setY(this.getY() + y_vel * dT);
+        this.setX(this.getX() + x_vel / dT);
+        this.setY(this.getY() + y_vel / dT);
+        if(this.shooting)
+            console.log("shooting");
     }
 
 
