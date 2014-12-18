@@ -70,10 +70,10 @@ function Level(level_name, game) {
     this.shootStart     = function() { this.player.shoot(true);                    }
     this.shootEnd       = function() { this.player.shoot(false);                   }
     // Player controls - TODO - add to player?
-    keyBindings.bindEvent(SHOOT_PRESSED, this.shootStart.bind(this));
-    keyBindings.bindEvent(SHOOT_RELEASED, this.shootEnd.bind(this));
+    keyBindings.bindEvent(KeyBindings.SHOOT_PRESSED, this.shootStart.bind(this));
+    keyBindings.bindEvent(KeyBindings.SHOOT_RELEASED, this.shootEnd.bind(this));
     // GUI interaction
-    keyBindings.bindEvent(PAUSE_PRESSED, this.pause.bind(this));
+    keyBindings.bindEvent(KeyBindings.PAUSE_PRESSED, this.pause.bind(this));
     // Mouse events - TODO (do we need these?)
     this.mouseDown = function(x, y) {
         //alert("DID IT @ " + x + ", " + y);

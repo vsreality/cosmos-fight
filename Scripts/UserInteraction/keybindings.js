@@ -6,27 +6,6 @@
  */
 
 
-// Global event names defined for convenience.
-UP_PRESSED = "up pressed";
-UP_RELEASED = "up released";
-DOWN_PRESSED = "down pressed";
-DOWN_RELEASED = "down released";
-LEFT_PRESSED = "left pressed";
-LEFT_RELEASED = "left released";
-RIGHT_PRESSED = "right pressed";
-RIGHT_RELEASED = "right released";
-SHOOT_PRESSED = "shoot pressed";
-SHOOT_RELEASED = "shoot released";
-PAUSE_PRESSED = "paused pressed";
-PAUSE_RELEASED = "pause released";
-HEALTH_TOGGLE_PRESSED = "health toggle pressed";
-HEALTH_TOGGLE_RELEASED = "health toggle released";
-TIMER_BAR_TOGGLE_PRESSED = "timer bar toggle pressed";
-TIMER_BAR_TOGGLE_RELEASED = "timer bar toggle released";
-OTHER_KEY_PRESSED = "other key pressed";
-OTHER_KEY_RELEASED = "other key released";
-
-
 function KeyBindings() {
 
     // array tracking all keys currently pressed (ASCII)
@@ -118,58 +97,58 @@ function KeyBindings() {
     // Assignment binding function: binds the given action to the given event.
     this.bindEvent = function(event_name, func) {
         switch(event_name) {
-            case UP_PRESSED:
+            case KeyBindings.UP_PRESSED:
                 this.upPressEvent = func;
                 break;
-            case UP_RELEASED:
+            case KeyBindings.UP_RELEASED:
                 this.upReleaseEvent = func;
                 break;
-            case DOWN_PRESSED:
+            case KeyBindings.DOWN_PRESSED:
                 this.downPressEvent = func;
                 break;
-            case DOWN_RELEASED:
+            case KeyBindings.DOWN_RELEASED:
                 this.downReleaseEvent = func;
                 break;
-            case LEFT_PRESSED:
+            case KeyBindings.LEFT_PRESSED:
                 this.leftPressEvent = func;
                 break;
-            case LEFT_RELEASED:
+            case KeyBindings.LEFT_RELEASED:
                 this.leftReleaseEvent = func;
                 break;
-            case RIGHT_PRESSED:
+            case KeyBindings.RIGHT_PRESSED:
                 this.rightPressEvent = func;
                 break;
-            case RIGHT_RELEASED:
+            case KeyBindings.RIGHT_RELEASED:
                 this.rightReleaseEvent = func;
                 break;
-            case SHOOT_PRESSED:
+            case KeyBindings.SHOOT_PRESSED:
                 this.shootPressEvent = func;
                 break;
-            case SHOOT_RELEASED:
+            case KeyBindings.SHOOT_RELEASED:
                 this.shootReleaseEvent = func;
                 break;
-            case PAUSE_PRESSED:
+            case KeyBindings.PAUSE_PRESSED:
                 this.pausePressEvent = func;
                 break;
-            case PAUSE_RELEASED:
+            case KeyBindings.PAUSE_RELEASED:
                 this.pauseReleaseEvent = func;
                 break;
-            case HEALTH_TOGGLE_PRESSED:
+            case KeyBindings.HEALTH_TOGGLE_PRESSED:
                 this.healthBarTogglePressEvent = func;
                 break;
-            case HEALTH_TOGGLE_RELEASED:
+            case KeyBindings.HEALTH_TOGGLE_RELEASED:
                 this.healthBarToggleReleaseEvent = func;
                 break;
-            case TIMER_BAR_TOGGLE_PRESSED:
+            case KeyBindings.TIMER_BAR_TOGGLE_PRESSED:
                 this.timerBarTogglePressEvent = func;
                 break;
-            case TIMER_BAR_TOGGLE_RELEASED:
+            case KeyBindings.TIMER_BAR_TOGGLE_RELEASED:
                 this.timerBarToggleReleaseEvent = func;
                 break;
-            case OTHER_KEY_PRESSED:
+            case KeyBindings.OTHER_KEY_PRESSED:
                 this.otherKeyPressEvent = func;
                 break;
-            case OTHER_KEY_RELEASED:
+            case KeyBindings.OTHER_KEY_RELEASED:
                 this.otherKeyReleaseEvent = func;
                 break;
             default:
@@ -255,3 +234,24 @@ function KeyBindings() {
                keyCode == this.timerBars3 || keyCode == this.timerBars4;
     }
 }
+
+
+// Static constant event names defined for convenience.
+KeyBindings.UP_PRESSED = "up pressed";
+KeyBindings.UP_RELEASED = "up released";
+KeyBindings.DOWN_PRESSED = "down pressed";
+KeyBindings.DOWN_RELEASED = "down released";
+KeyBindings.LEFT_PRESSED = "left pressed";
+KeyBindings.LEFT_RELEASED = "left released";
+KeyBindings.RIGHT_PRESSED = "right pressed";
+KeyBindings.RIGHT_RELEASED = "right released";
+KeyBindings.SHOOT_PRESSED = "shoot pressed";
+KeyBindings.SHOOT_RELEASED = "shoot released";
+KeyBindings.PAUSE_PRESSED = "paused pressed";
+KeyBindings.PAUSE_RELEASED = "pause released";
+KeyBindings.HEALTH_TOGGLE_PRESSED = "health toggle pressed";
+KeyBindings.HEALTH_TOGGLE_RELEASED = "health toggle released";
+KeyBindings.TIMER_BAR_TOGGLE_PRESSED = "timer bar toggle pressed";
+KeyBindings.TIMER_BAR_TOGGLE_RELEASED = "timer bar toggle released";
+KeyBindings.OTHER_KEY_PRESSED = "other key pressed";
+KeyBindings.OTHER_KEY_RELEASED = "other key released";

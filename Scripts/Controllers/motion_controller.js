@@ -58,14 +58,14 @@ function MotionController(gameObj) {
     // by the implementing object. KeyBindings should also be bound to a
     // UserInteractionManager to have motion events triggered by user interactions.
     this.bindInput = function(keyBindings) {
-        keyBindings.bindEvent(UP_PRESSED, this.moveUpStart.bind(this));
-        keyBindings.bindEvent(UP_RELEASED, this.moveUpEnd.bind(this));
-        keyBindings.bindEvent(DOWN_PRESSED, this.moveDownStart.bind(this));
-        keyBindings.bindEvent(DOWN_RELEASED, this.moveDownEnd.bind(this));
-        keyBindings.bindEvent(LEFT_PRESSED, this.moveLeftStart.bind(this));
-        keyBindings.bindEvent(LEFT_RELEASED, this.moveLeftEnd.bind(this));
-        keyBindings.bindEvent(RIGHT_PRESSED, this.moveRightStart.bind(this));
-        keyBindings.bindEvent(RIGHT_RELEASED, this.moveRightEnd.bind(this));
+        keyBindings.bindEvent(KeyBindings.UP_PRESSED, this.moveUpStart.bind(this));
+        keyBindings.bindEvent(KeyBindings.UP_RELEASED, this.moveUpEnd.bind(this));
+        keyBindings.bindEvent(KeyBindings.DOWN_PRESSED, this.moveDownStart.bind(this));
+        keyBindings.bindEvent(KeyBindings.DOWN_RELEASED, this.moveDownEnd.bind(this));
+        keyBindings.bindEvent(KeyBindings.LEFT_PRESSED, this.moveLeftStart.bind(this));
+        keyBindings.bindEvent(KeyBindings.LEFT_RELEASED, this.moveLeftEnd.bind(this));
+        keyBindings.bindEvent(KeyBindings.RIGHT_PRESSED, this.moveRightStart.bind(this));
+        keyBindings.bindEvent(KeyBindings.RIGHT_RELEASED, this.moveRightEnd.bind(this));
     }
     
     this.setBoundary = function(rect) {
