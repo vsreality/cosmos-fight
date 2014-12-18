@@ -15,7 +15,7 @@ function GameMenu(game) {
     // Add all Menu components:
     this.addTitle("Main Menu");
     
-    this.elementPosition("center");
+    this.elementPosition(Menu.POSITION_CENTER);
     var center = Math.floor(SCREEN_WIDTH / 2);
     this.addButton("Play Test Level", center, 120, 150, 30, this.startTestLevel);
     this.addButton("Settings", center, 180, 150, 30);

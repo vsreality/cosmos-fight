@@ -10,17 +10,11 @@
  */
 
 
-// Global constants for menu positioning.
-MENU_POSITION_LEFT = "left";
-MENU_POSITION_CENTER = "center";
-MENU_POSITION_RIGHT = "right";
-
-
 // Menu object
 function Menu() {
 
     // Determines the positioning scheme of the next object added.
-    this.position = MENU_POSITION_LEFT;
+    this.position = Menu.POSITION_LEFT;
     
     
     // Sets the positioning scheme for all elements added in the future.
@@ -33,7 +27,7 @@ function Menu() {
     // Adds a title (essentially just a text label centered and large).
     this.addTitle = function(text) {
         var last_pos_setting = this.position;
-        this.elementPosition("center");
+        this.elementPosition(Menu.POSITION_CENTER);
         var label = this.addLabel(text, 0, 40, 30);
         this.elementPosition(last_pos_setting);
         label.className += " gui_label_title";
@@ -43,7 +37,7 @@ function Menu() {
     // Adds a credit label (lower right corner).
     this.addCredit = function(text) {
         var last_pos_setting = this.position;
-        this.elementPosition("right");
+        this.elementPosition(Menu.POSITION_RIGHT);
         var label = this.addLabel(text, 30, SCREEN_HEIGHT - 50, 20);
         this.elementPosition(last_pos_setting);
         label.className += " gui_label_credit";
@@ -68,9 +62,9 @@ function Menu() {
         button.style.height = height + "px";
         
         // set x position based on positioning scheme
-        if(this.position == "center")
+        if(this.position == Menu.POSITION_CENTER)
             button.style.left = xPos - Math.floor(width / 2);
-        else if(this.position == "right")
+        else if(this.position == Menu.POSITION_RIGHT)
             button.style.left = xPos - width;
         else
             button.style.left = xPos;
@@ -95,11 +89,11 @@ function Menu() {
         label.style.fontSize = size + "px";
         
         // set x position based on positioning scheme
-        if(this.position == "center") {
+        if(this.position == Menu.POSITION_CENTER) {
             label.style.width = SCREEN_WIDTH + "px";
             label.style.left = xPos;
         }
-        else if(this.position == "right") {
+        else if(this.position == Menu.POSITION_RIGHT) {
             label.style.right = xPos;
         }
         else {
@@ -136,3 +130,9 @@ function Menu() {
 }
 
 Menu.prototype = new GameState();
+
+
+// Static constants for menu positioning.
+Menu.POSITION_LEFT = "left";
+Menu.POSITION_CENTER = "center";
+Menu.POSITION_RIGHT = "right";

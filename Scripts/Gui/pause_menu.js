@@ -22,7 +22,7 @@ function PauseMenu(level) {
     // Add all Menu components:
     this.addTitle("Paused");
     
-    this.elementPosition("center");
+    this.elementPosition(Menu.POSITION_CENTER);
     var center = Math.floor(SCREEN_WIDTH / 2);
     this.addButton("Resume", center, 120, 150, 30, this.resumePressed);
     this.addButton("Restart", center, 180, 150, 30, this.restartPressed);
