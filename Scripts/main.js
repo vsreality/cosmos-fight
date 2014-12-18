@@ -4,6 +4,7 @@
  */
 
 
+// TODO - get rid of the globals?
 var SCREEN_ID;
 var SCREEN_CONTAINER_ID;
 var SCREEN_WIDTH;

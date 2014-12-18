@@ -67,25 +67,9 @@ function Level(level_name, game) {
     // Set up keybindings and user interaction events.
     var keyBindings = game.getSettings().getKeyBindings();
     this.setKeyBindings(keyBindings);
-    /*this.moveUpStart    = function() { this.player.move(PLAYER_MOVE_UP, true);     }
-    this.moveUpEnd      = function() { this.player.move(PLAYER_MOVE_UP, false);    }
-    this.moveDownStart  = function() { this.player.move(PLAYER_MOVE_DOWN, true);   }
-    this.moveDownEnd    = function() { this.player.move(PLAYER_MOVE_DOWN, false);  }
-    this.moveLeftStart  = function() { this.player.move(PLAYER_MOVE_LEFT, true);   }
-    this.moveLeftEnd    = function() { this.player.move(PLAYER_MOVE_LEFT, false);  }
-    this.moveRightStart = function() { this.player.move(PLAYER_MOVE_RIGHT, true);  }
-    this.moveRightEnd   = function() { this.player.move(PLAYER_MOVE_RIGHT, false); }*/
     this.shootStart     = function() { this.player.shoot(true);                    }
     this.shootEnd       = function() { this.player.shoot(false);                   }
-    // Player controls
-    /*keyBindings.bindEvent(UP_PRESSED, this.moveUpStart.bind(this));
-    keyBindings.bindEvent(UP_RELEASED, this.moveUpEnd.bind(this));
-    keyBindings.bindEvent(DOWN_PRESSED, this.moveDownStart.bind(this));
-    keyBindings.bindEvent(DOWN_RELEASED, this.moveDownEnd.bind(this));
-    keyBindings.bindEvent(LEFT_PRESSED, this.moveLeftStart.bind(this));
-    keyBindings.bindEvent(LEFT_RELEASED, this.moveLeftEnd.bind(this));
-    keyBindings.bindEvent(RIGHT_PRESSED, this.moveRightStart.bind(this));
-    keyBindings.bindEvent(RIGHT_RELEASED, this.moveRightEnd.bind(this));*/
+    // Player controls - TODO - add to player?
     keyBindings.bindEvent(SHOOT_PRESSED, this.shootStart.bind(this));
     keyBindings.bindEvent(SHOOT_RELEASED, this.shootEnd.bind(this));
     // GUI interaction
