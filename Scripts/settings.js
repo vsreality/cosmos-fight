@@ -43,9 +43,9 @@ function Settings() {
     
     
     // KEYBINDINGS
-    var keyBindings = new KeyBindings();
+    this.keyBindings = new KeyBindings();
     this.getKeyBindings = function() {
-        return keyBindings;
+        return this.keyBindings;
     }
     
 }
