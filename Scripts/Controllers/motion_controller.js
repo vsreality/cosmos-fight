@@ -8,16 +8,6 @@
  */
 
 
-// Number of degrees of freedom (up, down, left, right).
-NUM_DOF = 4;
-
-// Direction constants
-CONTROLLER_MOVE_UP = 0;
-CONTROLLER_MOVE_DOWN = 1;
-CONTROLLER_MOVE_LEFT = 2;
-CONTROLLER_MOVE_RIGHT = 3;
-
-
 // MotionController class
 // Parameter: gameObj to control, must be a GameObject interface.
 function MotionController(gameObj) {
@@ -45,23 +35,24 @@ function MotionController(gameObj) {
     }
     
     // Movement value for each degree of freedom.
-    this.motion_dirs = new Array(NUM_DOF).map(Boolean.prototype.valueOf, false);
+    this.motion_dirs = new Array(MotionController.NUM_DOF).map(
+        Boolean.prototype.valueOf, false);
     
     // TODO - do something with angle here?
     this.move = function(direction, on) {
-        if(direction >= 0 && direction < NUM_DOF)
+        if(direction >= 0 && direction < MotionController.NUM_DOF)
             this.motion_dirs[direction] = on;
     }
     
     // Motion toggle functions defined for the input bindings.
-    this.moveUpStart    = function() { this.move(CONTROLLER_MOVE_UP, true);     }
-    this.moveUpEnd      = function() { this.move(CONTROLLER_MOVE_UP, false);    }
-    this.moveDownStart  = function() { this.move(CONTROLLER_MOVE_DOWN, true);   }
-    this.moveDownEnd    = function() { this.move(CONTROLLER_MOVE_DOWN, false);  }
-    this.moveLeftStart  = function() { this.move(CONTROLLER_MOVE_LEFT, true);   }
-    this.moveLeftEnd    = function() { this.move(CONTROLLER_MOVE_LEFT, false);  }
-    this.moveRightStart = function() { this.move(CONTROLLER_MOVE_RIGHT, true);  }
-    this.moveRightEnd   = function() { this.move(CONTROLLER_MOVE_RIGHT, false); }
+    this.moveUpStart    = function() { this.move(MotionController.MOVE_UP, true);     }
+    this.moveUpEnd      = function() { this.move(MotionController.MOVE_UP, false);    }
+    this.moveDownStart  = function() { this.move(MotionController.MOVE_DOWN, true);   }
+    this.moveDownEnd    = function() { this.move(MotionController.MOVE_DOWN, false);  }
+    this.moveLeftStart  = function() { this.move(MotionController.MOVE_LEFT, true);   }
+    this.moveLeftEnd    = function() { this.move(MotionController.MOVE_LEFT, false);  }
+    this.moveRightStart = function() { this.move(MotionController.MOVE_RIGHT, true);  }
+    this.moveRightEnd   = function() { this.move(MotionController.MOVE_RIGHT, false); }
     
     // Movement will be controlled through the given KeyBindings instead of manually
     // by the implementing object. KeyBindings should also be bound to a
@@ -84,13 +75,13 @@ function MotionController(gameObj) {
     this.update = function(dT) {
         var x_vel = 0;
         var y_vel = 0;
-        if(this.motion_dirs[CONTROLLER_MOVE_UP])
+        if(this.motion_dirs[MotionController.MOVE_UP])
             y_vel -= this.speed;
-        if(this.motion_dirs[CONTROLLER_MOVE_DOWN])
+        if(this.motion_dirs[MotionController.MOVE_DOWN])
             y_vel += this.speed;
-        if(this.motion_dirs[CONTROLLER_MOVE_LEFT])
+        if(this.motion_dirs[MotionController.MOVE_LEFT])
             x_vel -= this.speed;
-        if(this.motion_dirs[CONTROLLER_MOVE_RIGHT])
+        if(this.motion_dirs[MotionController.MOVE_RIGHT])
             x_vel += this.speed;
         this.gameObj.setX(this.gameObj.getX() + x_vel / dT);
         this.gameObj.setY(this.gameObj.getY() + y_vel / dT);
@@ -169,3 +160,13 @@ function MotionController(gameObj) {
     }*/
     
 }
+
+
+// Number of degrees of freedom (up, down, left, right).
+MotionController.NUM_DOF    = 4;
+
+// Direction constants
+MotionController.MOVE_UP    = 0;
+MotionController.MOVE_DOWN  = 1;
+MotionController.MOVE_LEFT  = 2;
+MotionController.MOVE_RIGHT = 3;
