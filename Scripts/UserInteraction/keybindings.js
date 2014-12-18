@@ -158,45 +158,45 @@ function KeyBindings() {
     
 
     // KEY BINDING ASSIGNMENTS:
-    this.up1 = 119;			// 'w'
-    this.up2 = 87;			// 'W'
-    this.up3 = 38;			// up arrow
-    this.up4 = -1;			// unbound
+    this.up1 = 119;         // 'w'
+    this.up2 = 87;          // 'W'
+    this.up3 = 38;          // up arrow
+    this.up4 = -1;          // unbound
     
-    this.down1 = 115;		// 's'
-    this.down2 = 83;		// 'S'
-    this.down3 = 40;		// down arrow
-    this.down4 = -1;		// unbound
+    this.down1 = 115;       // 's'
+    this.down2 = 83;        // 'S'
+    this.down3 = 40;        // down arrow
+    this.down4 = -1;        // unbound
     
-    this.left1 = 97;		// 'a'
-    this.left2 = 65;		// 'A'
-    this.left3 = 37;		// left arrow
-    this.left4 = -1;		// unbound
+    this.left1 = 97;        // 'a'
+    this.left2 = 65;        // 'A'
+    this.left3 = 37;        // left arrow
+    this.left4 = -1;        // unbound
     
-    this.right1 = 100;		// 'd'
-    this.right2 = 68;		// 'D'
-    this.right3 = 39;		// right arrow
-    this.right4 = -1;		// unbound
+    this.right1 = 100;      // 'd'
+    this.right2 = 68;       // 'D'
+    this.right3 = 39;       // right arrow
+    this.right4 = -1;       // unbound
     
-    this.shoot1 = 32;		// space
-    this.shoot2 = -1;		// unbound
-    this.shoot3 = -1;		// unbound
-    this.shoot4 = -1;		// unbound
+    this.shoot1 = 32;       // space
+    this.shoot2 = -1;       // unbound
+    this.shoot3 = -1;       // unbound
+    this.shoot4 = -1;       // unbound
     
-    this.pause1 = 27;		// escape
-    this.pause2 = -1;		// unbound
-    this.pause3 = -1;		// unbound
-    this.pause4 = -1;		// unbound
+    this.pause1 = 27;       // escape
+    this.pause2 = -1;       // unbound
+    this.pause3 = -1;       // unbound
+    this.pause4 = -1;       // unbound
     
     this.healthBars1 = 9;	// tab
     this.healthBars2 = -1;	// unbound
     this.healthBars3 = -1;	// unbound
-    this.healthBars4 = -1;	// unbound
+    this.healthBars4 = -1;  // unbound
     
-    this.timerBars1 = 9;	// tab
-    this.timerBars2 = -1;	// unbound
-    this.timerBars3 = -1;	// unbound
-    this.timerBars4 = -1;	// unbound
+    this.timerBars1 = 9;    // tab
+    this.timerBars2 = -1;   // unbound
+    this.timerBars3 = -1;   // unbound
+    this.timerBars4 = -1;   // unbound
     
     
     // KEY BINDING CHECK FUNCTIONS:
