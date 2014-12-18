@@ -39,7 +39,7 @@ function Player() {
     
     // TODO - this needs to be done using the motion controller:
     this.update = function(dT) {
-        var speed = 50;
+        /*var speed = 50;
         var x_vel = 0;
         var y_vel = 0;
         if(this.motion_dirs[PLAYER_MOVE_UP])
@@ -51,9 +51,15 @@ function Player() {
         if(this.motion_dirs[PLAYER_MOVE_RIGHT])
             x_vel += speed;
         this.setX(this.getX() + x_vel / dT);
-        this.setY(this.getY() + y_vel / dT);
+        this.setY(this.getY() + y_vel / dT);*/
         if(this.shooting)
             console.log("shooting");
+        this.getMotionController().update(dT);
+    }
+    
+    this.bindKeys = function(keyBindings) {
+        this.setMotionController(50, 0);
+        this.getMotionController().bindInput(keyBindings);
     }
 
 
