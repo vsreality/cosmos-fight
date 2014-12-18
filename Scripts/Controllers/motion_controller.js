@@ -41,7 +41,7 @@ function MotionController(gameObj) {
     // Sets the direction of travel to the given angle. Movement will be
     // translated appropriately in the X and Y axis.
     this.setAngle = function(angle) {
-    
+        this.angle = angle;
     }
     
     // Movement value for each degree of freedom.
@@ -49,7 +49,6 @@ function MotionController(gameObj) {
     
     // TODO - do something with angle here?
     this.move = function(direction, on) {
-        console.log("move triggered");
         if(direction >= 0 && direction < NUM_DOF)
             this.motion_dirs[direction] = on;
     }
@@ -76,7 +75,6 @@ function MotionController(gameObj) {
         keyBindings.bindEvent(LEFT_RELEASED, this.moveLeftEnd.bind(this));
         keyBindings.bindEvent(RIGHT_PRESSED, this.moveRightStart.bind(this));
         keyBindings.bindEvent(RIGHT_RELEASED, this.moveRightEnd.bind(this));
-        console.log("Events bound...");
     }
     
     this.setBoundary = function(rect) {
@@ -94,7 +92,6 @@ function MotionController(gameObj) {
             x_vel -= this.speed;
         if(this.motion_dirs[CONTROLLER_MOVE_RIGHT])
             x_vel += this.speed;
-        console.log(this.speed + ": " + x_vel + ", " + y_vel);
         this.gameObj.setX(this.gameObj.getX() + x_vel / dT);
         this.gameObj.setY(this.gameObj.getY() + y_vel / dT);
     }
