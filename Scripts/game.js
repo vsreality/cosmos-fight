@@ -12,15 +12,12 @@ function Game(canvas_id) {
      *      canvas_id   - the ID value of the canvas to use in the document.
      */
     
-    this.last_frame_time = 0;
-    this.settings = new Settings();
-    this.display = new Display(canvas_id);
-    this.display.enableDoubleBuffering();
+    var last_frame_time = 0;
+    var settings = new Settings();
+    var display = new Display(canvas_id);
+    display.enableDoubleBuffering();
     
-    // GameWorld defines global properties of the 2D virtual world.
-    this.world = new GameWorld(this.display.getWidth(), this.display.getHeight());
-    
-    this.images = new Images(); // TODO - rename class?
+    /*this.images = new Images(); // TODO - rename class?
     this.images.add([
         ["payerBaseShip", "images/35_base.png"],
         ["playerMassiveShip", "images/35_rockets.png"],
@@ -49,25 +46,25 @@ function Game(canvas_id) {
         ["level_complete", "audio/common/level_complete.wav"],
         ["shoot_basic", "audio/common/shoot_basic.wav"]
     ]);
-    this.sounds.loadSounds(); // TODO - change this to just load()
+    this.sounds.loadSounds(); // TODO - change this to just load()*/
     
-    this.userInteractionMngr = new UserInteractionManager();
-    this.userInteractionMngr.bindTo(this.display.getCanvasID());
+    var userInteractionMngr = new UserInteractionManager();
+    userInteractionMngr.bindTo(display.getCanvasID());
     
     // start initially with the main menu
-    this.state = new GameMenu(this);
+    var state = new GameMenu(this);
     
     // Sets the state and binds the user interaction manager to it.
     this.setState = function(game_state_obj) {
-        this.state = game_state_obj;
-        this.userInteractionMngr.setTarget(this.state);
+        state = game_state_obj;
+        userInteractionMngr.setTarget(state);
     }
     
     // Loads the given state by the given state string (a "state factory" of sorts).
     this.loadState = function(state_str) {
-        this.state.destroy();
-        this.userInteractionMngr.unsetTarget();
-        this.settings.getKeyBindings().resetKeys();
+        state.destroy();
+        userInteractionMngr.unsetTarget();
+        settings.getKeyBindings().resetKeys();
         switch(state_str) {
             case "level 1":
                 this.setState(new Level("1", this));
@@ -83,7 +80,7 @@ function Game(canvas_id) {
     // Starts updating the current state (i.e. menu or level) of the game. The
     // updates will be called automatically until the game is stopped.
     this.start = function() {
-        this.last_frame_time = Date.now();
+        last_frame_time = Date.now();
         window.requestAnimationFrame(this.update.bind(this));
     }
     
@@ -97,14 +94,23 @@ function Game(canvas_id) {
     // calls update to the current game state with that value.
     this.update = function() {
         var cur_time = Date.now();
-        var elapsed = cur_time - this.last_frame_time;
-        this.last_frame_time = cur_time;
+        var elapsed = cur_time - last_frame_time;
+        last_frame_time = cur_time;
         
-        this.state.update(elapsed);
-        this.display.clear();
-        this.state.draw(this.display.getContext());
-        this.display.render(elapsed);
+        state.update(elapsed);
+        display.clear();
+        state.draw(display.getContext());
+        display.render(elapsed);
         
         window.requestAnimationFrame(this.update.bind(this));
+    }
+    
+    
+    // Various getters for private objects.
+    this.getSettings = function() {
+        return settings;
+    }
+    this.getDisplay = function() { // TODO only used by "hack" in index.html
+        return display;
     }
 }

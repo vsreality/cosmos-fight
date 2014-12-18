@@ -65,7 +65,7 @@ function Level(level_name, game) {
     
     
     // Set up keybindings and user interaction events.
-    var keyBindings = game.settings.getKeyBindings();
+    var keyBindings = game.getSettings().getKeyBindings();
     this.setKeyBindings(keyBindings);
     /*this.moveUpStart    = function() { this.player.move(PLAYER_MOVE_UP, true);     }
     this.moveUpEnd      = function() { this.player.move(PLAYER_MOVE_UP, false);    }

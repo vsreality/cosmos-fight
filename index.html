@@ -129,10 +129,10 @@
     <script>
         // TODO: developer hack (this should be done through internal game settings)
         function DEV_toggleStats() {
-            if(game.display.stats_enabled)
-                game.display.disableStats();
+            if(game.getDisplay().stats_enabled)
+                game.getDisplay().disableStats();
             else
-                game.display.enableStats(100);
+                game.getDisplay().enableStats(100);
         }
     </script>
     <p>
