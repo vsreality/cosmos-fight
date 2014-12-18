@@ -106,7 +106,7 @@ function Game(canvas_id) {
     }
     
     
-    // Various getters for private objects.
+    // Getters for private objects.
     this.getSettings = function() {
         return settings;
     }
