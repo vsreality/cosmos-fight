@@ -39,10 +39,14 @@ function Level(level_name, game) {
     }
 	
     // When the pause button is pressed, the level pauses and displays the
-    // pause menu.
+    // pause menu. If already paused, this action will trigger resuming the game.
     this.pause = function() {
-        this.paused = true;
-        this.pauseMenu = new PauseMenu(this);
+        if(this.paused)
+            this.resume();
+        else {
+            this.paused = true;
+            this.pauseMenu = new PauseMenu(this);
+        }
     }
     
     // When the game is resumed from the pause menu, the level unpauses and
@@ -55,6 +59,7 @@ function Level(level_name, game) {
     // Restarts the level, starting again from the first phase.
     this.restart = function() {
         // TODO
+        this.paused = false;
         this.clearMenu();
     }
 	
@@ -84,6 +89,8 @@ function Level(level_name, game) {
 	
 	// TODO - necessary, or can we automate these through this.components?
     this.update = function(dT) {
+        if(this.paused)
+            return;
         this.player.update(dT);
     }
     this.draw = function(ctx) {
