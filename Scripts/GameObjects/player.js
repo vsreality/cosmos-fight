@@ -11,20 +11,26 @@ function Player() {
 
     // TODO - add to GameObject?
     this.shooting = false;
-    this.shoot = function(on) {
-        this.shooting = on;
-        // TODO - use JS timer interval
+    this.shootStart = function() {
+        this.shooting = true;
+    }
+    this.shootEnd = function() {
+        this.shooting = false;
     }
     
+    // TODO - this should be done automatically by GameObject
     this.update = function(dT) {
         if(this.shooting)
             console.log("shooting");
         this.getMotionController().update(dT);
     }
     
+    // Binds the given keyBindings to control all movement and shoot actions.
     this.bindKeys = function(keyBindings) {
         this.setMotionController(50, 0);
         this.getMotionController().bindInput(keyBindings);
+        keyBindings.bindEvent(KeyBindings.SHOOT_PRESSED, this.shootStart.bind(this));
+        keyBindings.bindEvent(KeyBindings.SHOOT_RELEASED, this.shootEnd.bind(this));
     }
 
 
